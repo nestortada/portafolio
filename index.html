@@ -1,0 +1,369 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Nestor Andres Portafolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<style>
+			/* Modal styles */
+			.modal {
+				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.8);
+				justify-content: center;
+				align-items: center;
+				z-index: 1000;
+			}
+
+			.modal.active {
+				display: flex;
+			}
+
+			.modal-content {
+				position: relative;
+				width: 80%;
+				height: 80%;
+				background: white;
+				border-radius: 10px;
+				overflow: hidden;
+			}
+
+			.modal-content iframe {
+				width: 100%;
+				height: 100%;
+				border: none;
+			}
+
+			.modal-close {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				background: red;
+				color: white;
+				border: none;
+				border-radius: 50%;
+				width: 30px;
+				height: 30px;
+				font-size: 18px;
+				cursor: pointer;
+			}
+
+			.modal-close:hover {
+				background: darkred;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Header -->
+			<header id="header">
+				<h1><a href="index.html">Pagina principal</a></h1>
+				<nav class="links">
+					<ul>
+						<li><a href="single.html">Proyectos</a></li>
+						<li><a href="#">Acerca de mi</a></li>
+						<li><a href="#">Contacto</a></li>
+					</ul>
+				</nav>
+				<nav class="main">
+					<ul>
+						<li class="search">
+							<a class="fa-search" href="#search">Search</a>
+							<form id="search" method="get" action="#">
+								<input type="text" name="query" placeholder="Search" />
+							</form>
+						</li>
+						<li class="menu">
+							<a class="fa-bars" href="#menu">Menu</a>
+						</li>
+					</ul>
+				</nav>
+			</header>
+
+			<!-- Menu -->
+			<section id="menu">
+				<!-- Search -->
+				<section>
+					<form class="search" method="get" action="#">
+						<input type="text" name="query" placeholder="Search" />
+					</form>
+				</section>
+
+				<!-- Links -->
+				<section>
+					<ul class="links">
+						<li>
+							<a href="#">
+								<h3>Proyectos</h3>
+								<p>Este apartado esta dividido por los proyectos de cada materia</p>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<h3>Acerca de mi</h3>
+								<p>En este apartado sabran más sobre mi</p>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<h3>Contactos</h3>
+								<p>Este apartado podran contactar conmigo a travez de diferentes medios</p>
+							</a>
+						</li>
+					</ul>
+				</section>
+			</section>
+
+			<!-- Main -->
+			<div id="main">
+				<article class="post">
+					<header>
+						<div class="title">
+							<h2><a href="https://github.com/nestortada/Optimizacion_analitica/tree/main/Proyecto/Programacion">Optimización de empresa</a></h2>
+							<p>Implementa un modelo de optimización basado en la biblioteca PuLP de Python para maximizar la eficiencia en la fabricación 
+								y distribución de productos.</p>
+						</div>
+						<div class="meta">
+							<time class="published" datetime="2024-11-21">Noviembre 21, 2024</time>
+							<div class="author">
+								<span class="name">
+									Nestor Tabares<br>
+									Catalina Castro<br>
+									Gabriella Espitia<br>
+									Juan Saldarriaga
+								</span>
+							</div>
+						</div>									
+					</header>
+					<a href="https://github.com/nestortada/Optimizacion_analitica/tree/main/Proyecto/Programacion" class="image featured"><img src="images\optimizacion_analitica.jpg" alt="" /></a>
+					<p>El proyecto se centra en identificar y mejorar los procesos clave de la empresa
+						con el objetivo de maximizar la eficiencia operativa, reducir costos y aumentar la productividad. Mediante un análisis exhaustivo de 
+						las operaciones internas, se detectaron oportunidades de mejora en áreas críticas como la logística, la producción y la atención al cliente. A 
+						través de un enfoque de programación lineal, se analizaron variables como costos de producción, almacenamiento, transporte y tiempos de entrega.
+						 El modelo desarrollado identifica la mejor configuración posible para minimizar costos, cumplir con la demanda y optimizar el uso de recursos. 
+						 Este sistema permite a la empresa tomar decisiones estratégicas basadas en datos, mejorando la sostenibilidad operativa y garantizando un 
+						 servicio al cliente más ágil y eficiente.</p>
+					<footer>
+						<ul class="actions">
+							<li><a href="https://github.com/nestortada/Optimizacion_analitica/tree/main/Proyecto/Programacion" class="button large">Saber más sobre este proyecto</a></li>
+						</ul>
+					</footer>
+				</article>
+
+				<!-- Post -->
+				<article class="post">
+					<header>
+						<div class="title">
+							<h2><a href="single.html">Predicción de divisas</a></h2>
+							<p>En este apartado con procesos estocasticos se podra predecir el dinero de una divisa en un determinado tiempo</p>
+						</div>
+						<div class="meta">
+							<time class="published" datetime="2024-09-24">Septiembre 24, 2024</time>
+							<div class="author"><span class="name">												  
+								Nestor Tabares<br>
+								Nicolas Caceres<br>
+								Juan David Lasso<br>
+								Isabella Endara
+							</span></div>
+						</div>
+					</header>
+					<a href="single.html" class="image featured"><img src="images/divisas.jpg" alt="" /></a>
+					<p>En este apartado se hablara sobre las divisas</p>
+					<footer>
+						<ul class="actions">
+							<li><a href="single.html" class="button large">Saber más sobre este proyecto</a></li>
+							<li><button id="openModal" class="button large">Informe del proyecto</button></li>
+						</ul>
+					</footer>
+				</article>
+
+				<!-- Post -->
+				<article class="post">
+					<header>
+						<div class="title">
+							<h2><a href="single.html">Aplicación de Gestion para un Ancianato</a></h2>
+							<p>En este caso se creo una base de datos con SQL para gestion un Ancianato</p>
+						</div>
+						<div class="meta">
+							<time class="published" datetime="2015-10-22">October 22, 2015</time>
+							<div class="author"><span class="name">Jane Doe</span></div>
+						</div>
+					</header>
+					<a href="single.html" class="image featured"><img src="images\Ancianato.jpg" alt="" /></a>
+					<p>Acerca de este proyecto.</p>
+					<footer>
+						<ul class="actions">
+							<li><a href="single.html" class="button large">Saber más sobre este proyecto</a></li>
+						</ul>
+					</footer>
+				</article>
+
+			</div>
+
+			<!-- Modal -->
+			<div id="pdfModal" class="modal">
+				<div class="modal-content">
+					<button class="modal-close" id="closeModal">X</button>
+					<iframe src="Documentos/Caso_Estudio_Procesos_Estocásticos___Parte_2.pdf"></iframe>
+				</div>
+			</div>
+
+			<!-- Sidebar -->
+			<section id="sidebar">
+				<section id="intro">
+					<a href="#" class="logo"><img src="images/mi_persona.jpeg" alt="" /></a>
+					<header>
+						<h2>Portafolio</h2>
+						<p><a href="#">Nestor Andres Tabares David</a></p>
+					</header>
+				</section>
+
+				<section>
+					<div class="mini-posts">
+						<!-- Mini Post -->
+						<article class="mini-post">
+							<header>
+								<h3><a href="single.html">Proyecto de Analitica</a></h3>
+								<time class="published" datetime="2024-05-22">Mayo 22, 2024</time>
+							</header>
+							<a href="single.html" class="image"><img src="images/analitica.jpg" alt="" /></a>
+						</article>
+
+						<!-- Mini Post -->
+						<article class="mini-post">
+							<header>
+								<h3><a href="single.html">Gestion de earolineas</a></h3>
+								<time class="published" datetime="2024-05-14">Mayo 24, 2024</time>
+							</header>
+							<a href="single.html" class="image"><img src="images\database.png" alt="" /></a>
+						</article>
+
+						<!-- Mini Post -->
+						<article class="mini-post">
+							<header>
+								<h3><a href="single.html">Analisis de Productividad</a></h3>
+								<time class="published" datetime="2023-02-18">Febrero 18, 2023</time>
+							</header>
+							<a href="single.html" class="image"><img src="images\productividad.png" alt="" /></a>
+						</article>
+
+						<!-- Mini Post -->
+						<article class="mini-post">
+							<header>
+								<h3><a href="single.html">insuficiencia cardíaca</a></h3>
+								<time class="published" datetime="2023-11-25">Noviembre 25, 2023</time>
+							</header>
+							<a href="single.html" class="image"><img src="images\carozon.jpg" alt="" /></a>
+						</article>
+					</div>
+				</section>
+
+
+				<!-- Posts List -->
+				<section>
+					<ul class="posts">
+						<li>
+							<article>
+								<header>
+									<h3><a href="single.html">Tablas Economicas</a></h3>
+									<time class="published" datetime="2024-12-18">Diciembre 18, 2024</time>
+								</header>
+								<a href="single.html" class="image"><img src="images\tablas.jpg" alt="" /></a>
+							</article>
+						</li>
+						<li>
+							<article>
+								<header>
+									<h3><a href="single.html">Analisis de diseño y trabajo</a></h3>
+									<time class="published" datetime="2024-05-19">Mayo 19, 2024</time>
+								</header>
+								<a href="single.html" class="image"><img src="images\Tiempo.jpg" alt="" /></a>
+							</article>
+						</li>
+						<li>
+							<article>
+								<header>
+									<h3><a href="single.html">Tablas contables</a></h3>
+									<time class="published" datetime="2024-10-30">October 30, 2024</time>
+								</header>
+								<a href="single.html" class="image"><img src="images\contabilidad.jpg" alt="" /></a>
+							</article>
+						</li>
+						<li>
+							<article>
+								<header>
+									<h3><a href="single.html">Lanzamiento de helicopteros</a></h3>
+									<time class="published" datetime="2015-10-08">October 8, 2015</time>
+								</header>
+								<a href="single.html" class="image"><img src="images\papel.jpg" alt="" /></a>
+							</article>
+						</li>
+						<li>
+							<article>
+								<header>
+									<h3><a href="single.html">Diseño de Sistema de Riego</a></h3>
+									<time class="published" datetime="2024-11-14">Noviembre 14, 2024</time>
+								</header>
+								<a href="single.html" class="image"><img src="images\Sistema de riego.jpg" alt="" /></a>
+							</article>
+						</li>
+					</ul>
+				</section>
+
+
+				<section class="blurb">
+					<h2>Sobre mí</h2>
+					<p>Hablar de mi.</p>
+					<ul class="actions">
+						<li><a href="#" class="button">Saber más</a></li>
+					</ul>
+				</section>
+
+				<section id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						<li><a href="#" class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li>
+						<li><a href="#" class="icon brands alt fa-github"><span class="label">Linkedin</span></a></li>
+						<li><a href="#" class="icon brands alt fa-whatsapp"><span class="label">WhatsApp</span></a></li>
+					</ul>
+					<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
+				</section>
+
+			</section>
+
+		</div>
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
+		<script>
+			// Seleccionar elementos
+			const openModal = document.getElementById('openModal');
+			const closeModal = document.getElementById('closeModal');
+			const pdfModal = document.getElementById('pdfModal');
+
+			// Abrir el modal
+			openModal.addEventListener('click', () => {
+				pdfModal.classList.add('active');
+			});
+
+			// Cerrar el modal
+			closeModal.addEventListener('click', () => {
+				pdfModal.classList.remove('active');
+			});
+		</script>
+
+	</body>
+</html>

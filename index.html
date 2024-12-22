@@ -161,8 +161,8 @@
 				<article class="post">
 					<header>
 						<div class="title">
-							<h2><a href="single.html">Predicción de divisas</a></h2>
-							<p>En este apartado con procesos estocasticos se podra predecir el dinero de una divisa en un determinado tiempo</p>
+							<h2><a href="https://github.com/nestortada/Procesos_estocasticos/blob/main/Proyecto%202/Divisas_parte2.ipynb">Predicción de divisas</a></h2>
+							<p>Utiliza cadenas de Markov para modelar el comportamiento de divisas, analizando transiciones, distribuciones estacionarias y predicciones.</p>
 						</div>
 						<div class="meta">
 							<time class="published" datetime="2024-09-24">Septiembre 24, 2024</time>
@@ -174,11 +174,14 @@
 							</span></div>
 						</div>
 					</header>
-					<a href="single.html" class="image featured"><img src="images/divisas.jpg" alt="" /></a>
-					<p>En este apartado se hablara sobre las divisas</p>
+					<a href="https://github.com/nestortada/Procesos_estocasticos/blob/main/Proyecto%202/Divisas_parte2.ipynb" class="image featured"><img src="images/divisas.jpg" alt="" /></a>
+					<p>El estudio aplicó cadenas de Markov para modelar y analizar el comportamiento del mercado de divisas entre el peso colombiano y cuatro monedas internacionales:
+                         Yen Japonés (JPY), Libra Esterlina (GBP), Franco Suizo (CHF) y Peso Mexicano (MXN). Los datos se obtuvieron del Banco de la República, abarcando un período
+                          de cuatro años. El análisis incluyó procesos de limpieza y transformación de datos, definiendo estados de mercado basados en cambios porcentuales diarios y 
+                          volatilidad reciente. Finalmente, se desarrollaron algoritmos para estimar precios futuros basados en trayectorias aleatorias y distribuciones estacionarias.</p>
 					<footer>
 						<ul class="actions">
-							<li><a href="single.html" class="button large">Saber más sobre este proyecto</a></li>
+							<li><a href="https://github.com/nestortada/Procesos_estocasticos/blob/main/Proyecto%202/Divisas_parte2.ipynb" class="button large">Saber más sobre este proyecto</a></li>
 							<li><button id="openModal" class="button large">Informe del proyecto</button></li>
 						</ul>
 					</footer>
@@ -201,6 +204,8 @@
 					<footer>
 						<ul class="actions">
 							<li><a href="single.html" class="button large">Saber más sobre este proyecto</a></li>
+                            <li><a class="button large" onclick="ejecutarProyecto()">Ejecutar Proyecto</a></li>
+
 						</ul>
 					</footer>
 				</article>
@@ -363,6 +368,36 @@
 				pdfModal.classList.remove('active');
 			});
 		</script>
+
+        <!-- Scripts  de python-->
+
+        <script>
+            // Función para enviar una solicitud POST al servidor
+            function ejecutarProyecto() {
+                fetch('http://localhost:5000/execute', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        accion: 'ejecutar'
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Error al ejecutar el proyecto.');
+                    }
+                })
+                .then(data => {
+                    console.log('Respuesta del servidor:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        </script>
 
 	</body>
 </html>

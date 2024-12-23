@@ -129,6 +129,113 @@ INSERT INTO `Inscripcion` VALUES
 (2222, 4, 3),
 (4444, 4, 4);
 
+
+DELIMITER //
+CREATE PROCEDURE allCentros()
+BEGIN
+    SELECT Nombre, Direccion, Telefono FROM Centros;
+END //
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE getCentro(IN nombreCentro VARCHAR(30))
+BEGIN
+    SELECT Nombre, Direccion, Telefono 
+    FROM Centros 
+    WHERE Nombre = nombreCentro;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE PROCEDURE delCentro(IN nombreCentro VARCHAR(30))
+BEGIN
+    DELETE FROM Centros WHERE Nombre = nombreCentro;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE newCentro(IN nombreCentro VARCHAR(30), IN direccionCentro VARCHAR(45), IN telefonoCentro VARCHAR(15))
+BEGIN
+    INSERT INTO Centros (Nombre, Direccion, Telefono) VALUES (nombreCentro, direccionCentro, telefonoCentro);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE modCentro(IN nombreNew VARCHAR(30), IN direccionNew VARCHAR(45), IN telefonoNew VARCHAR(15), IN nombreOld VARCHAR(30))
+BEGIN
+    UPDATE Centros
+    SET Nombre = nombreNew, Direccion = direccionNew, Telefono = telefonoNew
+    WHERE Nombre = nombreOld;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE allActividades()
+BEGIN
+    SELECT * FROM Actividades;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE getActividad(IN id INT)
+BEGIN
+    SELECT * FROM Actividades WHERE idActividad = id;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+DELIMITER //
+
+DELIMITER //
+
+CREATE PROCEDURE delActividad(IN idActividad INT)
+BEGIN
+    IF EXISTS (SELECT 1 FROM Inscripcion WHERE IdActividad = idActividad) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Hay inscripciones relacionadas con esta actividad. Elimine primero las inscripciones asociadas.';
+    ELSE
+        DELETE FROM Actividades WHERE idActividad = idActividad;
+    END IF;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE newActividad(
+    IN idActividad INT,
+    IN nombreActividad VARCHAR(45),
+    IN descripcionActividad VARCHAR(100),
+    IN fechaActividad DATE,
+    IN idCategoria INT,
+    IN nombreCentro VARCHAR(30)
+)
+BEGIN
+    INSERT INTO Actividades (idActividad, Nombre, Descripcion, Fecha, iDCategoria, Centro) 
+    VALUES (idActividad, nombreActividad, descripcionActividad, fechaActividad, idCategoria, nombreCentro);
+END //
+
+DELIMITER ;
+
+
+
+
+
+
+
+
 -- Restablecer configuraciones originales
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

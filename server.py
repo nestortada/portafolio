@@ -11,11 +11,11 @@ CORS(app)
 def execute_script():
     try:
         # Ruta del script de Python que deseas ejecutar
-        script_path = 'D:\portafolio\Documentos\AdmonCentroAdultos\Principall.py'
+        script_path = 'Documentos\AdmonCentroAdultos\Principall.py'
         
         # Ejecutar el script usando subprocess
         result = subprocess.run(
-            ['python', script_path],  # Revisa si necesitas 'python3' en lugar de 'python'
+            ['python', script_path],  
             capture_output=True,
             text=True
         )

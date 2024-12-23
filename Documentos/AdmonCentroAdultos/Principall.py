@@ -1275,21 +1275,22 @@ class ModificarInscripcion(QMainWindow):
         except Exception as miError:
             print('Fallo ejecutando el procedimiento')
             print(miError)    
-
+         
 class AdmonCentros(QMainWindow):
     def __init__(self):
         super(AdmonCentros, self).__init__()
         self.ui = Ui_AdmonCentros()
         self.ui.setupUi(self)
+        self.ui.setupUi(self)
         self.con = Conexion()
         self.miConexion = self.con.conectar()
-
+        
         self.ui.PBTodas.clicked.connect(self.verTodas)
         self.ui.PBBuscar.clicked.connect(self.buscarCentro)
         self.ui.PBAgregar.clicked.connect(self.agregar)
         self.ui.PBModificar.clicked.connect(self.modificar)
         self.ui.PBEliminar.clicked.connect(self.eliminaCentro)
-
+        
         self.setWindowFlag(Qt.WindowType.WindowCloseButtonHint, False)
         self.ui.PBSalir.clicked.connect(self.cerrar)
     
@@ -1306,35 +1307,30 @@ class AdmonCentros(QMainWindow):
         self.ventanaMod = ModifyCentro()
         self.ventanaMod.show()
         self.cerrar()
-
-    def verTodas(self):
+        
+    def verTodas (self):
         cant = 0
         try:
             mycursor = self.miConexion.cursor()
-            mycursor.callproc('allCentros')
-
+            mycursor.execute("CALL allCentros()")  # Ejecuta el procedimiento directamente
+            
+            results = mycursor.fetchall()
             a = self.ui.TWTabla.rowCount()
             for rep in range(a):
                 self.ui.TWTabla.removeRow(0)
-
-            for result in mycursor:
-                print(result)  # Imprime el resultado para verificar la estructura
-                if len(result) == 3:
-                    Nombre, Direccion, Telefono = result
-                    self.ui.TWTabla.insertRow(cant)
-                    
-                    celdaNombre = QTableWidgetItem(Nombre)
-                    celdaDireccion = QTableWidgetItem(Direccion)
-                    celdaTelefono = QTableWidgetItem(Telefono)
-                    
-                    self.ui.TWTabla.setItem(cant, 0, celdaNombre)
-                    self.ui.TWTabla.setItem(cant, 1, celdaDireccion)
-                    self.ui.TWTabla.setItem(cant, 2, celdaTelefono)
-                    
-                    cant += 1
-                else:
-                    print("El resultado no tiene el número esperado de columnas")
             
+            for (Nombre, Direccion, Telefono) in results:
+                self.ui.TWTabla.insertRow(cant)
+                
+                celdaNombre = QTableWidgetItem(Nombre)
+                celdaDireccion = QTableWidgetItem(Direccion)
+                celdaTelefono = QTableWidgetItem(Telefono)
+                
+                self.ui.TWTabla.setItem(cant, 0, celdaNombre)
+                self.ui.TWTabla.setItem(cant, 1, celdaDireccion)
+                self.ui.TWTabla.setItem(cant, 2, celdaTelefono)
+                
+                cant += 1
             if cant == 0:
                 QMessageBox.warning(self, "Alerta en Consulta", "No hay Centros registradas")
             mycursor.close()
@@ -1342,6 +1338,81 @@ class AdmonCentros(QMainWindow):
             QMessageBox.warning(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de las Centros")
             print(miError)
 
+    def buscarCentro(self):
+        NombreBuscar = self.ui.SBCodigoEliminar.text()
+        if not self.existeNombre(NombreBuscar):
+            QMessageBox.critical(self, "Búsqueda Fallida", "El Centro no existe, no se puede buscar")
+            return
+        
+        try:
+            mycursor = self.miConexion.cursor()
+            mycursor.callproc('getCentro', [NombreBuscar])
+            
+            # Limpiar la tabla
+            cant = 0
+            a = self.ui.TWTabla.rowCount()
+            for rep in range(a):
+                self.ui.TWTabla.removeRow(0)
+
+            # Procesar resultados
+            results_found = False
+            for result in mycursor.fetchall():
+                results_found = True
+                Nombre, Direccion, Telefono = result
+                self.ui.TWTabla.insertRow(cant)
+                
+                celdaNombre = QTableWidgetItem(Nombre)
+                celdaDireccion = QTableWidgetItem(Direccion)
+                celdaTelefono = QTableWidgetItem(Telefono)
+                
+                self.ui.TWTabla.setItem(cant, 0, celdaNombre)
+                self.ui.TWTabla.setItem(cant, 1, celdaDireccion)
+                self.ui.TWTabla.setItem(cant, 2, celdaTelefono)
+                
+                cant += 1
+            
+            if not results_found:
+                QMessageBox.warning(self, "Búsqueda Fallida", "No se encontraron resultados para el Centro buscado")
+            
+            mycursor.close()
+        
+        except Exception as miError:
+            QMessageBox.warning(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de los Centros")
+            print("Error:", miError)  # Depuración
+
+  
+                
+    def eliminaCentro(self):
+        NombreDel = self.ui.SBCodigoEliminar.text()
+        if self.existeNombre ( NombreDel ) == False :
+            QMessageBox.information(self, "Eliminacion Fallida", "El Centro no existe, no se puede eliminar")
+        else:
+            try:
+                mycursor = self.miConexion.cursor()
+                mycursor.callproc('delCentro' , [NombreDel] )
+                self.miConexion.commit()
+                
+                QMessageBox.information(self, "Eliminacion Exitosa", "El Centro ha sido eliminado")
+                self.verTodas()
+                mycursor.close()
+            except Exception as miError :
+                QMessageBox.information(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Eliminacion de El Centro")
+                print(miError)
+
+    def existeNombre (self,Nombre):
+        try :
+            mycursor = self.miConexion.cursor ()
+            query = "SELECT count(*) FROM Centros WHERE Nombre = %s"
+            mycursor.execute(query, [Nombre])      
+            resultados=mycursor.fetchall()
+            for registro in resultados:
+                if  registro[0] == 1 :
+                    return True
+                return False
+        except Exception as miError:
+            print('Fallo ejecutando el procedimiento')
+            print(miError) 
+            
 class AgregarCentro(QMainWindow):
     def __init__(self):
         super(AgregarCentro, self).__init__()
@@ -1438,45 +1509,46 @@ class ModifyCentro(QMainWindow):
         self.setWindowFlag(Qt.WindowType.WindowCloseButtonHint, False)
         self.ui.PBAgregar.clicked.connect(self.aCe)
         self.ui.PBSalir.clicked.connect(self.close)
-        
+
     def aCe(self):
         nombreOld = self.ui.NombreViejo.text()
-        if self.existeNombre(nombreOld) == False :
-            QMessageBox.critical(self,"Error al añadir Centro","El Centro que desea modificar no existe")
+        if self.existeNombre(nombreOld) == False:
+            QMessageBox.critical(self, "Error al añadir Centro", "El Centro que desea modificar no existe")
         elif nombreOld == "":
-            QMessageBox.critical(self,"Error al añadir Centro","Ingrese el nombre que desea modificar")
-        else :
+            QMessageBox.critical(self, "Error al añadir Centro", "Ingrese el nombre que desea modificar")
+        else:
             nombreNew = self.ui.Nombre.text()
-            if nombreOld.lower() != nombreNew.lower() and self.existeNombre(nombreNew) == True :
-                QMessageBox.critical(self,"Error al añadir Centro","El Centro ya existe no se puede repetir")
+            if nombreOld.lower() != nombreNew.lower() and self.existeNombre(nombreNew) == True:
+                QMessageBox.critical(self, "Error al añadir Centro", "El Centro ya existe no se puede repetir")
             elif nombreNew == "":
-                QMessageBox.critical(self,"Error al añadir Centro","Ingrese el nombre")
-            else :
+                QMessageBox.critical(self, "Error al añadir Centro", "Ingrese el nombre")
+            else:
                 direccionNew = self.ui.Direccion.text()
                 if direccionNew == "":
-                    QMessageBox.critical(self,"Error al añadir Centro","Ingrese la direccion")
+                    QMessageBox.critical(self, "Error al añadir Centro", "Ingrese la direccion")
                 else:
                     BuscarDireccion = self.BuscarDireccion(nombreOld)
-                    if direccionNew.lower() != BuscarDireccion.lower() and (self.existeDireccion(direccionNew)== True):
-                        QMessageBox.information(self, "Error", "La direccion ya ha sido creada") 
+                    if BuscarDireccion is not None and direccionNew.lower() != BuscarDireccion.lower() and self.existeDireccion(direccionNew) == True:
+                        QMessageBox.information(self, "Error", "La direccion ya ha sido creada")
                     else:
                         telefonoNew = self.ui.Telefono.text()
                         if telefonoNew == "":
-                            QMessageBox.critical(self,"Error al añadir Centro","Ingrese el telefono")
+                            QMessageBox.critical(self, "Error al añadir Centro", "Ingrese el telefono")
                         else:
                             BuscarTelefono = self.BuscarTelefono(nombreOld)
-                            if telefonoNew.lower() != BuscarTelefono.lower() and (self.existeTelefono(telefonoNew)== True):
+                            if BuscarTelefono is not None and telefonoNew.lower() != BuscarTelefono.lower() and self.existeTelefono(telefonoNew) == True:
                                 QMessageBox.information(self, "Error", "El telefono ya ha sido creada")
-                            else:     
-                                try : 
-                                    mycursor = self.miConexion.cursor ()
-                                    mycursor.callproc ("modCentro",[nombreNew,direccionNew,telefonoNew,nombreOld])
-                                    self.miConexion.commit ()                
-                                    QMessageBox.information(self,"Centro añadido exitosamente",'El Centro ha sido modificado..!!')
-                                    mycursor.close ()
-                                except Exception as miError :
+                            else:
+                                try:
+                                    mycursor = self.miConexion.cursor()
+                                    mycursor.callproc("modCentro", [nombreNew, direccionNew, telefonoNew, nombreOld])
+                                    self.miConexion.commit()
+                                    QMessageBox.information(self, "Centro añadido exitosamente", 'El Centro ha sido modificado..!!')
+                                    mycursor.close()
+                                except Exception as miError:
                                     QMessageBox.critical(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de los Centros")
                                     print(miError)
+
 
     def existeNombre (self,Nombre):
         try :
@@ -1495,7 +1567,7 @@ class ModifyCentro(QMainWindow):
     def BuscarDireccion(self,Nombre):
        try:
            mycursor = self.miConexion.cursor()
-           mycursor.execute("SELECT Direccion FROM centros WHERE Nombre = %s", (Nombre,))
+           mycursor.execute("SELECT Direccion FROM Centros WHERE Nombre = %s", (Nombre,))
            resultado=mycursor.fetchone()
            direccion = resultado[0]
            return direccion
@@ -1506,7 +1578,7 @@ class ModifyCentro(QMainWindow):
     def BuscarTelefono(self,Nombre):
        try:
            mycursor = self.miConexion.cursor()
-           mycursor.execute("SELECT Telefono FROM centros WHERE Nombre = %s", (Nombre,))
+           mycursor.execute("SELECT Telefono FROM Centros WHERE Nombre = %s", (Nombre,))
            resultado=mycursor.fetchone()
            telefono = resultado[0]
            return telefono

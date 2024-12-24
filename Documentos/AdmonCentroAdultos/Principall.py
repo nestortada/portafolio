@@ -1,4 +1,7 @@
 import sys
+
+import pymysql 
+from pymysql.err import OperationalError
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QMainWindow,QApplication,QMessageBox,QTableWidgetItem
 from tabulate import tabulate
@@ -409,103 +412,116 @@ class AdmonActividades(QMainWindow):
     def cerrar(self):
         self.con.desconectar()
         self.close()
-        
-    def verTodas (self):
+
+
+    def verTodas(self):
         cant = 0
         try:
-            mycursor = self.miConexion.cursor ()
-            mycursor.callproc ('allActividades')
+            mycursor = self.miConexion.cursor()
+            mycursor.execute("CALL allActividades()")  # Ejecuta el procedimiento directamente
             
+            results = mycursor.fetchall()
             a = self.ui.TWTabla.rowCount()
             for rep in range(a):
                 self.ui.TWTabla.removeRow(0)
+            
+            for (idActividad, Nombre, Descripcion, Fecha, idCategoria, Centro) in results:
+                self.ui.TWTabla.insertRow(cant)
                 
+                celdaCodigo = QTableWidgetItem(str(idActividad))
+                celdaNombre = QTableWidgetItem(Nombre)
+                celdaDescripcion = QTableWidgetItem(Descripcion)
+                celdaFecha = QTableWidgetItem(str(Fecha))
+                celdaCateg = QTableWidgetItem(str(idCategoria))
+                celdaCentro = QTableWidgetItem(str(Centro))
                 
-            for result in mycursor.stored_results ():
-                for (idActividad, Nombre, Descripcion, Fecha, iDCategoria, Centro) in result :
-                    self.ui.TWTabla.insertRow(cant)
-                    
-                    celdaCodigo = QTableWidgetItem(str(idActividad))
-                    celdaNombre = QTableWidgetItem(Nombre)
-                    celdaDescripcion = QTableWidgetItem(Descripcion)
-                    celdaFecha = QTableWidgetItem(str(Fecha))
-                    celdaCateg = QTableWidgetItem(str(iDCategoria))
-                    celdaCentro = QTableWidgetItem(str(Centro))
-                    
-                    self.ui.TWTabla.setItem(cant,0,celdaCodigo)
-                    self.ui.TWTabla.setItem(cant,1,celdaNombre)
-                    self.ui.TWTabla.setItem(cant,2,celdaDescripcion)
-                    self.ui.TWTabla.setItem(cant,3,celdaFecha)
-                    self.ui.TWTabla.setItem(cant,4,celdaCateg)
-                    self.ui.TWTabla.setItem(cant,5,celdaCentro)
-                    
-                    cant = cant + 1
-            if cant == 0 :
+                self.ui.TWTabla.setItem(cant, 0, celdaCodigo)
+                self.ui.TWTabla.setItem(cant, 1, celdaNombre)
+                self.ui.TWTabla.setItem(cant, 2, celdaDescripcion)
+                self.ui.TWTabla.setItem(cant, 3, celdaFecha)
+                self.ui.TWTabla.setItem(cant, 4, celdaCateg)
+                self.ui.TWTabla.setItem(cant, 5, celdaCentro)
+                
+                cant += 1
+            if cant == 0:
                 QMessageBox.warning(self, "Alerta en Consulta", "No hay Actividades registradas")
             mycursor.close()
-        except Exception as miError :
+        except Exception as miError:
             QMessageBox.warning(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de las Actividades")
-            print(miError)            
-    
+            print(miError)
+
     def buscarActividad(self):
         idActividadBuscar = self.ui.SBCodigoEliminar.value()
-        if self.existeIdActividad(idActividadBuscar) == False :
-            QMessageBox.information(self, "Busqueda Fallida", "La Actividad no existe, no se puede buscar")
-        else :
-            try:
-                mycursor = self.miConexion.cursor()
-                mycursor.callproc('getActividad', [idActividadBuscar])
-    
-                cant=0
-                a = self.ui.TWTabla.rowCount()
-                for rep in range(a):
-                    self.ui.TWTabla.removeRow(0)
-                    
-                    
-                for result in mycursor.stored_results ():
-                    for (idActividad, Nombre, Descripcion, Fecha, iDCategoria, Centro) in result :
-                        self.ui.TWTabla.insertRow(cant)
-                        
-                        celdaCodigo = QTableWidgetItem(str(idActividad))
-                        celdaNombre = QTableWidgetItem(Nombre)
-                        celdaDescripcion = QTableWidgetItem(Descripcion)
-                        celdaFecha = QTableWidgetItem(str(Fecha))
-                        celdaCateg = QTableWidgetItem(str(iDCategoria))
-                        celdaCentro = QTableWidgetItem(str(Centro))
-                        
-                        self.ui.TWTabla.setItem(cant,0,celdaCodigo)
-                        self.ui.TWTabla.setItem(cant,1,celdaNombre)
-                        self.ui.TWTabla.setItem(cant,2,celdaDescripcion)
-                        self.ui.TWTabla.setItem(cant,3,celdaFecha)
-                        self.ui.TWTabla.setItem(cant,4,celdaCateg)
-                        self.ui.TWTabla.setItem(cant,5,celdaCentro)
-                        
-                        
-                        cant = cant + 1
-    
-    
-                mycursor.close()
-    
-            except Exception as miError :
-                QMessageBox.warning(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de las Actividades")
-                print(miError)  
+        if not self.existeIdActividad(idActividadBuscar):
+            QMessageBox.critical(self, "Búsqueda Fallida", "La Actividad no existe, no se puede buscar")
+            return
+        
+        try:
+            mycursor = self.miConexion.cursor()
+            mycursor.callproc('getActividad', [idActividadBuscar])
+            
+            # Limpiar la tabla
+            cant = 0
+            a = self.ui.TWTabla.rowCount()
+            for rep in range(a):
+                self.ui.TWTabla.removeRow(0)
+
+            # Procesar resultados
+            results_found = False
+            for result in mycursor.fetchall():
+                results_found = True
+                idActividad, Nombre, Descripcion, Fecha, idCategoria, Centro = result
+                self.ui.TWTabla.insertRow(cant)
                 
+                celdaCodigo = QTableWidgetItem(str(idActividad))
+                celdaNombre = QTableWidgetItem(Nombre)
+                celdaDescripcion = QTableWidgetItem(Descripcion)
+                celdaFecha = QTableWidgetItem(str(Fecha))
+                celdaCateg = QTableWidgetItem(str(idCategoria))
+                celdaCentro = QTableWidgetItem(str(Centro))
+                
+                self.ui.TWTabla.setItem(cant, 0, celdaCodigo)
+                self.ui.TWTabla.setItem(cant, 1, celdaNombre)
+                self.ui.TWTabla.setItem(cant, 2, celdaDescripcion)
+                self.ui.TWTabla.setItem(cant, 3, celdaFecha)
+                self.ui.TWTabla.setItem(cant, 4, celdaCateg)
+                self.ui.TWTabla.setItem(cant, 5, celdaCentro)
+                
+                cant += 1
+            
+            if not results_found:
+                QMessageBox.warning(self, "Búsqueda Fallida", "No se encontraron resultados para la Actividad buscada")
+            
+            mycursor.close()
+        
+        except Exception as miError:
+            QMessageBox.warning(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de las Actividades")
+            print("Error:", miError)  # Depuración
+
+
+
     def eliminaActividad(self):
         idActividadDel = self.ui.SBCodigoEliminar.value()
-        if self.existeIdActividad ( idActividadDel ) == False :
+        if not self.existeIdActividad(idActividadDel):
             QMessageBox.information(self, "Eliminacion Fallida", "La Actividad no existe, no se puede eliminar")
         else:
             try:
                 mycursor = self.miConexion.cursor()
-                mycursor.callproc('delActividad' , [idActividadDel] )
+                mycursor.callproc('delActividad', [idActividadDel])
                 self.miConexion.commit()
                 
                 QMessageBox.information(self, "Eliminacion Exitosa", "La Actividad ha sido eliminada")
                 self.verTodas()
                 mycursor.close()
-            except Exception as miError :
-                QMessageBox.information(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Eliminacion de la Actividad")
-                print(miError)
+            except OperationalError as err:
+                if err.args[0] == 1644:
+                    QMessageBox.warning(self, "Eliminacion Fallida", err.args[1])  # Mostrar el mensaje de error definido en el procedimiento
+                else:
+                    QMessageBox.information(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Eliminacion de la Actividad")
+                    print(err)
+
+
+
                 
     def agregarActividad(self):
         self.ventanaAct = AgregarActividad()
@@ -590,47 +606,50 @@ class AgregarActividad (QMainWindow):
                                 QMessageBox.critical(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de las actividades")
                                 print(miError)
             
-    def existeIdActividad (self,idActividad):
-        try :
-            mycursor = self.miConexion.cursor ()
+    def existeIdActividad(self, idActividad):
+        try:
+            mycursor = self.miConexion.cursor()
             query = "SELECT count(*) FROM Actividades WHERE idActividad = %s"
             mycursor.execute(query, [idActividad])      
-            resultados=mycursor.fetchall()
-            for registro in resultados:
-                if  registro[0] == 1 :
-                    return True
-                return False
+            resultado = mycursor.fetchone()
+            if resultado and resultado[0] == 1:
+                return True
+            return False
         except Exception as miError:
             print('Fallo ejecutando el procedimiento')
             print(miError)
+            return False
+
             
-    def existeIdCategoria (self,idCategoria):
-        try :
-            mycursor = self.miConexion.cursor ()
+    def existeIdCategoria(self, idCategoria):
+        try:
+            mycursor = self.miConexion.cursor()
             query = "SELECT count(*) FROM Categorias WHERE idCategoria = %s"
             mycursor.execute(query, [idCategoria])      
-            resultados=mycursor.fetchall()
-            for registro in resultados:
-                if  registro[0] == 1 :
-                    return True
-                return False
-        except Exception as miError:
-            print('Fallo ejecutando el procedimiento')
-            print(miError)         
-    
-    def existeNombre (self,Nombre):
-        try :
-            mycursor = self.miConexion.cursor ()
-            query = "SELECT count(*) FROM CentroS WHERE Nombre = %s"
-            mycursor.execute(query, [Nombre])      
-            resultados=mycursor.fetchall()
-            for registro in resultados:
-                if  registro[0] == 1 :
-                    return True
-                return False
+            resultado = mycursor.fetchone()
+            if resultado and resultado[0] == 1:
+                return True
+            return False
         except Exception as miError:
             print('Fallo ejecutando el procedimiento')
             print(miError)
+            return False
+
+
+    def existeNombre(self, Nombre):
+        try:
+            mycursor = self.miConexion.cursor()
+            query = "SELECT count(*) FROM Centros WHERE Nombre = %s"
+            mycursor.execute(query, [Nombre])      
+            resultado = mycursor.fetchone()
+            if resultado and resultado[0] == 1:
+                return True
+            return False
+        except Exception as miError:
+            print('Fallo ejecutando el procedimiento')
+            print(miError)
+            return False
+
 
 class ModificarActividad(QMainWindow):
     def __init__(self):
@@ -726,7 +745,7 @@ class ModificarActividad(QMainWindow):
     def existeNombre (self,Nombre):
         try :
             mycursor = self.miConexion.cursor ()
-            query = "SELECT count(*) FROM CentroS WHERE Nombre = %s"
+            query = "SELECT count(*) FROM Centros WHERE Nombre = %s"
             mycursor.execute(query, [Nombre])      
             resultados=mycursor.fetchall()
             for registro in resultados:
@@ -758,69 +777,67 @@ class AdmonCategorias(QMainWindow):
     def cerrar(self):
         self.con.desconectar()
         self.close()
-        
-    def verTodas (self):
+
+    def verTodas(self):
         cant = 0
         try:
-            mycursor = self.miConexion.cursor ()
-            mycursor.callproc ('allCategorias')
+            mycursor = self.miConexion.cursor()
+            mycursor.execute("CALL allCategorias()")  # Ejecuta el procedimiento directamente
             
+            results = mycursor.fetchall()
             a = self.ui.TWTabla.rowCount()
             for rep in range(a):
                 self.ui.TWTabla.removeRow(0)
+            
+            for (idCategoria, Nombre) in results:
+                self.ui.TWTabla.insertRow(cant)
                 
+                celdaCodigo = QTableWidgetItem(str(idCategoria))
+                celdaNombre = QTableWidgetItem(Nombre)
                 
-            for result in mycursor.stored_results ():
-                for (idCategoria, Nombre) in result :
+                self.ui.TWTabla.setItem(cant, 0, celdaCodigo)
+                self.ui.TWTabla.setItem(cant, 1, celdaNombre)
+                
+                cant += 1
+            if cant == 0:
+                QMessageBox.warning(self, "Alerta en Consulta", "No hay Categorías registradas")
+            mycursor.close()
+        except Exception as miError:
+            QMessageBox.warning(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de las Categorías")
+            print(miError)   
+
+    def buscarCategoria(self):
+        idCategoriaBuscar = self.ui.SBCodigoEliminar.value()
+        
+        if not self.existeIdCategoria(idCategoriaBuscar):
+            QMessageBox.critical(self, "Búsqueda Fallida", "La Categoria no existe, no se puede buscar")
+            return
+        
+        try:
+            mycursor = self.miConexion.cursor()
+            mycursor.callproc('getCategoria', [idCategoriaBuscar])
+            
+            results = mycursor.fetchall()
+            
+            self.ui.TWTabla.setRowCount(0)  # Limpiar tabla
+            
+            if results:
+                for cant, (idCategoria, Nombre) in enumerate(results):
                     self.ui.TWTabla.insertRow(cant)
-                    
                     celdaCodigo = QTableWidgetItem(str(idCategoria))
                     celdaNombre = QTableWidgetItem(Nombre)
                     
-                    self.ui.TWTabla.setItem(cant,0,celdaCodigo)
-                    self.ui.TWTabla.setItem(cant,1,celdaNombre)
-                    
-                    cant = cant + 1
-            if cant == 0 :
-                QMessageBox.warning(self, "Alerta en Consulta", "No hay Categoriaes registradas")
+                    self.ui.TWTabla.setItem(cant, 0, celdaCodigo)
+                    self.ui.TWTabla.setItem(cant, 1, celdaNombre)
+            else:
+                QMessageBox.warning(self, "Búsqueda Fallida", "No se encontraron resultados para la Categoria buscada")
+            
             mycursor.close()
-        except Exception as miError :
-            QMessageBox.warning(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de las Categoriaes")
-            print(miError)            
-    
-    def buscarCategoria(self):
-        idCategoriaBuscar = self.ui.SBCodigoEliminar.value()
-        if self.existeIdCategoria(idCategoriaBuscar) == False :
-            QMessageBox.information(self, "Busqueda Fallida", "La Categoria no existe, no se puede buscar")
-        else :
-            try:
-                mycursor = self.miConexion.cursor()
-                mycursor.callproc('getCategoria', [idCategoriaBuscar])
-    
-                cant=0
-                a = self.ui.TWTabla.rowCount()
-                for rep in range(a):
-                    self.ui.TWTabla.removeRow(0)
-                    
-                    
-                for result in mycursor.stored_results ():
-                    for (idCategoria, Nombre) in result :
-                        self.ui.TWTabla.insertRow(cant)
-                        
-                        celdaCodigo = QTableWidgetItem(str(idCategoria))
-                        celdaNombre = QTableWidgetItem(Nombre)
-                        
-                        self.ui.TWTabla.setItem(cant,0,celdaCodigo)
-                        self.ui.TWTabla.setItem(cant,1,celdaNombre)
-                        
-                        cant = cant + 1
-    
-    
-                mycursor.close()
-    
-            except Exception as miError :
-                QMessageBox.warning(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de las Categoriaes")
-                print(miError)  
+        except Exception as miError:
+            QMessageBox.warning(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de las Categorias")
+            print("Error:", miError)  # Depuración
+
+
                 
     def eliminaCategoria(self):
         idCategoriaDel = self.ui.SBCodigoEliminar.value()
@@ -848,20 +865,19 @@ class AdmonCategorias(QMainWindow):
         self.ventanaMCat = ModificarCategoria()
         self.ventanaMCat.show()
         self.cerrar()
+
     
-    def existeIdCategoria (self,idCategoria):
-        try :
-            mycursor = self.miConexion.cursor ()
+    def existeIdCategoria(self, idCategoria):
+        try:
+            mycursor = self.miConexion.cursor()
             query = "SELECT count(*) FROM Categorias WHERE idCategoria = %s"
-            mycursor.execute(query, [idCategoria])      
-            resultados=mycursor.fetchall()
-            for registro in resultados:
-                if  registro[0] == 1 :
-                    return True
-                return False
+            mycursor.execute(query, [idCategoria])
+            resultado = mycursor.fetchone()  # Recuperar un solo resultado
+            return resultado[0] == 1
         except Exception as miError:
-            print('Fallo ejecutando el procedimiento')
-            print(miError)
+            print('Fallo ejecutando el procedimiento:', miError)
+            return False
+
             
 class AgregarCategoria(QMainWindow):
     def __init__(self):
@@ -1657,7 +1673,7 @@ class AdmonConsultas(QMainWindow):
     def cons2(self):
         try:
             mycursor = self.miConexion.cursor()
-            query = "SELECT c.Nombre AS 'Categoria', a.Fecha, a.Nombre AS 'Actividad', a.Descripcion, ce.Direccion FROM Actividades a INNER JOIN Categorias c ON a.iDCategoria = c.idCategoria INNER JOIN Centros ce ON a.Centro = ce.Nombre;"
+            query = "SELECT c.Nombre AS 'Categoria', a.Fecha, a.Nombre AS 'Actividad', a.Descripcion, ce.Direccion FROM Actividades a INNER JOIN Categorias c ON a.idCategoria = c.idCategoria INNER JOIN Centros ce ON a.Centro = ce.Nombre;"
             mycursor.execute(query)
             resultados = mycursor.fetchall()
     

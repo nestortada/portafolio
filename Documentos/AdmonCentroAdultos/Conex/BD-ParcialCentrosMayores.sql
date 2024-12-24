@@ -53,15 +53,15 @@ CREATE TABLE `Actividades` (
   `Nombre` VARCHAR(45) NOT NULL,
   `Descripcion` VARCHAR(100) NOT NULL,
   `Fecha` DATE NULL,
-  `iDCategoria` INT NULL,
+  `idCategoria` INT NULL,
   `Centro` VARCHAR(30) NULL,
   PRIMARY KEY (`idActividad`),
-  INDEX `FK_CategoriasActividades_Categoria_idx` (`iDCategoria`),
+  INDEX `FK_CategoriasActividades_Categoria_idx` (`idCategoria`),
   INDEX `FK_Centros_Actividades_Centro_idx` (`Centro`),
   CONSTRAINT `FK_CategoriasActividades_Categoria`
-    FOREIGN KEY (`iDCategoria`)
+    FOREIGN KEY (`idCategoria`)
     REFERENCES `Categorias` (`idCategoria`)
-    ON DELETE RESTRICT
+    ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT `FK_Centros_Actividades_Centro`
     FOREIGN KEY (`Centro`)
@@ -106,7 +106,7 @@ INSERT INTO `Categorias` VALUES
 (1, 'Salidas culturales'),
 (2, 'Gimnasia'),
 (3, 'Manualidades'),
-(4, 'Paseos');
+(10, 'Paseos');
 
 INSERT INTO `Actividades` VALUES
 (1, 'Yoga para el alma', 'Realiza diferentes ejercicios para relajar tus músculos y aumentar tu flexibilidad', '2023-03-03', 2, 'Colina'),
@@ -223,11 +223,80 @@ CREATE PROCEDURE newActividad(
     IN nombreCentro VARCHAR(30)
 )
 BEGIN
-    INSERT INTO Actividades (idActividad, Nombre, Descripcion, Fecha, iDCategoria, Centro) 
+    INSERT INTO Actividades (idActividad, Nombre, Descripcion, Fecha, idCategoria, Centro) 
     VALUES (idActividad, nombreActividad, descripcionActividad, fechaActividad, idCategoria, nombreCentro);
 END //
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE allCategorias()
+BEGIN
+    SELECT * FROM Categorias;
+END //
+
+DELIMITER ;
+
+
+
+DROP PROCEDURE IF EXISTS getCategoria;
+
+DELIMITER //
+
+CREATE PROCEDURE getCategoria(IN idCat INT)
+BEGIN
+    SELECT idCategoria, Nombre
+    FROM Categorias
+    WHERE idCategoria = idCat;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE delCategoria(IN idCat INT)
+BEGIN
+    DELETE FROM Categorias WHERE idCategoria = idCat;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE newCategoria(
+    IN idCategoria INT,
+    IN nombreCategoria VARCHAR(100)
+)
+BEGIN
+    INSERT INTO Categorias (idCategoria, Nombre) 
+    VALUES (idCategoria, nombreCategoria);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE modCategoria(
+    IN idCategoriaNew INT,
+    IN nombreNew VARCHAR(100),
+    IN idCategoriaOld INT
+)
+BEGIN
+    UPDATE Categorias 
+    SET idCategoria = idCategoriaNew, Nombre = nombreNew
+    WHERE idCategoria = idCategoriaOld;
+END //
+
+DELIMITER ;
+
+
+
+
+
+
+
+
 
 
 

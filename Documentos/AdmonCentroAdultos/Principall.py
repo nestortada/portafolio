@@ -103,118 +103,126 @@ class AdmonAdultos(QMainWindow):
         self.ventanaMod = ModificarAdulto()
         self.ventanaMod.show()
         self.cerrar()
-        
-    def verTodas (self):
+
+    def verTodas(self):
         cant = 0
         try:
-            mycursor = self.miConexion.cursor ()
-            mycursor.callproc ('allAdultos')
+            mycursor = self.miConexion.cursor()
+            mycursor.execute("CALL allAdultos()")
             
+            results = mycursor.fetchall()
             a = self.ui.TWTabla.rowCount()
             for rep in range(a):
                 self.ui.TWTabla.removeRow(0)
+            
+            for (idAdulto, Nombre, Apellido, Nacimiento, Peso, Altura, Contacto, Centro) in results:
+                self.ui.TWTabla.insertRow(cant)
                 
+                celdaCodigo = QTableWidgetItem(str(idAdulto))
+                celdaNombre = QTableWidgetItem(Nombre)
+                celdaApellido = QTableWidgetItem(Apellido)
+                celdaNacimiento = QTableWidgetItem(str(Nacimiento))
+                celdaPeso = QTableWidgetItem(str(Peso))
+                celdaAltura = QTableWidgetItem(str(Altura))
+                celdaContacto = QTableWidgetItem(Contacto)
+                celdaCentro = QTableWidgetItem(Centro)
                 
-            for result in mycursor.stored_results ():
-                for (idAdulto, Nombre, Apellido, Nacimiento, Peso, Altura, Contacto, Centro) in result :
-                    self.ui.TWTabla.insertRow(cant)
-                    
-                    celdaCodigo = QTableWidgetItem(str(idAdulto))
-                    celdaNombre = QTableWidgetItem(Nombre)
-                    celdaApellido = QTableWidgetItem(Apellido)
-                    celdaNacimiento = QTableWidgetItem(str(Nacimiento))
-                    celdaPeso = QTableWidgetItem(str(Peso))
-                    celdaAltura = QTableWidgetItem(str(Altura))
-                    celdaContacto = QTableWidgetItem(Contacto)
-                    celdaCentro = QTableWidgetItem(Centro)
-                    
-                    self.ui.TWTabla.setItem(cant,0,celdaCodigo)
-                    self.ui.TWTabla.setItem(cant,1,celdaNombre)
-                    self.ui.TWTabla.setItem(cant,2,celdaApellido)
-                    self.ui.TWTabla.setItem(cant,3,celdaNacimiento)
-                    self.ui.TWTabla.setItem(cant,4,celdaPeso)
-                    self.ui.TWTabla.setItem(cant,5,celdaAltura)
-                    self.ui.TWTabla.setItem(cant,6,celdaContacto)
-                    self.ui.TWTabla.setItem(cant,7,celdaCentro)
-                    
-                    
-                    cant = cant + 1
-            if cant == 0 :
-                QMessageBox.warning(self, "Alerta en Consulta", "No hay Adultos registradas")
+                self.ui.TWTabla.setItem(cant, 0, celdaCodigo)
+                self.ui.TWTabla.setItem(cant, 1, celdaNombre)
+                self.ui.TWTabla.setItem(cant, 2, celdaApellido)
+                self.ui.TWTabla.setItem(cant, 3, celdaNacimiento)
+                self.ui.TWTabla.setItem(cant, 4, celdaPeso)
+                self.ui.TWTabla.setItem(cant, 5, celdaAltura)
+                self.ui.TWTabla.setItem(cant, 6, celdaContacto)
+                self.ui.TWTabla.setItem(cant, 7, celdaCentro)
+                
+                cant += 1
+            
+            if cant == 0:
+                QMessageBox.warning(self, "Alerta en Consulta", "No hay Adultos registrados")
+            
             mycursor.close()
-        except Exception as miError :
-            QMessageBox.warning(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de las Adultos")
-            print(miError)            
-    
+        except Exception as miError:
+            QMessageBox.warning(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de consulta de los Adultos")
+            print("Error:", miError)
+
     def buscarAdulto(self):
         idAdultoBuscar = self.ui.SBCodigoEliminar.value()
-        if self.existeIdAdulto(idAdultoBuscar) == False :
-            QMessageBox.information(self, "Busqueda Fallida", "La Adulto no existe, no se puede buscar")
-        else :
-            try:
-                mycursor = self.miConexion.cursor()
-                mycursor.callproc('getAdulto', [idAdultoBuscar])
-    
-                cant=0
-                a = self.ui.TWTabla.rowCount()
-                for rep in range(a):
-                    self.ui.TWTabla.removeRow(0)
-                    
-                    
-                for result in mycursor.stored_results ():
-                    for (idAdulto, Nombre, Apellido, Nacimiento, Peso, Altura, Contacto, Centro) in result :
-                        self.ui.TWTabla.insertRow(cant)
-                        
-                        celdaCodigo = QTableWidgetItem(str(idAdulto))
-                        celdaNombre = QTableWidgetItem(Nombre)
-                        celdaApellido = QTableWidgetItem(Apellido)
-                        celdaNacimiento = QTableWidgetItem(str(Nacimiento))
-                        celdaPeso = QTableWidgetItem(str(Peso))
-                        celdaAltura = QTableWidgetItem(str(Altura))
-                        celdaContacto = QTableWidgetItem(Contacto)
-                        celdaCentro = QTableWidgetItem(Centro)
-                        
-                        self.ui.TWTabla.setItem(cant,0,celdaCodigo)
-                        self.ui.TWTabla.setItem(cant,1,celdaNombre)
-                        self.ui.TWTabla.setItem(cant,2,celdaApellido)
-                        self.ui.TWTabla.setItem(cant,3,celdaNacimiento)
-                        self.ui.TWTabla.setItem(cant,4,celdaPeso)
-                        self.ui.TWTabla.setItem(cant,5,celdaAltura)
-                        self.ui.TWTabla.setItem(cant,6,celdaContacto)
-                        self.ui.TWTabla.setItem(cant,7,celdaCentro)
-                        
-                        
-                        cant = cant + 1
-    
-    
-                mycursor.close()
-    
-            except Exception as miError :
-                QMessageBox.warning(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de las Adultos")
-                print(miError)  
-                
-    def eliminaAdulto(self):
-        idAdultoDel = self.ui.SBCodigoEliminar.value()
-        if self.existeIdAdulto ( idAdultoDel ) == False :
-            QMessageBox.information(self, "Eliminacion Fallida", "El Adulto no existe, no se puede eliminar")
+        if not self.existeIdAdulto(idAdultoBuscar):
+            QMessageBox.information(self, "Busqueda Fallida", "El Adulto no existe, no se puede buscar")
         else:
             try:
                 mycursor = self.miConexion.cursor()
-                mycursor.callproc('delAdulto' , [idAdultoDel] )
-                self.miConexion.commit()
+                mycursor.callproc('getAdulto', (idAdultoBuscar,))
+
+                a = self.ui.TWTabla.rowCount()
+                for rep in range(a):
+                    self.ui.TWTabla.removeRow(0)
                 
-                QMessageBox.information(self, "Eliminacion Exitosa", "El Adulto ha sido eliminada")
-                self.verTodas()
-                mycursor.close()
-            except Exception as miError :
-                QMessageBox.information(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de las Adultos")
+                cant = 0
+                results = mycursor.fetchall()
+                for (idAdulto, Nombre, Apellido, Nacimiento, Peso, Altura, Contacto, Centro) in results:
+                    self.ui.TWTabla.insertRow(cant)
+                    self.ui.TWTabla.setItem(cant, 0, QTableWidgetItem(str(idAdulto)))
+                    self.ui.TWTabla.setItem(cant, 1, QTableWidgetItem(Nombre))
+                    self.ui.TWTabla.setItem(cant, 2, QTableWidgetItem(Apellido))
+                    self.ui.TWTabla.setItem(cant, 3, QTableWidgetItem(str(Nacimiento)))
+                    self.ui.TWTabla.setItem(cant, 4, QTableWidgetItem(str(Peso)))
+                    self.ui.TWTabla.setItem(cant, 5, QTableWidgetItem(str(Altura)))
+                    self.ui.TWTabla.setItem(cant, 6, QTableWidgetItem(Contacto))
+                    self.ui.TWTabla.setItem(cant, 7, QTableWidgetItem(Centro))
+                    
+                    cant += 1
+                
+            except Exception as miError:
+                QMessageBox.warning(self, "Consulta Fallida", "Fallo ejecutando el procedimiento de Consulta de los Adultos")
                 print(miError)
+            finally:
+                mycursor.close()  
+
                 
+    def eliminaAdulto(self):
+        idAdultoDel = self.ui.SBCodigoEliminar.value()
+        if not self.existeIdAdulto(idAdultoDel):
+            QMessageBox.information(self, "Eliminación Fallida", "El Adulto no existe, no se puede eliminar")
+            return
+
+        if self.existeIncripcion(idAdultoDel):
+            QMessageBox.information(self, "Error", "El adulto tiene inscripciones asociadas. Elimínelas primero.")
+            return
+
+        try:
+            mycursor = self.miConexion.cursor()
+            mycursor.callproc('delAdulto', [idAdultoDel])
+            self.miConexion.commit()
+            QMessageBox.information(self, "Eliminación Exitosa", "El Adulto ha sido eliminado")
+            self.verTodas()
+            mycursor.close()
+        except Exception as miError:
+            if "1451" in str(miError):
+                QMessageBox.information(self, "Error", "No se puede eliminar el adulto porque tiene inscripciones asociadas. Elimínelas primero.")
+            else:
+                QMessageBox.information(self, "Consulta Fallida", "Fallo ejecutando el procedimiento del Adulto")
+            print(miError)
+
+
+    def existeIncripcion(self, idAdulto):
+        try:
+            mycursor = self.miConexion.cursor()
+            query = "SELECT count(*) FROM Inscripcion WHERE IdAdulto = %s"
+            mycursor.execute(query, (idAdulto,))  # El parámetro debe ser una tupla
+            resultados = mycursor.fetchone()  # fetchone es más eficiente para un solo resultado
+            return resultados[0] > 0
+        except Exception as miError:
+            print('Fallo ejecutando el procedimiento')
+            print(miError)
+            return False
+
 
     def existeIdAdulto (self,idAdulto):
         try :
             mycursor = self.miConexion.cursor ()
-            query = "SELECT count(*) FROM AdultoS WHERE idAdulto = %s"
+            query = "SELECT count(*) FROM Adultos WHERE idAdulto = %s"
             mycursor.execute(query, [idAdulto])      
             resultados=mycursor.fetchall()
             for registro in resultados:
@@ -280,7 +288,7 @@ class AgregarAdulto(QMainWindow):
     def existeIdAdulto (self,idAdulto):
         try :
             mycursor = self.miConexion.cursor ()
-            query = "SELECT count(*) FROM AdultoS WHERE idAdulto = %s"
+            query = "SELECT count(*) FROM Adultos WHERE idAdulto = %s"
             mycursor.execute(query, [idAdulto])      
             resultados=mycursor.fetchall()
             for registro in resultados:
@@ -294,7 +302,7 @@ class AgregarAdulto(QMainWindow):
     def existeNombre (self,Nombre):
         try :
             mycursor = self.miConexion.cursor ()
-            query = "SELECT count(*) FROM CentroS WHERE Nombre = %s"
+            query = "SELECT count(*) FROM Centros WHERE Nombre = %s"
             mycursor.execute(query, [Nombre])      
             resultados=mycursor.fetchall()
             for registro in resultados:
@@ -363,7 +371,7 @@ class ModificarAdulto(QMainWindow):
     def existeNombre (self,Nombre):
         try :
             mycursor = self.miConexion.cursor ()
-            query = "SELECT count(*) FROM CentroS WHERE Nombre = %s"
+            query = "SELECT count(*) FROM Centros WHERE Nombre = %s"
             mycursor.execute(query, [Nombre])      
             resultados=mycursor.fetchall()
             for registro in resultados:
@@ -377,7 +385,7 @@ class ModificarAdulto(QMainWindow):
     def existeIdAdulto (self,idAdulto):
         try :
             mycursor = self.miConexion.cursor ()
-            query = "SELECT count(*) FROM AdultoS WHERE idAdulto = %s"
+            query = "SELECT count(*) FROM Adultos WHERE idAdulto = %s"
             mycursor.execute(query, [idAdulto])      
             resultados=mycursor.fetchall()
             for registro in resultados:
@@ -387,9 +395,6 @@ class ModificarAdulto(QMainWindow):
         except Exception as miError:
             print('Fallo ejecutando el procedimiento')
             print(miError) 
-    
-        
-            
             
 class AdmonActividades(QMainWindow):
     def __init__(self):

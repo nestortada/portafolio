@@ -290,8 +290,88 @@ END //
 
 DELIMITER ;
 
+DELIMITER //
+
+CREATE PROCEDURE allAdultos()
+BEGIN
+    SELECT idAdulto, Nombre, Apellido, Nacimiento, Peso, Altura, Contacto, Centro FROM Adultos;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE getAdulto(IN idAdul INT)
+BEGIN
+    SELECT idAdulto, Nombre, Apellido, Nacimiento, Peso, Altura, Contacto, Centro
+    FROM Adultos
+    WHERE idAdulto = idAdul;
+END //
+
+DELIMITER ;
 
 
+
+DELIMITER //
+
+CREATE PROCEDURE delAdulto(IN idAdul INT)
+BEGIN
+    DELETE FROM Adultos WHERE idAdulto = idAdul;
+END //
+
+DELIMITER ;
+
+
+
+
+
+
+DELIMITER //
+
+CREATE PROCEDURE newAdulto(
+    IN idAdulto INT,
+    IN nombre VARCHAR(255),
+    IN apellido VARCHAR(255),
+    IN nacimiento DATE,
+    IN peso FLOAT,
+    IN altura FLOAT,
+    IN contacto VARCHAR(255),
+    IN centro VARCHAR(255)
+)
+BEGIN
+    INSERT INTO Adultos (idAdulto, Nombre, Apellido, Nacimiento, Peso, Altura, Contacto, Centro)
+    VALUES (idAdulto, nombre, apellido, nacimiento, peso, altura, contacto, centro);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE modAdulto(
+    IN idAdultoNew INT,
+    IN nombreNew VARCHAR(255),
+    IN apellidoNew VARCHAR(255),
+    IN nacimientoNew DATE,
+    IN pesoNew FLOAT,
+    IN alturaNew FLOAT,
+    IN contactoNew VARCHAR(255),
+    IN centroNew VARCHAR(255),
+    IN idAdultoViejo INT
+)
+BEGIN
+    UPDATE Adultos
+    SET idAdulto = idAdultoNew,
+        Nombre = nombreNew,
+        Apellido = apellidoNew,
+        Nacimiento = nacimientoNew,
+        Peso = pesoNew,
+        Altura = alturaNew,
+        Contacto = contactoNew,
+        Centro = centroNew
+    WHERE idAdulto = idAdultoViejo;
+END //
+
+DELIMITER ;
 
 
 

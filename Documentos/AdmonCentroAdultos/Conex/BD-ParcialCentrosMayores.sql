@@ -201,13 +201,9 @@ DELIMITER //
 
 DELIMITER //
 
-CREATE PROCEDURE delActividad(IN idActividad INT)
+CREATE PROCEDURE delActividad(IN idActi INT)
 BEGIN
-    IF EXISTS (SELECT 1 FROM Inscripcion WHERE IdActividad = idActividad) THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Hay inscripciones relacionadas con esta actividad. Elimine primero las inscripciones asociadas.';
-    ELSE
-        DELETE FROM Actividades WHERE idActividad = idActividad;
-    END IF;
+    DELETE FROM Actividades WHERE idActividad = idActi;
 END //
 
 DELIMITER ;
@@ -228,6 +224,31 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE modActividad(
+    IN idActividadNew INT,
+    IN nombreNew VARCHAR(255),
+    IN descripcionNew VARCHAR(255),
+    IN fechaNew DATE,
+    IN idCategoriaNew INT,
+    IN centroNew VARCHAR(255),
+    IN idActividadOld INT
+)
+BEGIN
+    UPDATE Actividades
+    SET idActividad = idActividadNew,
+        Nombre = nombreNew,
+        Descripcion = descripcionNew,
+        Fecha = fechaNew,
+        idCategoria = idCategoriaNew,
+        Centro = centroNew
+    WHERE idActividad = idActividadOld;
+END //
+
+DELIMITER ;
+
 
 DELIMITER //
 
@@ -369,6 +390,76 @@ BEGIN
         Contacto = contactoNew,
         Centro = centroNew
     WHERE idAdulto = idAdultoViejo;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE allInscripciones()
+BEGIN
+    SELECT idAdulto, idActividad, Calificacion FROM Inscripcion;
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE PROCEDURE getInscripcion(
+    IN idAdul INT,
+    IN idActi INT
+)
+BEGIN
+    SELECT idAdulto, idActividad, Calificacion 
+    FROM Inscripcion 
+    WHERE idAdulto = idAdul AND idActividad = idActi;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE delInscripcion(
+    IN idAdul INT,
+    IN idActi INT
+)
+BEGIN
+    DELETE FROM Inscripcion 
+    WHERE idAdulto = idAdul AND idActividad = idActi;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE newInscripcion(
+    IN idAdulto INT,
+    IN idActividad INT,
+    IN calificacion FLOAT
+)
+BEGIN
+    INSERT INTO Inscripcion (idAdulto, idActividad, Calificacion)
+    VALUES (idAdulto, idActividad, calificacion);
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE modInscripcion(
+    IN idAdultoNew INT,
+    IN idActividadNew INT,
+    IN calificacionNew FLOAT,
+    IN idAdultoOld INT,
+    IN idActividadOld INT
+)
+BEGIN
+    UPDATE Inscripcion
+    SET idAdulto = idAdultoNew,
+        idActividad = idActividadNew,
+        Calificacion = calificacionNew
+    WHERE idAdulto = idAdultoOld AND idActividad = idActividadOld;
 END //
 
 DELIMITER ;

@@ -10,10 +10,10 @@
 			.modal {
 				display: none;
 				position: fixed;
-				top: 0;
+				top: -4%;
 				left: 0;
 				width: 100%;
-				height: 100%;
+				height: 104%;
 				background: rgba(0, 0, 0, 0.8);
 				justify-content: center;
 				align-items: center;
@@ -67,9 +67,9 @@
 				<h1><a href="index.html">Pagina principal</a></h1>
 				<nav class="links">
 					<ul>
-						<li><a href="single.html">Proyectos</a></li>
-						<li><a href="#">Acerca de mi</a></li>
-						<li><a href="#">Contacto</a></li>
+						<li><a href="single.html">Ingeniería Industrial</a></li>
+						<li><a href="#">Ingeniería Informatica</a></li>
+						<li><a href="#">Otros Proyectos</a></li>
 					</ul>
 				</nav>
 				<nav class="main">
@@ -101,20 +101,20 @@
 					<ul class="links">
 						<li>
 							<a href="#">
-								<h3>Proyectos</h3>
-								<p>Este apartado esta dividido por los proyectos de cada materia</p>
+								<h3>Ingeniería Industrial</h3>
+								<p>Encontraran todos los proyectos y trabajos hechos en Ingeniería Industrial</p>
 							</a>
 						</li>
 						<li>
 							<a href="#">
-								<h3>Acerca de mi</h3>
-								<p>En este apartado sabran más sobre mi</p>
+								<h3>Ingeniería Informatica</h3>
+								<p>Encontraran todos los proyectos y trabajos hechos en Ingeniería Informatica</p>
 							</a>
 						</li>
 						<li>
 							<a href="#">
-								<h3>Contactos</h3>
-								<p>Este apartado podran contactar conmigo a travez de diferentes medios</p>
+								<h3>Otros Proyectos</h3>
+								<p>Encontraran otros proyectos hechos por aparte de las carreras</p>
 							</a>
 						</li>
 					</ul>
@@ -133,12 +133,10 @@
 						<div class="meta">
 							<time class="published" datetime="2024-11-21">Noviembre 21, 2024</time>
 							<div class="author">
-								<span class="name">
 									Nestor Tabares<br>
 									Catalina Castro<br>
 									Gabriella Espitia<br>
 									Juan Saldarriaga
-								</span>
 							</div>
 						</div>									
 					</header>
@@ -166,12 +164,11 @@
 						</div>
 						<div class="meta">
 							<time class="published" datetime="2024-09-24">Septiembre 24, 2024</time>
-							<div class="author"><span class="name">												  
+							<div class="author">											  
 								Nestor Tabares<br>
 								Nicolas Caceres<br>
 								Juan David Lasso<br>
 								Isabella Endara
-							</span></div>
 						</div>
 					</header>
 					<a href="https://github.com/nestortada/Procesos_estocasticos/blob/main/Proyecto%202/Divisas_parte2.ipynb" class="image featured"><img src="images/divisas.jpg" alt="" /></a>
@@ -196,10 +193,9 @@
 						</div>
 						<div class="meta">
 							<time class="published" datetime="2015-10-22">October 22, 2015</time>
-							<div class="author"><span class="name">
+							<div class="author">
 								Nestor Tabares<br>
 								Juan David Lasso
-							</span></div>
 						</div>
 					</header>
 					<a href="https://github.com/nestortada/Programaci-n-Avanzada/blob/main/AdmonCentroAdultos/Principall.py" class="image featured"><img src="images\Ancianato.jpg" alt="" /></a>
@@ -223,7 +219,7 @@
 			<!-- Modal -->
 			<div id="pdfModal" class="modal">
 				<div class="modal-content">
-					<button class="modal-close" id="closeModal">X</button>
+					<button class="modal-close" id="closeModal">Cerrar PDF</button>
 					<iframe src="Documentos/Caso_Estudio_Procesos_Estocásticos___Parte_2.pdf"></iframe>
 				</div>
 			</div>
@@ -231,10 +227,10 @@
 			<!-- Sidebar -->
 			<section id="sidebar">
 				<section id="intro">
-					<a href="#" class="logo"><img src="images/mi_persona.jpeg" alt="" /></a>
+					<a class="logo"><img src="images/mi_persona.jpeg" alt="" /></a>
 					<header>
 						<h2>Portafolio</h2>
-						<p><a href="#">Nestor Andres Tabares David</a></p>
+						<p>Nestor Andres Tabares David</p>
 					</header>
 				</section>
 
@@ -322,28 +318,50 @@
 						<li>
 							<article>
 								<header>
-									<h3><a href="single.html">Diseño de Sistema de Riego</a></h3>
+									<h3><a href="https://github.com/nestortada/CAD/blob/master/Sistema%20de%20Riego/Proyecto%20final.iam">Diseño de Sistema de Riego</a></h3>
 									<time class="published" datetime="2024-11-14">Noviembre 14, 2024</time>
-									<a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fnestortada%2FIngenieria_metodos%2Frefs%2Fheads%2Fmain%2FAnalisis_productividad%2FAnalisis_de_productividad.xlsx&wdOrigin=BROWSELINK" class="button">Ver Video</a>
+									<button class="button" onclick="playVideo()">Video</button>
+									<button id="openModal1" class="button">Vista</button>
+
 								</header>
-								<a href="single.html" class="image"><img src="images\Sistema de riego.jpg" alt="" /></a>
+								<a href="https://github.com/nestortada/CAD/blob/master/Sistema%20de%20Riego/Proyecto%20final.iam" class="image"><img src="images\Sistema de riego.jpg" /></a>
 							</article>
 						</li>
 					</ul>
 				</section>
 
+				<div id="videoModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background: transparent; padding:20px; z-index:1000; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.5);">
+					<video id="videoPlayer" width="640" height="300" controls>
+						<source src="Documentos\Video_Riego.mp4" type="video/mp4">
+					</video>
+					<button onclick="closeVideo()">Cerrar</button>
+				</div>
+				<div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;" onclick="closeVideo()"></div>
+
+				<div id="pdfModal1" class="modal">
+					<div class="modal-content">
+						<button class="modal-close" id="closeModal1">Cerrar PDF</button>
+						<iframe src="Documentos/Vista_proyecto_final.pdf"></iframe>
+					</div>
+				</div>
+				
 
 				<section class="blurb">
-					<h2>Sobre mí</h2>
-					<p>Hablar de mi.</p>
+					<h2>Conoceme</h2>
+					<p>Estudiante de doble programa de Ingeniería Industrial e informática cursando 6to 
+						semestre, con manejo del Idioma Inglés; experiencia en el área Administrativa en 
+						el análisis y creación de bases de datos en Excel, Rstudio y MiniTab con conocimientos 
+						básicos de programación en Java, Python , SQL y git y además de otros conocimientos como en CAD e Inventor. Persona con Actitud de liderazgo, 
+						Capacidad analítica y solución de problemas; orientación a la acción y al 
+						resultado</p>
 				</section>
 
 				<section id="footer">
 					<ul class="icons">
-						<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-						<li><a href="#" class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li>
-						<li><a href="#" class="icon brands alt fa-github"><span class="label">Linkedin</span></a></li>
-						<li><a href="#" class="icon brands alt fa-whatsapp"><span class="label">WhatsApp</span></a></li>
+						<li><a href="mailto:nestortada@unisabana.edu.co" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+						<li><a href="https://www.linkedin.com/in/nestor-andres-9475252a5/" class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li>
+						<li><a href="https://github.com/nestortada" class="icon brands alt fa-github"><span class="label">Github</span></a></li>
+						<li><a href="https://wa.me/qr/O6GWSMG42CZOJ1" class="icon brands alt fa-whatsapp"><span class="label">WhatsApp</span></a></li>
 					</ul>
 					<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
 				</section>
@@ -352,6 +370,22 @@
 
 		</div>
 
+		<script>
+			function playVideo() {
+				document.getElementById("videoModal").style.display = "block";
+				document.getElementById("overlay").style.display = "block";
+				const videoPlayer = document.getElementById("videoPlayer");
+				videoPlayer.play();
+			}
+		
+			function closeVideo() {
+				document.getElementById("videoModal").style.display = "none";
+				document.getElementById("overlay").style.display = "none";
+				const videoPlayer = document.getElementById("videoPlayer");
+				videoPlayer.pause();
+				videoPlayer.currentTime = 0;
+			}
+		</script>
 		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/browser.min.js"></script>
@@ -373,6 +407,21 @@
 			// Cerrar el modal
 			closeModal.addEventListener('click', () => {
 				pdfModal.classList.remove('active');
+			});
+		</script>
+
+		<script>
+
+			const openModal1 = document.getElementById('openModal1');
+			const closeModal1 = document.getElementById('closeModal1');
+			const pdfModal1 = document.getElementById('pdfModal1');
+
+			openModal1.addEventListener('click', () => {
+				pdfModal1.classList.add('active');
+			});
+
+			closeModal1.addEventListener('click', () => {
+				pdfModal1.classList.remove('active');
 			});
 		</script>
 
@@ -405,13 +454,6 @@
                 });
             }
         </script>
-
-
-		<script>
-			function openExcel() {
-				document.getElementById('excelViewer').classList.add('show');
-			}
-		</script>
 
 
 	</body>

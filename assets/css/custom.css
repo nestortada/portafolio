@@ -624,3 +624,121 @@ body {
 .mini-post:nth-child(2) { animation-delay: 0.6s; }
 .mini-post:nth-child(3) { animation-delay: 0.7s; }
 .mini-post:nth-child(4) { animation-delay: 0.8s; }
+
+/* Modo Oscuro */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* Estilos para modo oscuro */
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode h5, 
+body.dark-mode h6,
+body.dark-mode a,
+body.dark-mode p,
+body.dark-mode li,
+body.dark-mode label,
+body.dark-mode .title h2 a,
+body.dark-mode .project-description p,
+body.dark-mode .key-points li {
+  color: #ffffff;
+}
+
+body.dark-mode .post,
+body.dark-mode .blurb,
+body.dark-mode .mini-post,
+body.dark-mode .project-card,
+body.dark-mode .skill-list li,
+body.dark-mode .strength-item {
+  background-color: #232323;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .key-points {
+  background-color: #1a1a1a;
+}
+
+body.dark-mode .bio-intro {
+  border-left-color: var(--primary-color);
+}
+
+body.dark-mode .image-overlay {
+  background: rgba(0,0,0,0.8);
+}
+
+body.dark-mode #header {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border-bottom: 1px solid #333;
+}
+
+body.dark-mode #sidebar {
+  background-color: #1a1a1a;
+  border-left: 1px solid #333;
+}
+
+body.dark-mode .bio-strengths h3,
+body.dark-mode .strength-text,
+body.dark-mode .bio-skills h3, 
+body.dark-mode .bio-experience h3,
+body.dark-mode .author-title,
+body.dark-mode .key-points h4,
+body.dark-mode .bio-experience strong,
+body.dark-mode .skill-tag,
+body.dark-mode .bio-additional-info p {
+  color: #ffffff;
+}
+
+body.dark-mode #menu {
+  background-color: #1a1a1a;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .bio-additional-info {
+  background-color: #252525;
+  border-left-color: var(--primary-color);
+}
+
+body.dark-mode .strength-item:hover {
+  background-color: #333;
+}
+
+body.dark-mode .posts article:hover {
+  background-color: #2a2a2a;
+}
+
+/* Modo oscuro para formularios */
+body.dark-mode input, 
+body.dark-mode textarea, 
+body.dark-mode select {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode input::placeholder, 
+body.dark-mode textarea::placeholder {
+  color: #aaa;
+}
+
+/* Modo oscuro para modales */
+body.dark-mode .modal-content {
+  background-color: #1a1a1a;
+}
+
+body.dark-mode #appModal .credentials-section {
+  background-color: #252525;
+}
+
+body.dark-mode #appModal .app-iframe-section {
+  background-color: #333;
+}
+
+/* Transición suave al cambiar de modo */
+body, body * {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}

@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Mejorar modales
     enhanceModals();
+    
+    // Inicializar modo oscuro
+    initDarkMode();
 });
 
 /**
@@ -61,6 +64,53 @@ function enhanceCardInteractivity() {
             this.style.transform = 'translateY(0)';
             this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
         });
+    });
+}
+
+/**
+ * Gestiona la funcionalidad de modo oscuro
+ */
+function initDarkMode() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Verificar si hay una preferencia guardada en localStorage
+    const currentTheme = localStorage.getItem('theme');
+    
+    // Si hay una preferencia guardada o el sistema está en modo oscuro
+    if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+        document.body.classList.add('dark-mode');
+        updateDarkModeIcon(true);
+    }
+    
+    // Agregar evento al botón de cambio
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', function() {
+            const isDarkMode = document.body.classList.toggle('dark-mode');
+            
+            // Guardar preferencia en localStorage
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            
+            // Actualizar el icono
+            updateDarkModeIcon(isDarkMode);
+        });
+    }
+}
+
+/**
+ * Actualiza el icono del botón de modo oscuro
+ */
+function updateDarkModeIcon(isDarkMode) {
+    const toggleButtons = document.querySelectorAll('#darkModeToggle i');
+    
+    toggleButtons.forEach(icon => {
+        if (isDarkMode) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
     });
 }
 

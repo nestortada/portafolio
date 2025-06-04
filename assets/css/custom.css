@@ -738,6 +738,30 @@ body.dark-mode #appModal .app-iframe-section {
   background-color: #333;
 }
 
+/* Mejoras adicionales para los modales en modo oscuro */
+body.dark-mode #pdfModal .modal-content,
+body.dark-mode #pdfModal1 .modal-content,
+body.dark-mode #informeSimulacionModal .modal-content {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+}
+
+body.dark-mode .modal-close {
+  background: #e74c3c;
+  color: white;
+  border: 2px solid #ddd;
+}
+
+body.dark-mode .modal-close:hover {
+  background: #c0392b;
+}
+
+/* Ajustes para asegurar que los iframes de PDFs sean legibles en modo oscuro */
+body.dark-mode iframe {
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(255,255,255,0.1);
+}
+
 /* Transición suave al cambiar de modo */
 body, body * {
   transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;

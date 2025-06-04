@@ -394,6 +394,118 @@ body {
   transform: rotate(90deg);
 }
 
+/* Estilos específicos para el modal de aplicación web */
+#appModal .modal-content {
+  display: flex;
+  flex-direction: row;
+}
+
+#appModal .credentials-section {
+  width: 300px;
+  background: #f8f9fa;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 10px 0 0 10px;
+}
+
+#appModal .app-iframe-section {
+  flex: 1;
+  position: relative;
+  border-radius: 0 10px 10px 0;
+  overflow: hidden;
+}
+
+#appModal .phone-container {
+  width: 380px;
+  height: 800px;
+  margin: 0 auto;
+  border: 10px solid #121212;
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  transform: scale(0.66);
+  transform-origin: top center;
+}
+
+#appModal .phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 30px;
+  background: #121212;
+  border-radius: 0 0 15px 15px;
+  z-index: 10;
+}
+
+/* Responsive para móviles de 480px o menos */
+@media screen and (max-width: 480px) {
+  #appModal .modal-content {
+    flex-direction: column !important;
+    width: 95% !important;
+    height: 100% !important;
+    max-height: 90vh;
+    overflow-y: auto;
+    margin-top: 20px !important;
+  }
+  
+  #appModal .credentials-section {
+    width: 100% !important;
+    border-radius: 10px 10px 0 0 !important;
+    padding: 15px !important;
+    min-height: auto;
+  }
+  
+  #appModal .credentials-section h3 {
+    display: none;
+  }
+  
+  #appModal .credentials-section div {
+    margin-bottom: 20px !important;
+  }
+  
+  #appModal .credentials-section p {
+    margin-bottom: 8px !important;
+    font-size: 0.9em !important;
+  }
+  
+  #appModal .app-iframe-section {
+    width: 100% !important;
+    height: 400px !important;
+    border-radius: 0 0 10px 10px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+  }
+  
+  #appModal .phone-container {
+    width: 75% !important;
+    height: 100% !important;
+    transform: scale(1) !important;
+    border-width: 5px !important;
+    border-radius: 20px !important;
+  }
+  
+  #appModal .phone-notch {
+    width: 80px !important;
+    height: 20px !important;
+    border-radius: 0 0 10px 10px !important;
+  }
+  
+  #appModal .modal-close {
+    top: 10px !important;
+    right: 10px !important;
+    width: 35px !important;
+    height: 35px !important;
+    font-size: 16px !important;
+  }
+}
+
 /* Botones mejorados */
 .button {
   transition: background-color var(--transition-speed), color var(--transition-speed), transform var(--transition-speed);

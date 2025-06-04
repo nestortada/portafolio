@@ -1,27 +1,34 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Nestor Andres Portafolio</title>
-		<meta charset="utf-8" />
+		<title>Nestor Andres Portafolio</title>		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<style>
-			/* Modal styles */
+		<link rel="stylesheet" href="assets/css/custom.css" />		<style>			/* Modal styles */
 			.modal {
 				display: none;
 				position: fixed;
-				top: -4%;
+				top: 0;
 				left: 0;
 				width: 100%;
-				height: 104%;
+				height: 100%;
 				background: rgba(0, 0, 0, 0.8);
 				justify-content: center;
 				align-items: center;
 				z-index: 1000;
+				padding: 20px;
+				box-sizing: border-box;
+				backdrop-filter: blur(5px);
 			}
 
 			.modal.active {
 				display: flex;
+				animation: fadeIn 0.3s ease-out forwards;
+			}
+
+			@keyframes fadeIn {
+				from { opacity: 0; }
+				to { opacity: 1; }
 			}
 
 			.modal-content {
@@ -31,29 +38,45 @@
 				background: transparent;
 				border-radius: 10px;
 				overflow: hidden;
+				box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+				transform: scale(0.95);
+				transition: transform 0.3s ease-out;
+			}
+
+			.modal.active .modal-content {
+				transform: scale(1);
 			}
 
 			.modal-content iframe {
 				width: 100%;
 				height: 100%;
 				border: none;
+				display: block;
 			}
 
 			.modal-close {
-				top: 10px;
-				right: 10px;
-				background: transparent;
+				background: #e74c3c;
 				color: white;
-				border: none;
+				border: 2px solid white;
 				border-radius: 50%;
-				width: 30px;
-				height: 30px;
+				width: 40px;
+				height: 40px;
 				font-size: 18px;
-				cursor: pointer	;
+				cursor: pointer;
+				position: absolute;
+				top: 15px;
+				right: 15px;
+				z-index: 1001;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+				transition: all 0.3s ease;
 			}
 
 			.modal-close:hover {
-				background: transparent;
+				background: #c0392b;
+				transform: rotate(90deg);
 			}
 		</style>
 	</head>
@@ -122,17 +145,175 @@
 			</section>
 
 			<!-- Main -->
-			<div id="main">
-				<article class="post">
+			<div id="main">				<article class="post project-card">
+					<header>
+						<div class="title">
+							<h2><a href="https://github.com/nestortada/Shopping-Application-Web/tree/main">
+								Aplicación Web para Puntos de Venta</a></h2>
+							<div class="project-tags">
+								<span class="project-tag">React.js</span>
+								<span class="project-tag">Node.js</span>
+								<span class="project-tag">MongoDB</span>
+								<span class="project-tag">Firebase</span>
+							</div>
+							<p>Plataforma fullstack para gestionar inventarios y pedidos en puntos de venta universitarios,
+								 con React.js, Node.js, MongoDB, Tailwind CSS, Firebase y Socket.io.</p>
+						</div>
+						<div class="meta">
+							<time class="published" datetime="2024-11-21">Mayo 18, 2025</time>
+							<div class="author">
+									
+									Nestor Tabares<br>
+									Juan Felipe Abella
+							</div>
+						</div>									
+					</header>
+					<a href="https://github.com/nestortada/Shopping-Application-Web/tree/main" class="image featured">
+						<img src="images\DesarrolloWeb.jpeg" alt="Aplicación Web para Puntos de Venta" />
+						<div class="image-overlay">
+							<div class="overlay-content">Ver en GitHub</div>
+						</div>
+					</a>
+					<div class="project-description">
+						<p>El proyecto tiene como objetivo mejorar la experiencia de compra y la eficiencia 
+							operativa en los puntos de venta de alimentos y bebidas de una universidad. 
+							La solución permite a los usuarios consultar en tiempo real la disponibilidad de 
+							productos, sus precios y tiempos de espera aproximados, eliminando las filas y 
+							aumentando la satisfacción de los clientes.</p>
+						
+						<div class="key-points">
+							<h4>Características principales:</h4>
+							<ul>
+								<li>Autenticación segura con JWT y cifrado de contraseñas con bcrypt</li>
+								<li>Arquitectura fullstack moderna con React.js y Node.js</li>
+								<li>Diseño responsivo y accesible con Tailwind CSS</li>
+								<li>Sincronización en tiempo real con Socket.io</li>
+								<li>Sistema de notificaciones con Firebase</li>
+							</ul>
+						</div>
+					</div>
+					<footer>
+						<ul class="actions">
+							<li><a href="https://github.com/nestortada/Shopping-Application-Web/tree/main" class="button large">Saber más sobre este proyecto</a></li>
+							<li><a class="button large" id="verAplicacion">Ver aplicación</a></li>
+						</ul>
+					</footer>				</article><!-- Modal para la aplicación web -->				<div id="appModal" class="modal">
+					<div class="modal-content" style="display: flex; flex-direction: row; width: 90%; height: 85%; max-width: 1100px; background: #ffffff; margin-top: 50px;">
+						<div style="width: 300px; background: #f8f9fa; padding: 20px; display: flex; flex-direction: column; justify-content: center; border-radius: 10px 0 0 10px;">
+							<h3 style="margin-bottom: 20px; text-align: center;">Credenciales de acceso</h3>
+							<div style="margin-bottom: 30px;">
+								<p style="margin-bottom: 10px;"><strong>Usuario POS:</strong></p>
+								<p style="margin-bottom: 5px;">Email: meson@sabanapos.edu.co</p>
+								<p>Contraseña: meson12345678</p>
+							</div>
+							<div>
+								<p style="margin-bottom: 10px;"><strong>Usuario Cliente:</strong></p>
+								<p style="margin-bottom: 5px;">Email: nestortada@unisabana.edu.co</p>
+								<p>Contraseña: 12345678</p>
+							</div>
+						</div>
+						<div style="flex: 1; position: relative; border-radius: 0 10px 10px 0; overflow: hidden;">							<button class="modal-close" id="closeAppModal" style="position: absolute; top: 20px; right: 20px; z-index: 1001; color: white; background: #e74c3c; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; font-size: 20px; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);">X</button>
+							<div style="width: 380px; height: 800px; margin: 0 auto; border: 10px solid #121212; border-radius: 30px; overflow: hidden; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.3); transform: scale(0.66); transform-origin: top center;">
+								<!-- Pixel 7 Top Notch -->
+								<div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 30px; background: #121212; border-radius: 0 0 15px 15px; z-index: 10;"></div>
+								<iframe src="https://shopping-application-web.vercel.app/" style="width: 100%; height: 100%; border: none;"></iframe>
+							</div>
+						</div>
+					</div>				</div>
+				
+				<!-- Modal para el video de simulación -->
+				<div id="videoSimulacionModal" class="modal">
+					<div class="modal-content" style="width: 80%; max-width: 800px; background: transparent;">
+						<button class="modal-close" id="closeVideoSimulacionModal" style="position: absolute; top: 20px; right: 20px; z-index: 1001; color: white; background: #e74c3c; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; font-size: 20px; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);">X</button>
+						<video id="videoSimulacionPlayer" width="100%" height="auto" controls>
+							<source src="Documentos/Simulacion.mp4" type="video/mp4">
+						</video>
+					</div>
+				</div>
+				
+				<!-- Modal para el informe de simulación -->
+				<div id="informeSimulacionModal" class="modal">
+					<div class="modal-content" style="width: 90%; height: 90%; max-width: 1000px;">
+						<button class="modal-close" id="closeInformeSimulacionModal" style="position: absolute; top: 20px; right: 20px; z-index: 1001; color: white; background: #e74c3c; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; font-size: 20px; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);">X</button>
+						<iframe src="Documentos/Simulacion.pdf" style="width: 100%; height: 100%; border: none;"></iframe>
+					</div>
+				</div>
+						<!-- Post -->
+				<article class="post project-card">
+					<header>
+						<div class="title">
+							<h2><a href="https://github.com/nestortada/Simulacion/blob/main/(1843)%20Proyecto%203%20-%20Industriales_%26_Asociados/(1843)%20Proyecto%203%E2%80%93%20Industriales_%26_Asociados-ModeloSituaci%C3%B3nActualFindeSemana.doe">
+								Modelo de Simulación para Heladería</a></h2>
+							<div class="project-tags">
+								<span class="project-tag">Simulación</span>
+								<span class="project-tag">Arena</span>
+								<span class="project-tag">Análisis Estadístico</span>
+							</div>
+							<p>Proyecto de simulación de eventos discretos para una heladería, 
+								realizado en Arena con análisis estadístico, validación y 
+								optimización de recursos.</p>
+						</div>
+						<div class="meta">
+							<time class="published" datetime="2024-11-21">Noviembre 21, 2024</time>
+							<div class="author">
+									
+									Nestor Tabares<br>
+									Catalina Castro<br>
+									Sara Lopez<br>
+									Sebastián Rodríguez<br>
+									Nicolas Cáceres <br>
+									Mauricio Valderrama
+							</div>
+						</div>									
+					</header>
+					<a href="https://github.com/nestortada/Simulacion/blob/main/(1843)%20Proyecto%203%20-%20Industriales_%26_Asociados/(1843)%20Proyecto%203%E2%80%93%20Industriales_%26_Asociados-ModeloSituaci%C3%B3nActualFindeSemana.doe" class="image featured">
+						<img src="images\Heladeria.png" alt="Modelo de simulación de heladería" />
+						<div class="image-overlay">
+							<div class="overlay-content">Ver en GitHub</div>
+						</div>
+					</a>
+					<div class="project-description">
+						<p>Este proyecto tiene como objetivo analizar y 
+							optimizar el funcionamiento de la heladería Crepes & Waffles ubicada en el centro 
+							comercial Centro Chía, utilizando un modelo de simulación de eventos discretos. 
+							A través de la metodología propuesta por Robinson y validaciones estadísticas 
+							como ANOVA y Tukey HSD, se construyó un modelo conceptual y se implementó en Arena.</p>
+						
+						<div class="key-points">
+							<h4>Aspectos destacados:</h4>
+							<ul>
+								<li>Análisis de colas, tiempos de espera y utilización de recursos</li>
+								<li>Identificación de cuellos de botella</li>
+								<li>Propuestas de mejora en asignación de personal</li>
+								<li>Evaluación de políticas para mejorar la experiencia del cliente</li>
+							</ul>
+						</div>
+					</div>
+					<footer>
+						<ul class="actions">
+							<li><a href="https://github.com/nestortada/Simulacion/blob/main/(1843)%20Proyecto%203%20-%20Industriales_%26_Asociados/(1843)%20Proyecto%203%E2%80%93%20Industriales_%26_Asociados-ModeloSituaci%C3%B3nActualFindeSemana.doe" class="button large">Saber más sobre este proyecto</a></li>
+							<li><a class="button large" id="verVideoSimulacion">Ver video</a></li>
+							<li><a class="button large" id="verInformeSimulacion">Ver informe</a></li>
+						</ul>
+					</footer>
+				</article>				 <!-- Post -->
+				 <article class="post project-card">
 					<header>
 						<div class="title">
 							<h2><a href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Proyecto/Programacion/Optimizar.py">Optimización de empresa</a></h2>
+							<div class="project-tags">
+								<span class="project-tag">Python</span>
+								<span class="project-tag">PuLP</span>
+								<span class="project-tag">Optimización</span>
+								<span class="project-tag">Análisis</span>
+							</div>
 							<p>Implementa un modelo de optimización basado en la biblioteca PuLP de Python para maximizar la eficiencia en la fabricación 
 								y distribución de productos.</p>
 						</div>
 						<div class="meta">
 							<time class="published" datetime="2024-11-21">Noviembre 21, 2024</time>
 							<div class="author">
+									
 									Nestor Tabares<br>
 									Catalina Castro<br>
 									Gabriella Espitia<br>
@@ -140,80 +321,33 @@
 							</div>
 						</div>									
 					</header>
-					<a href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Proyecto/Programacion/Optimizar.py" class="image featured"><img src="images\optimizacion_analitica.jpg" alt="" /></a>
-					<p>El proyecto se centra en identificar y mejorar los procesos clave de la empresa
-						con el objetivo de maximizar la eficiencia operativa, reducir costos y aumentar la productividad. Mediante un análisis exhaustivo de 
-						las operaciones internas, se detectaron oportunidades de mejora en áreas críticas como la logística, la producción y la atención al cliente. A 
-						través de un enfoque de programación lineal, se analizaron variables como costos de producción, almacenamiento, transporte y tiempos de entrega.
-						 El modelo desarrollado identifica la mejor configuración posible para minimizar costos, cumplir con la demanda y optimizar el uso de recursos. 
-						 Este sistema permite a la empresa tomar decisiones estratégicas basadas en datos, mejorando la sostenibilidad operativa y garantizando un 
-						 servicio al cliente más ágil y eficiente.</p>
+					<a href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Proyecto/Programacion/Optimizar.py" class="image featured">
+						<img src="images\optimizacion_analitica.jpg" alt="Optimización de empresa" />
+						<div class="image-overlay">
+							<div class="overlay-content">Ver en GitHub</div>
+						</div>
+					</a>
+					<div class="project-description">
+						<p>El proyecto se centra en identificar y mejorar los procesos clave de la empresa
+							con el objetivo de maximizar la eficiencia operativa, reducir costos y aumentar la productividad. Mediante un análisis exhaustivo de 
+							las operaciones internas, se detectaron oportunidades de mejora en áreas críticas.</p>
+						
+						<div class="key-points">
+							<h4>Aspectos destacados:</h4>
+							<ul>
+								<li>Análisis de variables como costos de producción, almacenamiento y transporte</li>
+								<li>Desarrollo de un modelo de programación lineal para minimizar costos</li>
+								<li>Optimización del uso de recursos y cumplimiento de la demanda</li>
+								<li>Implementación de un sistema de toma de decisiones basado en datos</li>
+							</ul>
+						</div>
+					</div>
 					<footer>
 						<ul class="actions">
 							<li><a href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Proyecto/Programacion/Optimizar.py" class="button large">Saber más sobre este proyecto</a></li>
 						</ul>
 					</footer>
 				</article>
-
-				<!-- Post -->
-				<article class="post">
-					<header>
-						<div class="title">
-							<h2><a href="https://github.com/nestortada/Procesos_estocasticos/blob/main/Proyecto%202/Divisas_parte2.ipynb">Predicción de divisas</a></h2>
-							<p>Utiliza cadenas de Markov para modelar el comportamiento de divisas, analizando transiciones, distribuciones estacionarias y predicciones.</p>
-						</div>
-						<div class="meta">
-							<time class="published" datetime="2024-09-24">Septiembre 24, 2024</time>
-							<div class="author">											  
-								Nestor Tabares<br>
-								Nicolas Caceres<br>
-								Juan David Lasso<br>
-								Isabella Endara
-						</div>
-					</header>
-					<a href="https://github.com/nestortada/Procesos_estocasticos/blob/main/Proyecto%202/Divisas_parte2.ipynb" class="image featured"><img src="images/divisas.jpg" alt="" /></a>
-					<p>El estudio aplicó cadenas de Markov para modelar y analizar el comportamiento del mercado de divisas entre el peso colombiano y cuatro monedas internacionales:
-                         Yen Japonés (JPY), Libra Esterlina (GBP), Franco Suizo (CHF) y Peso Mexicano (MXN). Los datos se obtuvieron del Banco de la República, abarcando un período
-                          de cuatro años. El análisis incluyó procesos de limpieza y transformación de datos, definiendo estados de mercado basados en cambios porcentuales diarios y 
-                          volatilidad reciente. Finalmente, se desarrollaron algoritmos para estimar precios futuros basados en trayectorias aleatorias y distribuciones estacionarias.</p>
-					<footer>
-						<ul class="actions">
-							<li><a href="https://github.com/nestortada/Procesos_estocasticos/blob/main/Proyecto%202/Divisas_parte2.ipynb" class="button large">Saber más sobre este proyecto</a></li>
-							<li><button id="openModal" class="button large">Informe del proyecto</button></li>
-						</ul>
-					</footer>
-				</article>
-
-				<!-- Post -->
-				<article class="post">
-					<header>
-						<div class="title">
-							<h2><a href="https://github.com/nestortada/Programaci-n-Avanzada/blob/main/AdmonCentroAdultos/Principall.py">Plataforma de Centro de Adultos Mayores </a></h2>
-							<p>Plataforma para la gestión de Centros para Adultos Mayores, integrando una base de datos en SQL y una interfaz gráfica en Python.</p>
-						</div>
-						<div class="meta">
-							<time class="published" datetime="2015-10-22">October 22, 2015</time>
-							<div class="author">
-								Nestor Tabares<br>
-								Juan David Lasso
-						</div>
-					</header>
-					<a href="https://github.com/nestortada/Programaci-n-Avanzada/blob/main/AdmonCentroAdultos/Principall.py" class="image featured"><img src="images\Ancianato.jpg" alt="" /></a>
-					<p>Este proyecto busca centralizar y mejorar la administración de centros para adultos mayores, permitiendo gestionar datos clave de los usuarios, actividades
-						 y centros. La solución incluye funcionalidades para registrar adultos mayores con información detallada (edad, salud y contactos), 
-						 organizar actividades atractivas y realizar consultas avanzadas. Estas consultas permiten generar reportes como listados de inscritos, 
-						 calificaciones de actividades y cronogramas futuros. Implementada con un modelo de tres capas, la plataforma asegura operaciones CRUD eficientes y una 
-						 interfaz gráfica intuitiva, facilitando la toma de decisiones para los administradores. La solución fue diseñada con énfasis en usabilidad, rendimiento y 
-						 adecuación a las necesidades del sistema.</p>
-					<footer>
-						<ul class="actions">
-							<li><a href="https://github.com/nestortada/Programaci-n-Avanzada/blob/main/AdmonCentroAdultos/Principall.py" class="button large">Saber más sobre este proyecto</a></li>
-                            <li><a class="button large" onclick="ejecutarProyecto()">Ejecutar Proyecto</a></li>
-
-						</ul>
-					</footer>
-				</article>
-
 			</div>
 
 			<!-- Modal -->
@@ -232,26 +366,57 @@
 						<h2>Portafolio</h2>
 						<p>Nestor Andres Tabares David</p>
 					</header>
-				</section>
-
-				<section class="blurb">
+				</section>				<section class="blurb">
 					<h2>Conoceme</h2>
-					<p>Estudiante de doble programa de Ingeniería Industrial e informática cursando 6to 
-						semestre participando en el 
-						<a href="https://www.unisabana.edu.co/experiencia-bienestar/crea/">CREA</a> siendo 
-						<a href="https://www.unisabana.edu.co/experiencia-bienestar/crea/talleres-para-el-exito-academico/?L=0">tallerista</a>,
-						<a href="https://www.unisabana.edu.co/experiencia-bienestar/crea/grupos-de-estudio/?L=0">lider de grupo</a>
-						y <a href="https://www.unisabana.edu.co/programa-aprendamos-a-trabajar-pat/">PAT</a>.
-						En el PAT 
-						ayudo en la gestión, optimización y mejora de la base de datos, especificamente en el 
-						area deportiva. Ademas de ser 
-						<a href="https://www.unisabana.edu.co/fileadmin/Archivos_de_usuario/Documentos/Documentos_Programas/Documentos_Pregrado/Derecho/Acreditacion_2022_derecho/Anexo_31._Reglamento_Monitores.pdf#:~:text=Se%20entiende%20por%20monitor%2C%20al%20estudiante%20activo%20y,Comisi%C3%B3n%20de%20Facultad%2C%20Instituto%20o%20Unidad%20Acad%C3%A9mica%20equivalente.">monitor</a> 
-						en procesos estocasticos. Manejo del Idioma 
-						Inglés; experiencia en el área Administrativa en 
-						el análisis y creación de bases de datos en Excel, Rstudio y MiniTab con conocimientos 
-						básicos de programación en Java, Python , SQL y git y además de otros conocimientos como en CAD e Inventor. Persona con Actitud de liderazgo, 
-						Capacidad analítica y solución de problemas; orientación a la acción y al 
-						resultado.</p>
+					<div class="bio-content">
+						<div class="bio-intro">
+							<p><strong>Nestor Andres Tabares David</strong>- Estudiante de la Universidad de La Sabana en doble programa en Ingeniería Industrial e Informática, 
+							actualmente cursando séptimo semestre con enfasis en análitica de datos .</p>
+						</div>
+						<div class="bio-skills">
+							<h3>Habilidades destacadas</h3>
+							<ul class="skill-list">
+								<li><span class="skill-tag">Programación</span> Python, Java, SQL, Git, HTML, JavaScript, CSS</li>
+								<li><span class="skill-tag">Desarrollo Web</span> React, Node.js</li>
+								<li><span class="skill-tag">Análisis de datos</span> Excel, Rstudio, MiniTab</li>
+								<li><span class="skill-tag">Diseño</span> CAD, Inventor</li>
+								<li><span class="skill-tag">Idiomas</span> Español (nativo), Inglés</li>
+								<li><span class="skill-tag">Otras</span> Arena</li>
+							</ul>
+						</div>
+						<div class="bio-experience">
+							<h3>Experiencia académica</h3>
+							<p>Participo activamente en el <strong>CREA</strong> como 
+							<strong>tallerista</strong> y
+							<strong>líder de grupo</strong>.
+							También colaboro en el <strong>PAT</strong> 
+							(Programa Aprendamos a Trabajar) donde apoyo en la gestión y optimización de bases de datos del área deportiva. Y además en sexto semestre fuí monitor de procesos estocásticos.</p>
+						</div>
+						<div class="bio-strengths">
+							<h3>Fortalezas personales</h3>
+							<div class="strengths-container">
+								<div class="strength-item">
+									<span class="strength-icon">🎯</span>
+									<span class="strength-text">Liderazgo</span>
+								</div>
+								<div class="strength-item">
+									<span class="strength-icon">🧠</span>
+									<span class="strength-text">Capacidad analítica</span>
+								</div>
+								<div class="strength-item">
+									<span class="strength-icon">⚡</span>
+									<span class="strength-text">Orientación a resultados</span>
+								</div>
+								<div class="strength-item">
+									<span class="strength-icon">🔍</span>
+									<span class="strength-text">Resolución de problemas</span>
+								</div>
+							</div>
+							<div class="bio-additional-info">
+								<p>Comprometido con la excelencia académica y el desarrollo profesional continuo. Aplicando conocimientos interdisciplinarios para resolver problemas complejos con un enfoque analítico y metódico.</p>
+							</div>
+						</div>
+					</div>
 				</section>
 
 				<section>
@@ -395,12 +560,12 @@
 				videoPlayer.currentTime = 0;
 			}
 		</script>
-		<!-- Scripts -->
-		<script src="assets/js/jquery.min.js"></script>
+		<!-- Scripts -->		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/browser.min.js"></script>
 		<script src="assets/js/breakpoints.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
+		<script src="assets/js/custom.js"></script>
 
 		<script>
 			// Seleccionar elementos
@@ -420,50 +585,53 @@
 		</script>
 
 		<script>
+			// Modal para la aplicación web
+			const verAplicacion = document.getElementById('verAplicacion');
+			const closeAppModal = document.getElementById('closeAppModal');
+			const appModal = document.getElementById('appModal');
 
-			const openModal1 = document.getElementById('openModal1');
-			const closeModal1 = document.getElementById('closeModal1');
-			const pdfModal1 = document.getElementById('pdfModal1');
-
-			openModal1.addEventListener('click', () => {
-				pdfModal1.classList.add('active');
-			});
-
-			closeModal1.addEventListener('click', () => {
-				pdfModal1.classList.remove('active');
+			// Abrir el modal de la aplicación
+			verAplicacion.addEventListener('click', () => {
+				appModal.classList.add('active');
+			});			// Cerrar el modal de la aplicación
+			closeAppModal.addEventListener('click', () => {
+				appModal.classList.remove('active');
 			});
 		</script>
 
-        <!-- Scripts  de python-->
+		<script>
+			// Modal para el video de simulación
+			const verVideoSimulacion = document.getElementById('verVideoSimulacion');
+			const closeVideoSimulacionModal = document.getElementById('closeVideoSimulacionModal');
+			const videoSimulacionModal = document.getElementById('videoSimulacionModal');
+			const videoSimulacionPlayer = document.getElementById('videoSimulacionPlayer');
 
-        <script>
-            // Función para enviar una solicitud POST al servidor
-            function ejecutarProyecto() {
-                fetch('http://localhost:5000/execute', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        accion: 'ejecutar'
-                    })
-                })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error('Error al ejecutar el proyecto.');
-                    }
-                })
-                .then(data => {
-                    console.log('Respuesta del servidor:', data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            }
-        </script>
+			// Abrir el modal del video
+			verVideoSimulacion.addEventListener('click', () => {
+				videoSimulacionModal.classList.add('active');
+			});
 
+			// Cerrar el modal del video
+			closeVideoSimulacionModal.addEventListener('click', () => {
+				videoSimulacionModal.classList.remove('active');
+				videoSimulacionPlayer.pause();
+				videoSimulacionPlayer.currentTime = 0;
+			});
 
+			// Modal para el informe de simulación
+			const verInformeSimulacion = document.getElementById('verInformeSimulacion');
+			const closeInformeSimulacionModal = document.getElementById('closeInformeSimulacionModal');
+			const informeSimulacionModal = document.getElementById('informeSimulacionModal');
+
+			// Abrir el modal del informe
+			verInformeSimulacion.addEventListener('click', () => {
+				informeSimulacionModal.classList.add('active');
+			});
+
+			// Cerrar el modal del informe
+			closeInformeSimulacionModal.addEventListener('click', () => {
+				informeSimulacionModal.classList.remove('active');
+			});
+		</script>
 	</body>
 </html>

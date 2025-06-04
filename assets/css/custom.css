@@ -1,0 +1,514 @@
+/* Mejoras para las tarjetas de proyectos */
+.project-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 25px 0 30px; /* Aumentado el margen inferior */
+}
+
+.project-tag {
+  background: var(--primary-color);
+  color: white;
+  padding: 4px 10px;
+  font-size: 0.8em;
+  border-radius: 20px;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.image.featured {
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+  margin: 15px;
+  max-height: 400px; /* Limitar la altura de las imágenes */
+}
+
+.image.featured img {
+  transition: transform 0.5s ease;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-height: 380px; /* Hacer las imágenes más pequeñas */
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image.featured:hover .image-overlay {
+  opacity: 1;
+}
+
+.image.featured:hover img {
+  transform: scale(1.08);
+}
+
+.overlay-content {
+  font-weight: 700;
+  padding: 10px 20px;
+  border: 2px solid white;
+  border-radius: 5px;
+  background: rgba(0,0,0,0.4);
+  transition: background 0.3s ease;
+}
+
+.overlay-content:hover {
+  background: rgba(52, 152, 219, 0.7);
+}
+
+.project-description {
+  padding: 0 20px;
+}
+
+.project-description p {
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+.key-points {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 15px 0;
+}
+
+.key-points h4 {
+  margin-bottom: 10px;
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+.key-points ul {
+  padding-left: 20px;
+}
+
+.key-points li {
+  margin-bottom: 5px;
+  line-height: 1.5;
+}
+
+.author-title {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+  color: var(--secondary-color);
+}
+
+.actions {
+  padding: 0 20px 20px;
+}
+
+@media screen and (max-width: 736px) {
+  .project-tags {
+    flex-wrap: wrap;
+  }
+  
+  .actions {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .actions li {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  .actions .button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Mejoras de diseño y responsividad para el portafolio */
+
+/* Estilos generales y variables */
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --accent-color: #e74c3c;
+  --text-color: #333;
+  --light-bg: #f8f9fa;
+  --dark-bg: #212529;
+  --transition-speed: 0.3s;
+  --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Mejoras generales */
+body {
+  scroll-behavior: smooth;
+}
+
+/* Mejora de las tarjetas de proyectos */
+.post {
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.post:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow);
+}
+
+.post .image.featured img {
+  transition: transform var(--transition-speed);
+}
+
+.post:hover .image.featured img {
+  transform: scale(1.05);
+}
+
+.post .title h2 a {
+  transition: color var(--transition-speed);
+}
+
+.post .title h2 a:hover {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Mejora de la sección "Conóceme" */
+.blurb {
+  padding: 1.5rem;
+  background: var(--light-bg);
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.blurb:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow);
+}
+
+.blurb h2 {
+  position: relative;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  color: var(--secondary-color);
+  font-weight: 700;
+}
+
+.blurb h2:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: var(--primary-color);
+  transition: width var(--transition-speed);
+}
+
+.blurb:hover h2:after {
+  width: 100px;
+}
+
+/* Nuevos estilos para la biografía mejorada */
+.bio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.bio-intro {
+  font-size: 1.1em;
+  line-height: 1.6;
+  border-left: 3px solid var(--primary-color);
+  padding-left: 1rem;
+}
+
+.bio-skills h3, .bio-experience h3, .bio-strengths h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+.skill-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0.75rem;
+}
+
+.skill-list li {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  padding: 0.75rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform var(--transition-speed);
+}
+
+.skill-list li:hover {
+  transform: translateY(-3px);
+}
+
+.skill-tag {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 0.25rem;
+  font-size: 0.9em;
+}
+
+.bio-experience p {
+  line-height: 1.6;
+}
+
+.bio-experience strong {
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+.bio-strengths {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+}
+
+.strengths-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem; /* Espacio adicional después del contenedor de fortalezas */
+}
+
+.strength-item {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform var(--transition-speed), background-color var(--transition-speed);
+}
+
+.bio-additional-info {
+  background-color: #f5f9ff;
+  padding: 1rem;
+  border-left: 3px solid var(--primary-color);
+  border-radius: 0 5px 5px 0;
+  margin-top: 1rem;
+}
+
+.bio-additional-info p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--secondary-color);
+}
+
+.strength-item:hover {
+  transform: translateY(-3px);
+  background-color: #f0f8ff;
+}
+
+.strength-icon {
+  font-size: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+.strength-text {
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+/* Mini posts y posts de la barra lateral */
+.mini-post {
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.mini-post:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--box-shadow);
+}
+
+.posts article {
+  transition: transform var(--transition-speed), background-color var(--transition-speed);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 0.5rem;
+}
+
+.posts article:hover {
+  transform: translateY(-3px);
+  background-color: var(--light-bg);
+}
+
+/* Mejoras para los modales */
+.modal {
+  transition: opacity var(--transition-speed);
+  opacity: 0;
+}
+
+.modal.active {
+  opacity: 1;
+  display: flex;
+}
+
+.modal-content {
+  transform: scale(0.9);
+  transition: transform var(--transition-speed);
+}
+
+.modal.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-close {
+  transition: background-color var(--transition-speed), transform var(--transition-speed);
+}
+
+.modal-close:hover {
+  transform: rotate(90deg);
+}
+
+/* Botones mejorados */
+.button {
+  transition: background-color var(--transition-speed), color var(--transition-speed), transform var(--transition-speed);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button.large:hover {
+  transform: translateY(-3px);
+}
+
+/* Mejoras para los iconos de redes sociales */
+#footer .icons a {
+  transition: transform var(--transition-speed), color var(--transition-speed);
+}
+
+#footer .icons a:hover {
+  transform: scale(1.2);
+}
+
+/* Mejoras responsivas adicionales */
+@media screen and (max-width: 980px) {
+  .post {
+    margin-bottom: 1.5rem;
+  }
+  
+  #sidebar {
+    padding: 1.5rem;
+  }
+  
+  .skill-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media screen and (max-width: 736px) {
+  .post .title h2 {
+    font-size: 1.5rem;
+  }
+  
+  .modal-content {
+    width: 95% !important;
+    height: auto !important;
+  }
+  
+  #sidebar {
+    padding: 1rem;
+  }
+  
+  .blurb {
+    padding: 1rem;
+  }
+  
+  .skill-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .strengths-container {
+    flex-direction: column;
+  }
+  
+  .strength-item {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .post .meta {
+    flex-direction: column;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+  
+  .actions li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .button.large {
+    width: 100%;
+    text-align: center;
+  }
+  
+  #sidebar .mini-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.5rem;
+  }
+}
+
+/* Animación de entrada al cargar la página */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.post, .blurb, .mini-post, .posts article {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.post:nth-child(1) { animation-delay: 0.1s; }
+.post:nth-child(2) { animation-delay: 0.2s; }
+.post:nth-child(3) { animation-delay: 0.3s; }
+.blurb { animation-delay: 0.4s; }
+.mini-post:nth-child(1) { animation-delay: 0.5s; }
+.mini-post:nth-child(2) { animation-delay: 0.6s; }
+.mini-post:nth-child(3) { animation-delay: 0.7s; }
+.mini-post:nth-child(4) { animation-delay: 0.8s; }

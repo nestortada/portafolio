@@ -566,6 +566,249 @@
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
 		<script src="assets/js/custom.js"></script>
+		<!-- Enhanced Search Functionality -->
+		<script>
+			// Search keywords mapping to GitHub links
+			const searchKeywords = {
+				"portafolio": "https://github.com/nestortada/portafolio",
+				"machine learning": "https://github.com/nestortada/MACHINE-LEARNING-Clase",
+				"etl": "https://github.com/nestortada/ETL",
+				"desarrollo web": "https://github.com/nestortada/DesarrolloWeb",
+				"simulación": "https://github.com/nestortada/Simulacion",
+				"simulacion": "https://github.com/nestortada/Simulacion",
+				"aplicación web": "https://github.com/nestortada/Shopping-Application-Web",
+				"aplicacion web": "https://github.com/nestortada/Shopping-Application-Web",
+				"diseño de producto": "https://github.com/nestortada/dise-o",
+				"diseno de producto": "https://github.com/nestortada/dise-o",
+				"análisis de trabajo": "https://github.com/nestortada/Analisis_Trabajo",
+				"analisis de trabajo": "https://github.com/nestortada/Analisis_Trabajo",
+				"cad": "https://github.com/nestortada/CAD",
+				"ingeniería de métodos": "https://github.com/nestortada/Ingenieria_metodos",
+				"ingenieria de metodos": "https://github.com/nestortada/Ingenieria_metodos",
+				"control estadístico de calidad": "https://github.com/nestortada/Control_Estadistico_calidad",
+				"control estadistico de calidad": "https://github.com/nestortada/Control_Estadistico_calidad",
+				"contabilidad": "https://github.com/nestortada/Contabilidad",
+				"ingeniería económica": "https://github.com/nestortada/Ingenieria_economica",
+				"ingenieria economica": "https://github.com/nestortada/Ingenieria_economica",
+				"programación orientada a objetos": "https://github.com/nestortada/programaci-n_orientada_objetos",
+				"programacion orientada a objetos": "https://github.com/nestortada/programaci-n_orientada_objetos",
+				"procesos estocásticos": "https://github.com/nestortada/Procesos_estocasticos",
+				"procesos estocasticos": "https://github.com/nestortada/Procesos_estocasticos",
+				"programación avanzada": "https://github.com/nestortada/Programaci-n-Avanzada",
+				"programacion avanzada": "https://github.com/nestortada/Programaci-n-Avanzada",
+				"optimización": "https://github.com/nestortada/Optimizacion_analitica",
+				"optimizacion": "https://github.com/nestortada/Optimizacion_analitica",
+				"introducción a la programación": "https://github.com/nestortada/Introduccion-a-la-programacion",
+				"introduccion a la programacion": "https://github.com/nestortada/Introduccion-a-la-programacion",
+				"base de datos": "https://github.com/nestortada/Base-De-Datos",
+				"analítica de datos": "https://github.com/nestortada/Analitica-de-datos",
+				"analitica de datos": "https://github.com/nestortada/Analitica-de-datos"
+			};
+
+			// Function to get search suggestions
+			function getSearchSuggestions(query) {
+				if (!query || query.trim() === '') {
+					return [];
+				}
+
+				const searchTerm = query.toLowerCase().trim();
+				const matches = Object.keys(searchKeywords).filter(key => 
+					key.includes(searchTerm) || searchTerm.includes(key)
+				);
+
+				// Sort by relevance (exact matches first, then by length)
+				matches.sort((a, b) => {
+					if (a === searchTerm) return -1;
+					if (b === searchTerm) return 1;
+					if (a.startsWith(searchTerm)) return -1;
+					if (b.startsWith(searchTerm)) return 1;
+					return a.length - b.length;
+				});
+
+				return matches.slice(0, 3); // Return top 3 matches
+			}
+
+			// Function to create suggestions dropdown
+			function createSuggestionDropdown(input, suggestions) {
+				// Remove existing dropdown
+				const existingDropdown = document.querySelector('.search-suggestions');
+				if (existingDropdown) {
+					existingDropdown.remove();
+				}
+
+				if (suggestions.length === 0) {
+					return;
+				}
+
+				const dropdown = document.createElement('div');
+				dropdown.className = 'search-suggestions';
+				dropdown.style.cssText = `
+					position: absolute;
+					background: white;
+					border: 1px solid #ddd;
+					border-radius: 4px;
+					box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+					z-index: 1000;
+					max-width: 300px;
+					margin-top: 2px;
+					color: #333;
+				`;
+
+				suggestions.forEach((suggestion, index) => {
+					const item = document.createElement('div');
+					item.className = 'suggestion-item';
+					item.textContent = suggestion;
+					item.style.cssText = `
+						padding: 8px 12px;
+						cursor: pointer;
+						border-bottom: ${index < suggestions.length - 1 ? '1px solid #eee' : 'none'};
+						font-size: 14px;
+						transition: background-color 0.2s;
+					`;
+
+					item.addEventListener('mouseenter', () => {
+						item.style.backgroundColor = '#f5f5f5';
+					});
+
+					item.addEventListener('mouseleave', () => {
+						item.style.backgroundColor = 'white';
+					});
+
+					item.addEventListener('click', () => {
+						input.value = suggestion;
+						performSearch(suggestion);
+						dropdown.remove();
+					});
+
+					dropdown.appendChild(item);
+				});
+
+				// Position dropdown
+				const inputRect = input.getBoundingClientRect();
+				dropdown.style.left = inputRect.left + 'px';
+				dropdown.style.top = (inputRect.bottom + window.scrollY) + 'px';
+				dropdown.style.width = inputRect.width + 'px';
+
+				document.body.appendChild(dropdown);
+
+				// Close dropdown when clicking outside
+				const closeDropdown = (e) => {
+					if (!dropdown.contains(e.target) && e.target !== input) {
+						dropdown.remove();
+						document.removeEventListener('click', closeDropdown);
+					}
+				};
+				document.addEventListener('click', closeDropdown);
+			}
+
+			// Function to perform search
+			function performSearch(query) {
+				if (!query || query.trim() === '') {
+					return; // No alert, just return
+				}
+
+				const searchTerm = query.toLowerCase().trim();
+				
+				// Check for exact match
+				if (searchKeywords[searchTerm]) {
+					window.open(searchKeywords[searchTerm], '_blank');
+					return;
+				}
+
+				// Check for partial matches
+				const partialMatches = Object.keys(searchKeywords).filter(key => 
+					key.includes(searchTerm) || searchTerm.includes(key)
+				);
+
+				if (partialMatches.length >= 1) {
+					// Open the first match
+					window.open(searchKeywords[partialMatches[0]], '_blank');
+					return;
+				}
+
+				// No matches found - do nothing (no alert)
+			}			// Initialize search functionality when DOM is loaded
+			document.addEventListener('DOMContentLoaded', function() {
+				// Handle main header search
+				const headerSearchForm = document.querySelector('nav.main form#search');
+				const headerSearchInput = document.querySelector('nav.main form#search input[name="query"]');
+
+				if (headerSearchForm && headerSearchInput) {
+					// Handle input changes for suggestions
+					headerSearchInput.addEventListener('input', function() {
+						const suggestions = getSearchSuggestions(this.value);
+						createSuggestionDropdown(this, suggestions);
+					});
+
+					headerSearchForm.addEventListener('submit', function(e) {
+						e.preventDefault();
+						performSearch(headerSearchInput.value);
+						// Remove suggestions dropdown
+						const dropdown = document.querySelector('.search-suggestions');
+						if (dropdown) dropdown.remove();
+					});
+
+					headerSearchInput.addEventListener('keypress', function(e) {
+						if (e.key === 'Enter') {
+							e.preventDefault();
+							performSearch(this.value);
+							// Remove suggestions dropdown
+							const dropdown = document.querySelector('.search-suggestions');
+							if (dropdown) dropdown.remove();
+						}
+					});
+
+					// Clear suggestions when input loses focus (with delay for clicks)
+					headerSearchInput.addEventListener('blur', function() {
+						setTimeout(() => {
+							const dropdown = document.querySelector('.search-suggestions');
+							if (dropdown) dropdown.remove();
+						}, 200);
+					});
+				}
+
+				// Handle menu search
+				const menuSearchForm = document.querySelector('#menu form.search');
+				const menuSearchInput = document.querySelector('#menu form.search input[name="query"]');
+
+				if (menuSearchForm && menuSearchInput) {
+					// Handle input changes for suggestions
+					menuSearchInput.addEventListener('input', function() {
+						const suggestions = getSearchSuggestions(this.value);
+						createSuggestionDropdown(this, suggestions);
+					});
+
+					menuSearchForm.addEventListener('submit', function(e) {
+						e.preventDefault();
+						performSearch(menuSearchInput.value);
+						// Remove suggestions dropdown
+						const dropdown = document.querySelector('.search-suggestions');
+						if (dropdown) dropdown.remove();
+					});
+
+					menuSearchInput.addEventListener('keypress', function(e) {
+						if (e.key === 'Enter') {
+							e.preventDefault();
+							performSearch(this.value);
+							// Remove suggestions dropdown
+							const dropdown = document.querySelector('.search-suggestions');
+							if (dropdown) dropdown.remove();
+						}
+					});
+
+					// Clear suggestions when input loses focus (with delay for clicks)
+					menuSearchInput.addEventListener('blur', function() {
+						setTimeout(() => {
+							const dropdown = document.querySelector('.search-suggestions');
+							if (dropdown) dropdown.remove();
+						}, 200);
+					});
+				}
+
+				// El comportamiento del icono de búsqueda lo maneja el CSS/JS original
+				// Solo interceptamos el envío del formulario, no el clic del icono
+			});
+		</script>
 
 		<script>
 			// Seleccionar elementos

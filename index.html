@@ -1,648 +1,734 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Nestor Andres Portafolio</title>		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/custom.css" />		<style>			/* Modal styles */
-			.modal {
-				display: none;
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background: rgba(0, 0, 0, 0.8);
-				justify-content: center;
-				align-items: center;
-				z-index: 1000;
-				padding: 20px;
-				box-sizing: border-box;
-				backdrop-filter: blur(5px);
+
+<head>
+	<title>Nestor Andres Portafolio</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/custom.css" />
+	<style>
+		/* Modal styles */
+		.modal {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.8);
+			justify-content: center;
+			align-items: center;
+			z-index: 1000;
+			padding: 20px;
+			box-sizing: border-box;
+			backdrop-filter: blur(5px);
+		}
+
+		.modal.active {
+			display: flex;
+			animation: fadeIn 0.3s ease-out forwards;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
 			}
 
-			.modal.active {
-				display: flex;
-				animation: fadeIn 0.3s ease-out forwards;
+			to {
+				opacity: 1;
 			}
+		}
 
-			@keyframes fadeIn {
-				from { opacity: 0; }
-				to { opacity: 1; }
-			}
+		.modal-content {
+			position: relative;
+			width: 85%;
+			height: 85%;
+			background: transparent;
+			border-radius: 10px;
+			overflow: hidden;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+			transform: scale(0.95);
+			transition: transform 0.3s ease-out;
+		}
 
-			.modal-content {
-				position: relative;
-				width: 85%;
-				height: 85%;
-				background: transparent;
-				border-radius: 10px;
-				overflow: hidden;
-				box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-				transform: scale(0.95);
-				transition: transform 0.3s ease-out;
-			}
+		.modal.active .modal-content {
+			transform: scale(1);
+		}
 
-			.modal.active .modal-content {
-				transform: scale(1);
-			}
+		.modal-content iframe {
+			width: 100%;
+			height: 100%;
+			border: none;
+			display: block;
+		}
 
-			.modal-content iframe {
-				width: 100%;
-				height: 100%;
-				border: none;
-				display: block;
-			}
+		.modal-close {
+			background: #e74c3c;
+			color: white;
+			border: 2px solid white;
+			border-radius: 50%;
+			width: 40px;
+			height: 40px;
+			font-size: 18px;
+			cursor: pointer;
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			z-index: 1001;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+			transition: all 0.3s ease;
+		}
 
-			.modal-close {
-				background: #e74c3c;
-				color: white;
-				border: 2px solid white;
-				border-radius: 50%;
-				width: 40px;
-				height: 40px;
-				font-size: 18px;
-				cursor: pointer;
-				position: absolute;
-				top: 15px;
-				right: 15px;
-				z-index: 1001;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-				transition: all 0.3s ease;
-			}
+		.modal-close:hover {
+			background: #c0392b;
+			transform: rotate(90deg);
+		}
+	</style>
+</head>
 
-			.modal-close:hover {
-				background: #c0392b;
-				transform: rotate(90deg);
-			}
-		</style>
-	</head>
-	<body class="is-preload">
+<body class="is-preload">
 
-		<!-- Wrapper -->
-		<div id="wrapper">
+	<!-- Wrapper -->
+	<div id="wrapper">
 
-			<!-- Header -->
-			<header id="header">
-				<h1><a href="index.html">Pagina principal</a></h1>
-				<nav class="links">
-					<ul>
-						<li><a href="Industrial.html">Ingeniería Industrial</a></li>
-						<li><a href="Informatica.html">Ingeniería Informatica</a></li>
-						<li><a href="Otros.html">Otros Proyectos</a></li>
-					</ul>
-				</nav>				<nav class="main">
-					<ul>
-						<li class="search">
-							<a class="fa-search" href="#search">Search</a>
-							<form id="search" method="get" action="#">
-								<input type="text" name="query" placeholder="Search" />
-							</form>
-						</li>
-						<li class="dark-mode-switch">
-							<button id="darkModeToggle" class="dark-mode-toggle" title="Cambiar a modo oscuro">
-								<i class="fas fa-moon"></i>
-							</button>
-						</li>
-						<li class="menu">
-							<a class="fa-bars" href="#menu">Menu</a>
-						</li>
-					</ul>
-				</nav>
-			</header>
+		<!-- Header -->
+		<header id="header">
+			<h1><a href="index.html" data-i18n="header.mainTitle">Pagina principal</a></h1>
+			<nav class="links">
+				<ul>
+					<li><a href="Industrial.html" data-i18n="nav.industrial">Ingeniería Industrial</a></li>
+					<li><a href="Informatica.html" data-i18n="nav.informatics">Ingeniería Informatica</a></li>
+					<li><a href="Otros.html" data-i18n="nav.others">Otros Proyectos</a></li>
+				</ul>
+			</nav>
+			<nav class="main">
+				<ul>
+					<li class="search">
+						<a class="fa-search" href="#search" data-i18n="search.placeholder">Search</a>
+						<form id="search" method="get" action="#">
+							<input type="text" name="query" placeholder="Search" />
+						</form>
+					</li>
+					<li class="dark-mode-switch">
+						<button id="darkModeToggle" class="dark-mode-toggle" title="Cambiar a modo oscuro">
+							<i class="fas fa-moon"></i>
+						</button>
+					</li>
+					<li class="menu">
+						<a class="fa-bars" href="#menu">Menu</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
 
-			<!-- Menu -->
-			<section id="menu">
-				<!-- Search -->
-				<section>
-					<form class="search" method="get" action="#">
-						<input type="text" name="query" placeholder="Search" />
-					</form>
-				</section>
-
-				<!-- Links -->
-				<section>
-					<ul class="links">
-						<li>
-							<a href="Industrial.html">
-								<h3>Ingeniería Industrial</h3>
-								<p>Encontraran todos los proyectos y trabajos hechos en Ingeniería Industrial</p>
-							</a>
-						</li>
-						<li>
-							<a href="Informatica.html">
-								<h3>Ingeniería Informatica</h3>
-								<p>Encontraran todos los proyectos y trabajos hechos en Ingeniería Informatica</p>
-							</a>
-						</li>
-						<li>
-							<a href="Otros.html">
-								<h3>Otros Proyectos</h3>
-								<p>Encontraran otros proyectos hechos por aparte de las carreras</p>
-							</a>
-						</li>
-					</ul>
-				</section>
+		<!-- Menu -->
+		<section id="menu">
+			<!-- Search -->
+			<section>
+				<form class="search" method="get" action="#">
+					<input type="text" name="query" placeholder="Search" />
+				</form>
 			</section>
 
-			<!-- Main -->
-			<div id="main">				<article class="post project-card">
-					<header>
-						<div class="title">
-							<h2><a href="https://github.com/nestortada/Shopping-Application-Web/tree/main">
+			<!-- Links -->
+			<section>
+				<ul class="links">
+					<li>
+						<a href="Industrial.html">
+							<h3 data-i18n="nav.industrial">Ingeniería Industrial</h3>
+							<p data-i18n="menu.industrial.desc">Encontraran todos los proyectos y trabajos hechos en
+								Ingeniería Industrial</p>
+						</a>
+					</li>
+					<li>
+						<a href="Informatica.html">
+							<h3 data-i18n="nav.informatics">Ingeniería Informatica</h3>
+							<p data-i18n="menu.informatics.desc">Encontraran todos los proyectos y trabajos hechos en
+								Ingeniería Informatica</p>
+						</a>
+					</li>
+					<li>
+						<a href="Otros.html">
+							<h3 data-i18n="nav.others">Otros Proyectos</h3>
+							<p data-i18n="menu.others.desc">Encontraran otros proyectos hechos por aparte de las
+								carreras</p>
+						</a>
+					</li>
+				</ul>
+			</section>
+		</section>
+
+		<!-- Main -->
+		<div id="main">
+			<article class="post project-card">
+				<header>
+					<div class="title">
+						<h2><a href="https://github.com/nestortada/Shopping-Application-Web/tree/main">
 								Aplicación Web para Puntos de Venta</a></h2>
-							<div class="project-tags">
-								<span class="project-tag">React.js</span>
-								<span class="project-tag">Node.js</span>
-								<span class="project-tag">MongoDB</span>
-								<span class="project-tag">Firebase</span>
-							</div>
-							<p>Plataforma fullstack para gestionar inventarios y pedidos en puntos de venta universitarios,
-								 con React.js, Node.js, MongoDB, Tailwind CSS, Firebase y Socket.io.</p>
+						<div class="project-tags">
+							<span class="project-tag">React.js</span>
+							<span class="project-tag">Node.js</span>
+							<span class="project-tag">MongoDB</span>
+							<span class="project-tag">Firebase</span>
 						</div>
-						<div class="meta">
-							<time class="published" datetime="2024-11-21">Mayo 18, 2025</time>
-							<div class="author">
-									
-									Nestor Tabares<br>
-									Juan Felipe Abella
-							</div>
-						</div>									
-					</header>
-					<a href="https://github.com/nestortada/Shopping-Application-Web/tree/main" class="image featured">
-						<img src="images\DesarrolloWeb.jpeg" alt="Aplicación Web para Puntos de Venta" />
-						<div class="image-overlay">
-							<div class="overlay-content">Ver en GitHub</div>
-						</div>
-					</a>
-					<div class="project-description">
-						<p>El proyecto tiene como objetivo mejorar la experiencia de compra y la eficiencia 
-							operativa en los puntos de venta de alimentos y bebidas de una universidad. 
-							La solución permite a los usuarios consultar en tiempo real la disponibilidad de 
-							productos, sus precios y tiempos de espera aproximados, eliminando las filas y 
-							aumentando la satisfacción de los clientes.</p>
-						
-						<div class="key-points">
-							<h4>Características principales:</h4>
-							<ul>
-								<li>Autenticación segura con JWT y cifrado de contraseñas con bcrypt</li>
-								<li>Arquitectura fullstack moderna con React.js y Node.js</li>
-								<li>Diseño responsivo y accesible con Tailwind CSS</li>
-								<li>Sincronización en tiempo real con Socket.io</li>
-								<li>Sistema de notificaciones con Firebase</li>
-							</ul>
+						<p>Plataforma fullstack para gestionar inventarios y pedidos en puntos de venta universitarios,
+							con React.js, Node.js, MongoDB, Tailwind CSS, Firebase y Socket.io.</p>
+					</div>
+					<div class="meta">
+						<time class="published" datetime="2024-11-21">Mayo 18, 2025</time>
+						<div class="author">
+
+							Nestor Tabares<br>
+							Juan Felipe Abella
 						</div>
 					</div>
-					<footer>
-						<ul class="actions">
-							<li><a href="https://github.com/nestortada/Shopping-Application-Web/tree/main" class="button large">Saber más sobre este proyecto</a></li>
-							<li><a class="button large" id="verAplicacion">Ver aplicación</a></li>
+				</header>
+				<a href="https://github.com/nestortada/Shopping-Application-Web/tree/main" class="image featured">
+					<img src="images\DesarrolloWeb.jpeg" alt="Aplicación Web para Puntos de Venta" />
+					<div class="image-overlay">
+						<div class="overlay-content">Ver en GitHub</div>
+					</div>
+				</a>
+				<div class="project-description">
+					<p>El proyecto tiene como objetivo mejorar la experiencia de compra y la eficiencia
+						operativa en los puntos de venta de alimentos y bebidas de una universidad.
+						La solución permite a los usuarios consultar en tiempo real la disponibilidad de
+						productos, sus precios y tiempos de espera aproximados, eliminando las filas y
+						aumentando la satisfacción de los clientes.</p>
+
+					<div class="key-points">
+						<h4>Características principales:</h4>
+						<ul>
+							<li>Autenticación segura con JWT y cifrado de contraseñas con bcrypt</li>
+							<li>Arquitectura fullstack moderna con React.js y Node.js</li>
+							<li>Diseño responsivo y accesible con Tailwind CSS</li>
+							<li>Sincronización en tiempo real con Socket.io</li>
+							<li>Sistema de notificaciones con Firebase</li>
 						</ul>
-					</footer>				</article><!-- Modal para la aplicación web -->				<div id="appModal" class="modal">
-					<div class="modal-content" style="display: flex; flex-direction: row; width: 90%; height: 85%; max-width: 1100px; background: #ffffff; margin-top: 50px;">
-						<div class="credentials-section">
-							<h3 style="margin-bottom: 20px; text-align: center;">Credenciales de acceso</h3>
-							<div style="margin-bottom: 30px;">
-								<p style="margin-bottom: 10px;"><strong>Usuario POS:</strong></p>
-								<p style="margin-bottom: 5px;">Email: meson@sabanapos.edu.co</p>
-								<p>Contraseña: meson12345678</p>
-							</div>
-							<div>
-								<p style="margin-bottom: 10px;"><strong>Usuario Cliente:</strong></p>
-								<p style="margin-bottom: 5px;">Email: nestortada@unisabana.edu.co</p>
-								<p>Contraseña: 12345678</p>
-							</div>
-						</div>
-						<div class="app-iframe-section">
-							<button class="modal-close" id="closeAppModal" style="position: absolute; top: 20px; right: 20px; z-index: 1001; color: white; background: #e74c3c; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; font-size: 20px; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);">X</button>
-							<div class="phone-container">
-								<!-- Pixel 7 Top Notch -->
-								<div class="phone-notch"></div>
-								<iframe src="https://shopping-application-web.vercel.app/" style="width: 100%; height: 100%; border: none;"></iframe>
-							</div>
-						</div>
-					</div>				</div>
-				
-				<!-- Modal para el video de simulación -->
-				<div id="videoSimulacionModal" class="modal">
-					<div class="modal-content" style="width: 80%; max-width: 800px; background: transparent;">
-						<button class="modal-close" id="closeVideoSimulacionModal" style="position: absolute; top: 20px; right: 20px; z-index: 1001; color: white; background: #e74c3c; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; font-size: 20px; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);">X</button>
-						<video id="videoSimulacionPlayer" width="100%" height="auto" controls>
-							<source src="Documentos/Simulacion.mp4" type="video/mp4">
-						</video>
-					</div>
-				</div>				<!-- Modal para el informe de simulación -->
-				<div id="informeSimulacionModal" class="modal">
-					<div class="modal-content" style="width: 90%; height: 90%; max-width: 1000px;">
-						<button class="modal-close" id="closeInformeSimulacionModal" style="position: absolute; top: 20px; right: 20px; z-index: 1001; color: white; background: #e74c3c; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; font-size: 20px; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);">X</button>
-						<iframe src="Documentos/Simulacion.pdf#zoom=80" style="width: 100%; height: 100%; border: none;"></iframe>
 					</div>
 				</div>
-						<!-- Post -->
-				<article class="post project-card">
-					<header>
-						<div class="title">
-							<h2><a href="https://github.com/nestortada/Simulacion/blob/main/(1843)%20Proyecto%203%20-%20Industriales_%26_Asociados/(1843)%20Proyecto%203%E2%80%93%20Industriales_%26_Asociados-ModeloSituaci%C3%B3nActualFindeSemana.doe">
-								Modelo de Simulación para Heladería</a></h2>
-							<div class="project-tags">
-								<span class="project-tag">Simulación</span>
-								<span class="project-tag">Arena</span>
-								<span class="project-tag">Análisis Estadístico</span>
-							</div>
-							<p>Proyecto de simulación de eventos discretos para una heladería, 
-								realizado en Arena con análisis estadístico, validación y 
-								optimización de recursos.</p>
-						</div>
-						<div class="meta">
-							<time class="published" datetime="2024-11-21">Noviembre 21, 2024</time>
-							<div class="author">
-									
-									Nestor Tabares<br>
-									Catalina Castro<br>
-									Sara Lopez<br>
-									Sebastián Rodríguez<br>
-									Nicolas Cáceres <br>
-									Mauricio Valderrama
-							</div>
-						</div>									
-					</header>
-					<a href="https://github.com/nestortada/Simulacion/blob/main/(1843)%20Proyecto%203%20-%20Industriales_%26_Asociados/(1843)%20Proyecto%203%E2%80%93%20Industriales_%26_Asociados-ModeloSituaci%C3%B3nActualFindeSemana.doe" class="image featured">
-						<img src="images\Heladeria.png" alt="Modelo de simulación de heladería" />
-						<div class="image-overlay">
-							<div class="overlay-content">Ver en GitHub</div>
-						</div>
-					</a>
-					<div class="project-description">
-						<p>Este proyecto tiene como objetivo analizar y 
-							optimizar el funcionamiento de la heladería Crepes & Waffles ubicada en el centro 
-							comercial Centro Chía, utilizando un modelo de simulación de eventos discretos. 
-							A través de la metodología propuesta por Robinson y validaciones estadísticas 
-							como ANOVA y Tukey HSD, se construyó un modelo conceptual y se implementó en Arena.</p>
-						
-						<div class="key-points">
-							<h4>Aspectos destacados:</h4>
-							<ul>
-								<li>Análisis de colas, tiempos de espera y utilización de recursos</li>
-								<li>Identificación de cuellos de botella</li>
-								<li>Propuestas de mejora en asignación de personal</li>
-								<li>Evaluación de políticas para mejorar la experiencia del cliente</li>
-							</ul>
-						</div>
-					</div>
-					<footer>
-						<ul class="actions">
-							<li><a href="https://github.com/nestortada/Simulacion/blob/main/(1843)%20Proyecto%203%20-%20Industriales_%26_Asociados/(1843)%20Proyecto%203%E2%80%93%20Industriales_%26_Asociados-ModeloSituaci%C3%B3nActualFindeSemana.doe" class="button large">Saber más sobre este proyecto</a></li>
-							<li><a class="button large" id="verVideoSimulacion">Ver video</a></li>
-							<li><a class="button large" id="verInformeSimulacion">Ver informe</a></li>
-						</ul>
-					</footer>
-				</article>				 <!-- Post -->
-				 <article class="post project-card">
-					<header>
-						<div class="title">
-							<h2><a href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Proyecto/Programacion/Optimizar.py">Optimización de empresa</a></h2>
-							<div class="project-tags">
-								<span class="project-tag">Python</span>
-								<span class="project-tag">PuLP</span>
-								<span class="project-tag">Optimización</span>
-								<span class="project-tag">Análisis</span>
-							</div>
-							<p>Implementa un modelo de optimización basado en la biblioteca PuLP de Python para maximizar la eficiencia en la fabricación 
-								y distribución de productos.</p>
-						</div>
-						<div class="meta">
-							<time class="published" datetime="2024-11-21">Noviembre 21, 2024</time>
-							<div class="author">
-									
-									Nestor Tabares<br>
-									Catalina Castro<br>
-									Gabriella Espitia<br>
-									Juan Saldarriaga
-							</div>
-						</div>									
-					</header>
-					<a href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Proyecto/Programacion/Optimizar.py" class="image featured">
-						<img src="images\optimizacion_analitica.jpg" alt="Optimización de empresa" />
-						<div class="image-overlay">
-							<div class="overlay-content">Ver en GitHub</div>
-						</div>
-					</a>
-					<div class="project-description">
-						<p>El proyecto se centra en identificar y mejorar los procesos clave de la empresa
-							con el objetivo de maximizar la eficiencia operativa, reducir costos y aumentar la productividad. Mediante un análisis exhaustivo de 
-							las operaciones internas, se detectaron oportunidades de mejora en áreas críticas.</p>
-						
-						<div class="key-points">
-							<h4>Aspectos destacados:</h4>
-							<ul>
-								<li>Análisis de variables como costos de producción, almacenamiento y transporte</li>
-								<li>Desarrollo de un modelo de programación lineal para minimizar costos</li>
-								<li>Optimización del uso de recursos y cumplimiento de la demanda</li>
-								<li>Implementación de un sistema de toma de decisiones basado en datos</li>
-							</ul>
-						</div>
-					</div>
-					<footer>
-						<ul class="actions">
-							<li><a href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Proyecto/Programacion/Optimizar.py" class="button large">Saber más sobre este proyecto</a></li>
-						</ul>
-					</footer>
-				</article>
-			</div>
-
-			<!-- Modal -->			<div id="pdfModal" class="modal">
-				<div class="modal-content">
-					<button class="modal-close" id="closeModal">Cerrar PDF</button>
-					<iframe src="Documentos/Caso_Estudio_Procesos_Estocásticos___Parte_2.pdf#view=FitH&zoom=65" style="width: 100%; height: 100%; border: none;"></iframe>
-				</div>
-			</div>
-
-			<!-- Sidebar -->
-			<section id="sidebar">
-				<section id="intro">
-					<a class="logo"><img src="images/mi_persona.jpeg" alt="" /></a>
-					<header>
-						<h2>Portafolio</h2>
-						<p>Nestor Andres Tabares David</p>
-					</header>
-				</section>				<section class="blurb">
-					<h2>Conoceme</h2>
-					<div class="bio-content">
-						<div class="bio-intro">
-							<p><strong>Nestor Andres Tabares David</strong>- Estudiante de la Universidad de La Sabana en doble programa en Ingeniería Industrial e Informática, 
-							actualmente cursando séptimo semestre con enfasis en análitica de datos .</p>
-						</div>
-						<div class="bio-skills">
-							<h3>Habilidades destacadas</h3>
-							<ul class="skill-list">
-								<li><span class="skill-tag">Programación</span> Python, Java, SQL, Git, HTML, JavaScript, CSS</li>
-								<li><span class="skill-tag">Desarrollo Web</span> React, Node.js</li>
-								<li><span class="skill-tag">Análisis de datos</span> Excel, Rstudio, MiniTab</li>
-								<li><span class="skill-tag">Diseño</span> CAD, Inventor</li>
-								<li><span class="skill-tag">Idiomas</span> Español (nativo), Inglés</li>
-								<li><span class="skill-tag">Otras</span> Arena</li>
-							</ul>
-						</div>
-						<div class="bio-experience">
-							<h3>Experiencia académica</h3>
-							<p>Participo activamente en el <strong>CREA</strong> como 
-							<strong>tallerista</strong> y
-							<strong>líder de grupo</strong>.
-							También colaboro en el <strong>PAT</strong> 
-							(Programa Aprendamos a Trabajar) donde apoyo en la gestión y optimización de bases de datos del área deportiva. Y además en sexto semestre fuí monitor de procesos estocásticos.</p>
-						</div>
-						<div class="bio-strengths">
-							<h3>Fortalezas personales</h3>
-							<div class="strengths-container">
-								<div class="strength-item">
-									<span class="strength-icon">🎯</span>
-									<span class="strength-text">Liderazgo</span>
-								</div>
-								<div class="strength-item">
-									<span class="strength-icon">🧠</span>
-									<span class="strength-text">Capacidad analítica</span>
-								</div>
-								<div class="strength-item">
-									<span class="strength-icon">⚡</span>
-									<span class="strength-text">Orientación a resultados</span>
-								</div>
-								<div class="strength-item">
-									<span class="strength-icon">🔍</span>
-									<span class="strength-text">Resolución de problemas</span>
-								</div>
-							</div>
-							<div class="bio-additional-info">
-								<p>Comprometido con la excelencia académica y el desarrollo profesional continuo. Aplicando conocimientos interdisciplinarios para resolver problemas complejos con un enfoque analítico y metódico.</p>
-							</div>
-						</div>
-					</div>
-				</section>
-
-				<section>
-					<div class="mini-posts">
-						<!-- Mini Post -->
-						<article class="mini-post">
-							<header>
-								<h3><a href="https://github.com/nestortada/Analitica-de-datos/blob/main/ProyectoTercerCorte.ipynb">Proyecto de Analitica</a></h3>
-								<time class="published" datetime="2024-05-22">Mayo 22, 2024</time>
-							</header>
-							<a href="https://github.com/nestortada/Analitica-de-datos/blob/main/ProyectoTercerCorte.ipynb" class="image"><img src="images/analitica.jpg" alt="" /></a>
-						</article>
-
-						<!-- Mini Post -->
-						<article class="mini-post">
-							<header>
-								<h3><a href="https://github.com/nestortada/programaci-n_orientada_objetos/blob/main/JavaFXApp/src/main/java/org/example/proyecto/HelloApplication.java">Gestion de earolineas</a></h3>
-								<time class="published" datetime="2024-05-14">Mayo 24, 2024</time>
-							</header>
-							<a href="https://github.com/nestortada/programaci-n_orientada_objetos/blob/main/JavaFXApp/src/main/java/org/example/proyecto/HelloApplication.java" class="image"><img src="images\database.png" alt="" /></a>
-						</article>
-
-						<article class="mini-post">
-							<header>
-								<h3><a href="https://github.com/nestortada/Ingenieria_metodos/blob/main/Analisis_productividad/Analisis%20de%20productividad.pdf">Analisis de Productividad</a></h3>
-								<time class="published" datetime="2023-02-18">Febrero 18, 2023</time>
-							</header>
-							<a href="https://github.com/nestortada/Ingenieria_metodos/blob/main/Analisis_productividad/Analisis%20de%20productividad.pdf" class="image"><img src="images\productividad.png" alt="" /></a>
-							<a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fnestortada%2FIngenieria_metodos%2Frefs%2Fheads%2Fmain%2FAnalisis_productividad%2FAnalisis_de_productividad.xlsx&wdOrigin=BROWSELINK" class="button large">Abrir Excel</a>
-						</article>
-
-
-						<!-- Mini Post -->
-						<article class="mini-post">
-							<header>
-								<h3><a href="https://github.com/nestortada/Probabilidad-y-estadistica/blob/main/Probabilidad%20y%20estadistica%202%20R/proyecto%20dos%20muestras%20hipotesis.R">insuficiencia cardíaca</a></h3>
-								<time class="published" datetime="2023-11-25">Noviembre 25, 2023</time>
-							</header>
-							<a href="https://github.com/nestortada/Probabilidad-y-estadistica/blob/main/Probabilidad%20y%20estadistica%202%20R/proyecto%20dos%20muestras%20hipotesis.R" class="image"><img src="images\carozon.jpg" alt="" /></a>
-						</article>
-					</div>
-				</section>
-
-
-				<!-- Posts List -->
-				<section>
-					<ul class="posts">
-						<li>
-							<article>
-								<header>
-									<h3><a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fnestortada%2FIngenieria_economica%2Frefs%2Fheads%2Fmain%2FHoja%2520de%2520formulas.xlsx&wdOrigin=BROWSELINK">Tablas Economicas</a></h3>
-									<time class="published" datetime="2024-12-18">Diciembre 18, 2024</time>
-								</header>
-								<a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fnestortada%2FIngenieria_economica%2Frefs%2Fheads%2Fmain%2FHoja%2520de%2520formulas.xlsx&wdOrigin=BROWSELINK" class="image"><img src="images\tablas.jpg" alt="" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3><a href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Final%20ejer.gms">Producción de medicamento</a></h3>
-									<time class="published" datetime="2024-05-19">Mayo 19, 2024</time>
-								</header>
-								<a href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Final%20ejer.gms" class="image"><img src="images\Medicamentos.jpg" alt="" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3><a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fnestortada%2FContabilidad%2Frefs%2Fheads%2Fmain%2FPunto%2520pola.xlsx&wdOrigin=BROWSELINK">Tablas contables</a></h3>
-									<time class="published" datetime="2024-10-30">October 30, 2024</time>
-								</header>
-								<a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fnestortada%2FContabilidad%2Frefs%2Fheads%2Fmain%2FPunto%2520pola.xlsx&wdOrigin=BROWSELINK" class="image"><img src="images\contabilidad.jpg" alt="" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3><a href="https://github.com/nestortada/Control_Estadistico_calidad/blob/main/R%26R%20actualizado.mpx">Lanzamiento de helicopteros</a></h3>
-									<time class="published" datetime="2015-10-08">October 8, 2015</time>
-								</header>
-								<a href="https://github.com/nestortada/Control_Estadistico_calidad/blob/main/R%26R%20actualizado.mpx" class="image"><img src="images\papel.jpg" alt="" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3><a href="https://github.com/nestortada/CAD/blob/master/Sistema%20de%20Riego/Proyecto%20final.iam">Diseño de Sistema de Riego</a></h3>
-									<time class="published" datetime="2024-11-14">Noviembre 14, 2024</time>
-									<button class="button" onclick="playVideo()">Video</button>
-									<button id="openModal1" class="button">Vista</button>
-
-								</header>
-								<a href="https://github.com/nestortada/CAD/blob/master/Sistema%20de%20Riego/Proyecto%20final.iam" class="image"><img src="images\Sistema de riego.jpg" /></a>
-							</article>
-						</li>
+				<footer>
+					<ul class="actions">
+						<li><a href="https://github.com/nestortada/Shopping-Application-Web/tree/main"
+								class="button large">Saber más sobre este proyecto</a></li>
+						<li><a class="button large" id="verAplicacion">Ver aplicación</a></li>
 					</ul>
-				</section>
+				</footer>
+			</article><!-- Modal para la aplicación web -->
+			<div id="appModal" class="modal">
+				<div class="modal-content"
+					style="display: flex; flex-direction: row; width: 90%; height: 85%; max-width: 1100px; background: #ffffff; margin-top: 50px;">
+					<div class="credentials-section">
+						<h3 style="margin-bottom: 20px; text-align: center;">Credenciales de acceso</h3>
+						<div style="margin-bottom: 30px;">
+							<p style="margin-bottom: 10px;"><strong>Usuario POS:</strong></p>
+							<p style="margin-bottom: 5px;">Email: meson@sabanapos.edu.co</p>
+							<p>Contraseña: meson12345678</p>
+						</div>
+						<div>
+							<p style="margin-bottom: 10px;"><strong>Usuario Cliente:</strong></p>
+							<p style="margin-bottom: 5px;">Email: nestortada@unisabana.edu.co</p>
+							<p>Contraseña: 12345678</p>
+						</div>
+					</div>
+					<div class="app-iframe-section">
+						<button class="modal-close" id="closeAppModal"
+							style="position: absolute; top: 20px; right: 20px; z-index: 1001; color: white; background: #e74c3c; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; font-size: 20px; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);">X</button>
+						<div class="phone-container">
+							<!-- Pixel 7 Top Notch -->
+							<div class="phone-notch"></div>
+							<iframe src="https://shopping-application-web.vercel.app/"
+								style="width: 100%; height: 100%; border: none;"></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
 
-				<div id="videoModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background: transparent; padding:20px; z-index:1000; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.5);">
-					<video id="videoPlayer" width="640" height="300" controls>
-						<source src="Documentos\Video_Riego.mp4" type="video/mp4">
+			<!-- Modal para el video de simulación -->
+			<div id="videoSimulacionModal" class="modal">
+				<div class="modal-content" style="width: 80%; max-width: 800px; background: transparent;">
+					<button class="modal-close" id="closeVideoSimulacionModal"
+						style="position: absolute; top: 20px; right: 20px; z-index: 1001; color: white; background: #e74c3c; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; font-size: 20px; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);">X</button>
+					<video id="videoSimulacionPlayer" width="100%" height="auto" controls>
+						<source src="Documentos/Simulacion.mp4" type="video/mp4">
 					</video>
-					<button onclick="closeVideo()">Cerrar</button>
 				</div>
-				<div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;" onclick="closeVideo()"></div>				<div id="pdfModal1" class="modal">
-					<div class="modal-content">
-						<button class="modal-close" id="closeModal1">Cerrar PDF</button>
-						<iframe src="Documentos/Vista_proyecto_final.pdf#view=FitH&zoom=65" style="width: 100%; height: 100%; border: none;"></iframe>
+			</div> <!-- Modal para el informe de simulación -->
+			<div id="informeSimulacionModal" class="modal">
+				<div class="modal-content" style="width: 90%; height: 90%; max-width: 1000px;">
+					<button class="modal-close" id="closeInformeSimulacionModal"
+						style="position: absolute; top: 20px; right: 20px; z-index: 1001; color: white; background: #e74c3c; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; font-size: 20px; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);">X</button>
+					<iframe src="Documentos/Simulacion.pdf#zoom=80"
+						style="width: 100%; height: 100%; border: none;"></iframe>
+				</div>
+			</div>
+			<!-- Post -->
+			<article class="post project-card">
+				<header>
+					<div class="title">
+						<h2><a
+								href="https://github.com/nestortada/Simulacion/blob/main/(1843)%20Proyecto%203%20-%20Industriales_%26_Asociados/(1843)%20Proyecto%203%E2%80%93%20Industriales_%26_Asociados-ModeloSituaci%C3%B3nActualFindeSemana.doe">
+								Modelo de Simulación para Heladería</a></h2>
+						<div class="project-tags">
+							<span class="project-tag">Simulación</span>
+							<span class="project-tag">Arena</span>
+							<span class="project-tag">Análisis Estadístico</span>
+						</div>
+						<p>Proyecto de simulación de eventos discretos para una heladería,
+							realizado en Arena con análisis estadístico, validación y
+							optimización de recursos.</p>
+					</div>
+					<div class="meta">
+						<time class="published" datetime="2024-11-21">Noviembre 21, 2024</time>
+						<div class="author">
+
+							Nestor Tabares<br>
+							Catalina Castro<br>
+							Sara Lopez<br>
+							Sebastián Rodríguez<br>
+							Nicolas Cáceres <br>
+							Mauricio Valderrama
+						</div>
+					</div>
+				</header>
+				<a href="https://github.com/nestortada/Simulacion/blob/main/(1843)%20Proyecto%203%20-%20Industriales_%26_Asociados/(1843)%20Proyecto%203%E2%80%93%20Industriales_%26_Asociados-ModeloSituaci%C3%B3nActualFindeSemana.doe"
+					class="image featured">
+					<img src="images\Heladeria.png" alt="Modelo de simulación de heladería" />
+					<div class="image-overlay">
+						<div class="overlay-content">Ver en GitHub</div>
+					</div>
+				</a>
+				<div class="project-description">
+					<p>Este proyecto tiene como objetivo analizar y
+						optimizar el funcionamiento de la heladería Crepes & Waffles ubicada en el centro
+						comercial Centro Chía, utilizando un modelo de simulación de eventos discretos.
+						A través de la metodología propuesta por Robinson y validaciones estadísticas
+						como ANOVA y Tukey HSD, se construyó un modelo conceptual y se implementó en Arena.</p>
+
+					<div class="key-points">
+						<h4>Aspectos destacados:</h4>
+						<ul>
+							<li>Análisis de colas, tiempos de espera y utilización de recursos</li>
+							<li>Identificación de cuellos de botella</li>
+							<li>Propuestas de mejora en asignación de personal</li>
+							<li>Evaluación de políticas para mejorar la experiencia del cliente</li>
+						</ul>
 					</div>
 				</div>
-
-				<section id="footer">
-					<ul class="icons">
-						<li><a href="mailto:nestortada@unisabana.edu.co" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-						<li><a href="https://www.linkedin.com/in/nestor-andres-tabares-david-9475252a5/" class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li>
-						<li><a href="https://github.com/nestortada" class="icon brands alt fa-github"><span class="label">Github</span></a></li>
-						<li><a href="https://wa.me/qr/O6GWSMG42CZOJ1" class="icon brands alt fa-whatsapp"><span class="label">WhatsApp</span></a></li>
+				<footer>
+					<ul class="actions">
+						<li><a href="https://github.com/nestortada/Simulacion/blob/main/(1843)%20Proyecto%203%20-%20Industriales_%26_Asociados/(1843)%20Proyecto%203%E2%80%93%20Industriales_%26_Asociados-ModeloSituaci%C3%B3nActualFindeSemana.doe"
+								class="button large">Saber más sobre este proyecto</a></li>
+						<li><a class="button large" id="verVideoSimulacion">Ver video</a></li>
+						<li><a class="button large" id="verInformeSimulacion">Ver informe</a></li>
 					</ul>
-					<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
-				</section>
+				</footer>
+			</article> <!-- Post -->
+			<article class="post project-card">
+				<header>
+					<div class="title">
+						<h2><a
+								href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Proyecto/Programacion/Optimizar.py">Optimización
+								de empresa</a></h2>
+						<div class="project-tags">
+							<span class="project-tag">Python</span>
+							<span class="project-tag">PuLP</span>
+							<span class="project-tag">Optimización</span>
+							<span class="project-tag">Análisis</span>
+						</div>
+						<p>Implementa un modelo de optimización basado en la biblioteca PuLP de Python para maximizar la
+							eficiencia en la fabricación
+							y distribución de productos.</p>
+					</div>
+					<div class="meta">
+						<time class="published" datetime="2024-11-21">Noviembre 21, 2024</time>
+						<div class="author">
 
-			</section>
+							Nestor Tabares<br>
+							Catalina Castro<br>
+							Gabriella Espitia<br>
+							Juan Saldarriaga
+						</div>
+					</div>
+				</header>
+				<a href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Proyecto/Programacion/Optimizar.py"
+					class="image featured">
+					<img src="images\optimizacion_analitica.jpg" alt="Optimización de empresa" />
+					<div class="image-overlay">
+						<div class="overlay-content">Ver en GitHub</div>
+					</div>
+				</a>
+				<div class="project-description">
+					<p>El proyecto se centra en identificar y mejorar los procesos clave de la empresa
+						con el objetivo de maximizar la eficiencia operativa, reducir costos y aumentar la
+						productividad. Mediante un análisis exhaustivo de
+						las operaciones internas, se detectaron oportunidades de mejora en áreas críticas.</p>
 
+					<div class="key-points">
+						<h4>Aspectos destacados:</h4>
+						<ul>
+							<li>Análisis de variables como costos de producción, almacenamiento y transporte</li>
+							<li>Desarrollo de un modelo de programación lineal para minimizar costos</li>
+							<li>Optimización del uso de recursos y cumplimiento de la demanda</li>
+							<li>Implementación de un sistema de toma de decisiones basado en datos</li>
+						</ul>
+					</div>
+				</div>
+				<footer>
+					<ul class="actions">
+						<li><a href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Proyecto/Programacion/Optimizar.py"
+								class="button large">Saber más sobre este proyecto</a></li>
+					</ul>
+				</footer>
+			</article>
 		</div>
 
-		<script>
-			function playVideo() {
-				document.getElementById("videoModal").style.display = "block";
-				document.getElementById("overlay").style.display = "block";
-				const videoPlayer = document.getElementById("videoPlayer");
-				videoPlayer.play();
+		<!-- Modal -->
+		<div id="pdfModal" class="modal">
+			<div class="modal-content">
+				<button class="modal-close" id="closeModal">Cerrar PDF</button>
+				<iframe src="Documentos/Caso_Estudio_Procesos_Estocásticos___Parte_2.pdf#view=FitH&zoom=65"
+					style="width: 100%; height: 100%; border: none;"></iframe>
+			</div>
+		</div>
+
+		<!-- Sidebar -->
+		<section id="sidebar">
+			<section id="intro">
+				<a class="logo"><img src="images/mi_persona.jpeg" alt="" /></a>
+				<header>
+					<h2>Portafolio</h2>
+					<p>Nestor Andres Tabares David</p>
+				</header>
+			</section>
+			<section class="blurb">
+				<h2 data-i18n="bio.title">Conoceme</h2>
+				<div class="bio-content">
+					<div class="bio-intro">
+						<p data-i18n="bio.intro"><strong>Nestor Andres Tabares David</strong>- Estudiante de la
+							Universidad de La Sabana en doble programa en Ingeniería Industrial e Informática,
+							actualmente cursando séptimo semestre con enfasis en análitica de datos .</p>
+					</div>
+					<div class="bio-skills">
+						<h3 data-i18n="skills.title">Habilidades destacadas</h3>
+						<ul class="skill-list">
+							<li><span class="skill-tag" data-i18n="skills.programming">Programación</span> Python, Java,
+								SQL, Git, HTML, JavaScript,
+								CSS</li>
+							<li><span class="skill-tag" data-i18n="skills.web">Desarrollo Web</span> React, Node.js</li>
+							<li><span class="skill-tag" data-i18n="skills.data">Análisis de datos</span> Excel, Rstudio,
+								MiniTab</li>
+							<li><span class="skill-tag" data-i18n="skills.design">Diseño</span> CAD, Inventor</li>
+							<li><span class="skill-tag" data-i18n="skills.languages">Idiomas</span> Español (nativo),
+								Inglés</li>
+							<li><span class="skill-tag" data-i18n="skills.others">Otras</span> Arena</li>
+						</ul>
+					</div>
+					<div class="bio-experience">
+						<h3 data-i18n="experience.title">Experiencia académica</h3>
+						<p data-i18n="experience.text">Participo activamente en el <strong>CREA</strong> como
+							<strong>tallerista</strong> y
+							<strong>líder de grupo</strong>.
+							También colaboro en el <strong>PAT</strong>
+							(Programa Aprendamos a Trabajar) donde apoyo en la gestión y optimización de bases de datos
+							del área deportiva. Y además en sexto semestre fuí monitor de procesos estocásticos.
+						</p>
+					</div>
+					<div class="bio-strengths">
+						<h3 data-i18n="strengths.title">Fortalezas personales</h3>
+						<div class="strengths-container">
+							<div class="strength-item">
+								<span class="strength-icon">🎯</span>
+								<span class="strength-text" data-i18n="strength.leadership">Liderazgo</span>
+							</div>
+							<div class="strength-item">
+								<span class="strength-icon">🧠</span>
+								<span class="strength-text" data-i18n="strength.analytical">Capacidad analítica</span>
+							</div>
+							<div class="strength-item">
+								<span class="strength-icon">⚡</span>
+								<span class="strength-text" data-i18n="strength.results">Orientación a resultados</span>
+							</div>
+							<div class="strength-item">
+								<span class="strength-icon">🔍</span>
+								<span class="strength-text" data-i18n="strength.problem_solving">Resolución de
+									problemas</span>
+							</div>
+						</div>
+						<div class="bio-additional-info">
+							<p>Comprometido con la excelencia académica y el desarrollo profesional continuo. Aplicando
+								conocimientos interdisciplinarios para resolver problemas complejos con un enfoque
+								analítico y metódico.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section>
+				<div class="mini-posts">
+					<!-- Mini Post -->
+					<article class="mini-post">
+						<header>
+							<h3><a
+									href="https://github.com/nestortada/Analitica-de-datos/blob/main/ProyectoTercerCorte.ipynb">Proyecto
+									de Analitica</a></h3>
+							<time class="published" datetime="2024-05-22">Mayo 22, 2024</time>
+						</header>
+						<a href="https://github.com/nestortada/Analitica-de-datos/blob/main/ProyectoTercerCorte.ipynb"
+							class="image"><img src="images/analitica.jpg" alt="" /></a>
+					</article>
+
+					<!-- Mini Post -->
+					<article class="mini-post">
+						<header>
+							<h3><a
+									href="https://github.com/nestortada/programaci-n_orientada_objetos/blob/main/JavaFXApp/src/main/java/org/example/proyecto/HelloApplication.java">Gestion
+									de earolineas</a></h3>
+							<time class="published" datetime="2024-05-14">Mayo 24, 2024</time>
+						</header>
+						<a href="https://github.com/nestortada/programaci-n_orientada_objetos/blob/main/JavaFXApp/src/main/java/org/example/proyecto/HelloApplication.java"
+							class="image"><img src="images\database.png" alt="" /></a>
+					</article>
+
+					<article class="mini-post">
+						<header>
+							<h3><a
+									href="https://github.com/nestortada/Ingenieria_metodos/blob/main/Analisis_productividad/Analisis%20de%20productividad.pdf">Analisis
+									de Productividad</a></h3>
+							<time class="published" datetime="2023-02-18">Febrero 18, 2023</time>
+						</header>
+						<a href="https://github.com/nestortada/Ingenieria_metodos/blob/main/Analisis_productividad/Analisis%20de%20productividad.pdf"
+							class="image"><img src="images\productividad.png" alt="" /></a>
+						<a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fnestortada%2FIngenieria_metodos%2Frefs%2Fheads%2Fmain%2FAnalisis_productividad%2FAnalisis_de_productividad.xlsx&wdOrigin=BROWSELINK"
+							class="button large">Abrir Excel</a>
+					</article>
+
+
+					<!-- Mini Post -->
+					<article class="mini-post">
+						<header>
+							<h3><a
+									href="https://github.com/nestortada/Probabilidad-y-estadistica/blob/main/Probabilidad%20y%20estadistica%202%20R/proyecto%20dos%20muestras%20hipotesis.R">insuficiencia
+									cardíaca</a></h3>
+							<time class="published" datetime="2023-11-25">Noviembre 25, 2023</time>
+						</header>
+						<a href="https://github.com/nestortada/Probabilidad-y-estadistica/blob/main/Probabilidad%20y%20estadistica%202%20R/proyecto%20dos%20muestras%20hipotesis.R"
+							class="image"><img src="images\carozon.jpg" alt="" /></a>
+					</article>
+				</div>
+			</section>
+
+
+			<!-- Posts List -->
+			<section>
+				<ul class="posts">
+					<li>
+						<article>
+							<header>
+								<h3><a
+										href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fnestortada%2FIngenieria_economica%2Frefs%2Fheads%2Fmain%2FHoja%2520de%2520formulas.xlsx&wdOrigin=BROWSELINK">Tablas
+										Economicas</a></h3>
+								<time class="published" datetime="2024-12-18">Diciembre 18, 2024</time>
+							</header>
+							<a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fnestortada%2FIngenieria_economica%2Frefs%2Fheads%2Fmain%2FHoja%2520de%2520formulas.xlsx&wdOrigin=BROWSELINK"
+								class="image"><img src="images\tablas.jpg" alt="" /></a>
+						</article>
+					</li>
+					<li>
+						<article>
+							<header>
+								<h3><a
+										href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Final%20ejer.gms">Producción
+										de medicamento</a></h3>
+								<time class="published" datetime="2024-05-19">Mayo 19, 2024</time>
+							</header>
+							<a href="https://github.com/nestortada/Optimizacion_analitica/blob/main/Final%20ejer.gms"
+								class="image"><img src="images\Medicamentos.jpg" alt="" /></a>
+						</article>
+					</li>
+					<li>
+						<article>
+							<header>
+								<h3><a
+										href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fnestortada%2FContabilidad%2Frefs%2Fheads%2Fmain%2FPunto%2520pola.xlsx&wdOrigin=BROWSELINK">Tablas
+										contables</a></h3>
+								<time class="published" datetime="2024-10-30">October 30, 2024</time>
+							</header>
+							<a href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fnestortada%2FContabilidad%2Frefs%2Fheads%2Fmain%2FPunto%2520pola.xlsx&wdOrigin=BROWSELINK"
+								class="image"><img src="images\contabilidad.jpg" alt="" /></a>
+						</article>
+					</li>
+					<li>
+						<article>
+							<header>
+								<h3><a
+										href="https://github.com/nestortada/Control_Estadistico_calidad/blob/main/R%26R%20actualizado.mpx">Lanzamiento
+										de helicopteros</a></h3>
+								<time class="published" datetime="2015-10-08">October 8, 2015</time>
+							</header>
+							<a href="https://github.com/nestortada/Control_Estadistico_calidad/blob/main/R%26R%20actualizado.mpx"
+								class="image"><img src="images\papel.jpg" alt="" /></a>
+						</article>
+					</li>
+					<li>
+						<article>
+							<header>
+								<h3><a
+										href="https://github.com/nestortada/CAD/blob/master/Sistema%20de%20Riego/Proyecto%20final.iam">Diseño
+										de Sistema de Riego</a></h3>
+								<time class="published" datetime="2024-11-14">Noviembre 14, 2024</time>
+								<button class="button" onclick="playVideo()">Video</button>
+								<button id="openModal1" class="button">Vista</button>
+
+							</header>
+							<a href="https://github.com/nestortada/CAD/blob/master/Sistema%20de%20Riego/Proyecto%20final.iam"
+								class="image"><img src="images\Sistema de riego.jpg" /></a>
+						</article>
+					</li>
+				</ul>
+			</section>
+
+			<div id="videoModal"
+				style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background: transparent; padding:20px; z-index:1000; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.5);">
+				<video id="videoPlayer" width="640" height="300" controls>
+					<source src="Documentos\Video_Riego.mp4" type="video/mp4">
+				</video>
+				<button onclick="closeVideo()">Cerrar</button>
+			</div>
+			<div id="overlay"
+				style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;"
+				onclick="closeVideo()"></div>
+			<div id="pdfModal1" class="modal">
+				<div class="modal-content">
+					<button class="modal-close" id="closeModal1">Cerrar PDF</button>
+					<iframe src="Documentos/Vista_proyecto_final.pdf#view=FitH&zoom=65"
+						style="width: 100%; height: 100%; border: none;"></iframe>
+				</div>
+			</div>
+
+			<section id="footer">
+				<ul class="icons">
+					<li><a href="mailto:nestorandrestabaresdavid@gmail.com" class="icon solid fa-envelope"><span
+								class="label">Email</span></a></li>
+					<li><a href="https://www.linkedin.com/in/nestor-andres-tabares-david-9475252a5/"
+							class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li>
+					<li><a href="https://github.com/nestortada" class="icon brands alt fa-github"><span
+								class="label">Github</span></a></li>
+					<li><a href="https://wa.me/qr/O6GWSMG42CZOJ1" class="icon brands alt fa-whatsapp"><span
+								class="label">WhatsApp</span></a></li>
+				</ul>
+				<p class="copyright" data-i18n="footer.copyright">&copy; Untitled. Design: <a
+						href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
+			</section>
+
+		</section>
+
+	</div>
+
+	<script>
+		function playVideo() {
+			document.getElementById("videoModal").style.display = "block";
+			document.getElementById("overlay").style.display = "block";
+			const videoPlayer = document.getElementById("videoPlayer");
+			videoPlayer.play();
+		}
+
+		function closeVideo() {
+			document.getElementById("videoModal").style.display = "none";
+			document.getElementById("overlay").style.display = "none";
+			const videoPlayer = document.getElementById("videoPlayer");
+			videoPlayer.pause();
+			videoPlayer.currentTime = 0;
+		}
+	</script>
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="assets/js/custom.js"></script>
+	<!-- Enhanced Search Functionality -->
+	<script>
+		// Search keywords mapping to GitHub links
+		const searchKeywords = {
+			"portafolio": "https://github.com/nestortada/portafolio",
+			"machine learning": "https://github.com/nestortada/MACHINE-LEARNING-Clase",
+			"etl": "https://github.com/nestortada/ETL",
+			"desarrollo web": "https://github.com/nestortada/DesarrolloWeb",
+			"simulación": "https://github.com/nestortada/Simulacion",
+			"simulacion": "https://github.com/nestortada/Simulacion",
+			"aplicación web": "https://github.com/nestortada/Shopping-Application-Web",
+			"aplicacion web": "https://github.com/nestortada/Shopping-Application-Web",
+			"diseño de producto": "https://github.com/nestortada/dise-o",
+			"diseno de producto": "https://github.com/nestortada/dise-o",
+			"análisis de trabajo": "https://github.com/nestortada/Analisis_Trabajo",
+			"analisis de trabajo": "https://github.com/nestortada/Analisis_Trabajo",
+			"cad": "https://github.com/nestortada/CAD",
+			"ingeniería de métodos": "https://github.com/nestortada/Ingenieria_metodos",
+			"ingenieria de metodos": "https://github.com/nestortada/Ingenieria_metodos",
+			"control estadístico de calidad": "https://github.com/nestortada/Control_Estadistico_calidad",
+			"control estadistico de calidad": "https://github.com/nestortada/Control_Estadistico_calidad",
+			"contabilidad": "https://github.com/nestortada/Contabilidad",
+			"ingeniería económica": "https://github.com/nestortada/Ingenieria_economica",
+			"ingenieria economica": "https://github.com/nestortada/Ingenieria_economica",
+			"programación orientada a objetos": "https://github.com/nestortada/programaci-n_orientada_objetos",
+			"programacion orientada a objetos": "https://github.com/nestortada/programaci-n_orientada_objetos",
+			"procesos estocásticos": "https://github.com/nestortada/Procesos_estocasticos",
+			"procesos estocasticos": "https://github.com/nestortada/Procesos_estocasticos",
+			"programación avanzada": "https://github.com/nestortada/Programaci-n-Avanzada",
+			"programacion avanzada": "https://github.com/nestortada/Programaci-n-Avanzada",
+			"optimización": "https://github.com/nestortada/Optimizacion_analitica",
+			"optimizacion": "https://github.com/nestortada/Optimizacion_analitica",
+			"introducción a la programación": "https://github.com/nestortada/Introduccion-a-la-programacion",
+			"introduccion a la programacion": "https://github.com/nestortada/Introduccion-a-la-programacion",
+			"base de datos": "https://github.com/nestortada/Base-De-Datos",
+			"analítica de datos": "https://github.com/nestortada/Analitica-de-datos",
+			"analitica de datos": "https://github.com/nestortada/Analitica-de-datos"
+		};
+
+		// Function to get search suggestions
+		function getSearchSuggestions(query) {
+			if (!query || query.trim() === '') {
+				return [];
 			}
-		
-			function closeVideo() {
-				document.getElementById("videoModal").style.display = "none";
-				document.getElementById("overlay").style.display = "none";
-				const videoPlayer = document.getElementById("videoPlayer");
-				videoPlayer.pause();
-				videoPlayer.currentTime = 0;
-			}
-		</script>
-		<!-- Scripts -->		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/browser.min.js"></script>
-		<script src="assets/js/breakpoints.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<script src="assets/js/main.js"></script>
-		<script src="assets/js/custom.js"></script>
-		<!-- Enhanced Search Functionality -->
-		<script>
-			// Search keywords mapping to GitHub links
-			const searchKeywords = {
-				"portafolio": "https://github.com/nestortada/portafolio",
-				"machine learning": "https://github.com/nestortada/MACHINE-LEARNING-Clase",
-				"etl": "https://github.com/nestortada/ETL",
-				"desarrollo web": "https://github.com/nestortada/DesarrolloWeb",
-				"simulación": "https://github.com/nestortada/Simulacion",
-				"simulacion": "https://github.com/nestortada/Simulacion",
-				"aplicación web": "https://github.com/nestortada/Shopping-Application-Web",
-				"aplicacion web": "https://github.com/nestortada/Shopping-Application-Web",
-				"diseño de producto": "https://github.com/nestortada/dise-o",
-				"diseno de producto": "https://github.com/nestortada/dise-o",
-				"análisis de trabajo": "https://github.com/nestortada/Analisis_Trabajo",
-				"analisis de trabajo": "https://github.com/nestortada/Analisis_Trabajo",
-				"cad": "https://github.com/nestortada/CAD",
-				"ingeniería de métodos": "https://github.com/nestortada/Ingenieria_metodos",
-				"ingenieria de metodos": "https://github.com/nestortada/Ingenieria_metodos",
-				"control estadístico de calidad": "https://github.com/nestortada/Control_Estadistico_calidad",
-				"control estadistico de calidad": "https://github.com/nestortada/Control_Estadistico_calidad",
-				"contabilidad": "https://github.com/nestortada/Contabilidad",
-				"ingeniería económica": "https://github.com/nestortada/Ingenieria_economica",
-				"ingenieria economica": "https://github.com/nestortada/Ingenieria_economica",
-				"programación orientada a objetos": "https://github.com/nestortada/programaci-n_orientada_objetos",
-				"programacion orientada a objetos": "https://github.com/nestortada/programaci-n_orientada_objetos",
-				"procesos estocásticos": "https://github.com/nestortada/Procesos_estocasticos",
-				"procesos estocasticos": "https://github.com/nestortada/Procesos_estocasticos",
-				"programación avanzada": "https://github.com/nestortada/Programaci-n-Avanzada",
-				"programacion avanzada": "https://github.com/nestortada/Programaci-n-Avanzada",
-				"optimización": "https://github.com/nestortada/Optimizacion_analitica",
-				"optimizacion": "https://github.com/nestortada/Optimizacion_analitica",
-				"introducción a la programación": "https://github.com/nestortada/Introduccion-a-la-programacion",
-				"introduccion a la programacion": "https://github.com/nestortada/Introduccion-a-la-programacion",
-				"base de datos": "https://github.com/nestortada/Base-De-Datos",
-				"analítica de datos": "https://github.com/nestortada/Analitica-de-datos",
-				"analitica de datos": "https://github.com/nestortada/Analitica-de-datos"
-			};
 
-			// Function to get search suggestions
-			function getSearchSuggestions(query) {
-				if (!query || query.trim() === '') {
-					return [];
-				}
+			const searchTerm = query.toLowerCase().trim();
+			const matches = Object.keys(searchKeywords).filter(key =>
+				key.includes(searchTerm) || searchTerm.includes(key)
+			);
 
-				const searchTerm = query.toLowerCase().trim();
-				const matches = Object.keys(searchKeywords).filter(key => 
-					key.includes(searchTerm) || searchTerm.includes(key)
-				);
+			// Sort by relevance (exact matches first, then by length)
+			matches.sort((a, b) => {
+				if (a === searchTerm) return -1;
+				if (b === searchTerm) return 1;
+				if (a.startsWith(searchTerm)) return -1;
+				if (b.startsWith(searchTerm)) return 1;
+				return a.length - b.length;
+			});
 
-				// Sort by relevance (exact matches first, then by length)
-				matches.sort((a, b) => {
-					if (a === searchTerm) return -1;
-					if (b === searchTerm) return 1;
-					if (a.startsWith(searchTerm)) return -1;
-					if (b.startsWith(searchTerm)) return 1;
-					return a.length - b.length;
-				});
+			return matches.slice(0, 3); // Return top 3 matches
+		}
 
-				return matches.slice(0, 3); // Return top 3 matches
+		// Function to create suggestions dropdown
+		function createSuggestionDropdown(input, suggestions) {
+			// Remove existing dropdown
+			const existingDropdown = document.querySelector('.search-suggestions');
+			if (existingDropdown) {
+				existingDropdown.remove();
 			}
 
-			// Function to create suggestions dropdown
-			function createSuggestionDropdown(input, suggestions) {
-				// Remove existing dropdown
-				const existingDropdown = document.querySelector('.search-suggestions');
-				if (existingDropdown) {
-					existingDropdown.remove();
-				}
+			if (suggestions.length === 0) {
+				return;
+			}
 
-				if (suggestions.length === 0) {
-					return;
-				}
-
-				const dropdown = document.createElement('div');
-				dropdown.className = 'search-suggestions';
-				dropdown.style.cssText = `
+			const dropdown = document.createElement('div');
+			dropdown.className = 'search-suggestions';
+			dropdown.style.cssText = `
 					position: absolute;
 					background: white;
 					border: 1px solid #ddd;
@@ -654,11 +740,11 @@
 					color: #333;
 				`;
 
-				suggestions.forEach((suggestion, index) => {
-					const item = document.createElement('div');
-					item.className = 'suggestion-item';
-					item.textContent = suggestion;
-					item.style.cssText = `
+			suggestions.forEach((suggestion, index) => {
+				const item = document.createElement('div');
+				item.className = 'suggestion-item';
+				item.textContent = suggestion;
+				item.style.cssText = `
 						padding: 8px 12px;
 						cursor: pointer;
 						border-bottom: ${index < suggestions.length - 1 ? '1px solid #eee' : 'none'};
@@ -666,215 +752,221 @@
 						transition: background-color 0.2s;
 					`;
 
-					item.addEventListener('mouseenter', () => {
-						item.style.backgroundColor = '#f5f5f5';
-					});
-
-					item.addEventListener('mouseleave', () => {
-						item.style.backgroundColor = 'white';
-					});
-
-					item.addEventListener('click', () => {
-						input.value = suggestion;
-						performSearch(suggestion);
-						dropdown.remove();
-					});
-
-					dropdown.appendChild(item);
+				item.addEventListener('mouseenter', () => {
+					item.style.backgroundColor = '#f5f5f5';
 				});
 
-				// Position dropdown
-				const inputRect = input.getBoundingClientRect();
-				dropdown.style.left = inputRect.left + 'px';
-				dropdown.style.top = (inputRect.bottom + window.scrollY) + 'px';
-				dropdown.style.width = inputRect.width + 'px';
+				item.addEventListener('mouseleave', () => {
+					item.style.backgroundColor = 'white';
+				});
 
-				document.body.appendChild(dropdown);
+				item.addEventListener('click', () => {
+					input.value = suggestion;
+					performSearch(suggestion);
+					dropdown.remove();
+				});
 
-				// Close dropdown when clicking outside
-				const closeDropdown = (e) => {
-					if (!dropdown.contains(e.target) && e.target !== input) {
-						dropdown.remove();
-						document.removeEventListener('click', closeDropdown);
-					}
-				};
-				document.addEventListener('click', closeDropdown);
+				dropdown.appendChild(item);
+			});
+
+			// Position dropdown
+			const inputRect = input.getBoundingClientRect();
+			dropdown.style.left = inputRect.left + 'px';
+			dropdown.style.top = (inputRect.bottom + window.scrollY) + 'px';
+			dropdown.style.width = inputRect.width + 'px';
+
+			document.body.appendChild(dropdown);
+
+			// Close dropdown when clicking outside
+			const closeDropdown = (e) => {
+				if (!dropdown.contains(e.target) && e.target !== input) {
+					dropdown.remove();
+					document.removeEventListener('click', closeDropdown);
+				}
+			};
+			document.addEventListener('click', closeDropdown);
+		}
+
+		// Function to perform search
+		function performSearch(query) {
+			if (!query || query.trim() === '') {
+				return; // No alert, just return
 			}
 
-			// Function to perform search
-			function performSearch(query) {
-				if (!query || query.trim() === '') {
-					return; // No alert, just return
-				}
+			const searchTerm = query.toLowerCase().trim();
 
-				const searchTerm = query.toLowerCase().trim();
-				
-				// Check for exact match
-				if (searchKeywords[searchTerm]) {
-					window.open(searchKeywords[searchTerm], '_blank');
-					return;
-				}
+			// Check for exact match
+			if (searchKeywords[searchTerm]) {
+				window.open(searchKeywords[searchTerm], '_blank');
+				return;
+			}
 
-				// Check for partial matches
-				const partialMatches = Object.keys(searchKeywords).filter(key => 
-					key.includes(searchTerm) || searchTerm.includes(key)
-				);
+			// Check for partial matches
+			const partialMatches = Object.keys(searchKeywords).filter(key =>
+				key.includes(searchTerm) || searchTerm.includes(key)
+			);
 
-				if (partialMatches.length >= 1) {
-					// Open the first match
-					window.open(searchKeywords[partialMatches[0]], '_blank');
-					return;
-				}
+			if (partialMatches.length >= 1) {
+				// Open the first match
+				window.open(searchKeywords[partialMatches[0]], '_blank');
+				return;
+			}
 
-				// No matches found - do nothing (no alert)
-			}			// Initialize search functionality when DOM is loaded
-			document.addEventListener('DOMContentLoaded', function() {
-				// Handle main header search
-				const headerSearchForm = document.querySelector('nav.main form#search');
-				const headerSearchInput = document.querySelector('nav.main form#search input[name="query"]');
+			// No matches found - do nothing (no alert)
+		}			// Initialize search functionality when DOM is loaded
+		document.addEventListener('DOMContentLoaded', function () {
+			// Handle main header search
+			const headerSearchForm = document.querySelector('nav.main form#search');
+			const headerSearchInput = document.querySelector('nav.main form#search input[name="query"]');
 
-				if (headerSearchForm && headerSearchInput) {
-					// Handle input changes for suggestions
-					headerSearchInput.addEventListener('input', function() {
-						const suggestions = getSearchSuggestions(this.value);
-						createSuggestionDropdown(this, suggestions);
-					});
+			if (headerSearchForm && headerSearchInput) {
+				// Handle input changes for suggestions
+				headerSearchInput.addEventListener('input', function () {
+					const suggestions = getSearchSuggestions(this.value);
+					createSuggestionDropdown(this, suggestions);
+				});
 
-					headerSearchForm.addEventListener('submit', function(e) {
+				headerSearchForm.addEventListener('submit', function (e) {
+					e.preventDefault();
+					performSearch(headerSearchInput.value);
+					// Remove suggestions dropdown
+					const dropdown = document.querySelector('.search-suggestions');
+					if (dropdown) dropdown.remove();
+				});
+
+				headerSearchInput.addEventListener('keypress', function (e) {
+					if (e.key === 'Enter') {
 						e.preventDefault();
-						performSearch(headerSearchInput.value);
+						performSearch(this.value);
 						// Remove suggestions dropdown
 						const dropdown = document.querySelector('.search-suggestions');
 						if (dropdown) dropdown.remove();
-					});
+					}
+				});
 
-					headerSearchInput.addEventListener('keypress', function(e) {
-						if (e.key === 'Enter') {
-							e.preventDefault();
-							performSearch(this.value);
-							// Remove suggestions dropdown
-							const dropdown = document.querySelector('.search-suggestions');
-							if (dropdown) dropdown.remove();
-						}
-					});
+				// Clear suggestions when input loses focus (with delay for clicks)
+				headerSearchInput.addEventListener('blur', function () {
+					setTimeout(() => {
+						const dropdown = document.querySelector('.search-suggestions');
+						if (dropdown) dropdown.remove();
+					}, 200);
+				});
+			}
 
-					// Clear suggestions when input loses focus (with delay for clicks)
-					headerSearchInput.addEventListener('blur', function() {
-						setTimeout(() => {
-							const dropdown = document.querySelector('.search-suggestions');
-							if (dropdown) dropdown.remove();
-						}, 200);
-					});
-				}
+			// Handle menu search
+			const menuSearchForm = document.querySelector('#menu form.search');
+			const menuSearchInput = document.querySelector('#menu form.search input[name="query"]');
 
-				// Handle menu search
-				const menuSearchForm = document.querySelector('#menu form.search');
-				const menuSearchInput = document.querySelector('#menu form.search input[name="query"]');
+			if (menuSearchForm && menuSearchInput) {
+				// Handle input changes for suggestions
+				menuSearchInput.addEventListener('input', function () {
+					const suggestions = getSearchSuggestions(this.value);
+					createSuggestionDropdown(this, suggestions);
+				});
 
-				if (menuSearchForm && menuSearchInput) {
-					// Handle input changes for suggestions
-					menuSearchInput.addEventListener('input', function() {
-						const suggestions = getSearchSuggestions(this.value);
-						createSuggestionDropdown(this, suggestions);
-					});
+				menuSearchForm.addEventListener('submit', function (e) {
+					e.preventDefault();
+					performSearch(menuSearchInput.value);
+					// Remove suggestions dropdown
+					const dropdown = document.querySelector('.search-suggestions');
+					if (dropdown) dropdown.remove();
+				});
 
-					menuSearchForm.addEventListener('submit', function(e) {
+				menuSearchInput.addEventListener('keypress', function (e) {
+					if (e.key === 'Enter') {
 						e.preventDefault();
-						performSearch(menuSearchInput.value);
+						performSearch(this.value);
 						// Remove suggestions dropdown
 						const dropdown = document.querySelector('.search-suggestions');
 						if (dropdown) dropdown.remove();
-					});
+					}
+				});
 
-					menuSearchInput.addEventListener('keypress', function(e) {
-						if (e.key === 'Enter') {
-							e.preventDefault();
-							performSearch(this.value);
-							// Remove suggestions dropdown
-							const dropdown = document.querySelector('.search-suggestions');
-							if (dropdown) dropdown.remove();
-						}
-					});
+				// Clear suggestions when input loses focus (with delay for clicks)
+				menuSearchInput.addEventListener('blur', function () {
+					setTimeout(() => {
+						const dropdown = document.querySelector('.search-suggestions');
+						if (dropdown) dropdown.remove();
+					}, 200);
+				});
+			}
 
-					// Clear suggestions when input loses focus (with delay for clicks)
-					menuSearchInput.addEventListener('blur', function() {
-						setTimeout(() => {
-							const dropdown = document.querySelector('.search-suggestions');
-							if (dropdown) dropdown.remove();
-						}, 200);
-					});
-				}
+			// El comportamiento del icono de búsqueda lo maneja el CSS/JS original
+			// Solo interceptamos el envío del formulario, no el clic del icono
+		});
+	</script>
 
-				// El comportamiento del icono de búsqueda lo maneja el CSS/JS original
-				// Solo interceptamos el envío del formulario, no el clic del icono
-			});
-		</script>
+	<script>
+		// Seleccionar elementos
+		const openModal = document.getElementById('openModal');
+		const closeModal = document.getElementById('closeModal');
+		const pdfModal = document.getElementById('pdfModal');
 
-		<script>
-			// Seleccionar elementos
-			const openModal = document.getElementById('openModal');
-			const closeModal = document.getElementById('closeModal');
-			const pdfModal = document.getElementById('pdfModal');
+		// Abrir el modal
+		openModal.addEventListener('click', () => {
+			pdfModal.classList.add('active');
+		});
 
-			// Abrir el modal
-			openModal.addEventListener('click', () => {
-				pdfModal.classList.add('active');
-			});
+		// Cerrar el modal
+		closeModal.addEventListener('click', () => {
+			pdfModal.classList.remove('active');
+		});
+	</script>
 
-			// Cerrar el modal
-			closeModal.addEventListener('click', () => {
-				pdfModal.classList.remove('active');
-			});
-		</script>
+	<script>
+		// Modal para la aplicación web
+		const verAplicacion = document.getElementById('verAplicacion');
+		const closeAppModal = document.getElementById('closeAppModal');
+		const appModal = document.getElementById('appModal');
 
-		<script>
-			// Modal para la aplicación web
-			const verAplicacion = document.getElementById('verAplicacion');
-			const closeAppModal = document.getElementById('closeAppModal');
-			const appModal = document.getElementById('appModal');
+		// Abrir el modal de la aplicación
+		verAplicacion.addEventListener('click', () => {
+			appModal.classList.add('active');
+		});			// Cerrar el modal de la aplicación
+		closeAppModal.addEventListener('click', () => {
+			appModal.classList.remove('active');
+		});
+	</script>
 
-			// Abrir el modal de la aplicación
-			verAplicacion.addEventListener('click', () => {
-				appModal.classList.add('active');
-			});			// Cerrar el modal de la aplicación
-			closeAppModal.addEventListener('click', () => {
-				appModal.classList.remove('active');
-			});
-		</script>
+	<script>
+		// Modal para el video de simulación
+		const verVideoSimulacion = document.getElementById('verVideoSimulacion');
+		const closeVideoSimulacionModal = document.getElementById('closeVideoSimulacionModal');
+		const videoSimulacionModal = document.getElementById('videoSimulacionModal');
+		const videoSimulacionPlayer = document.getElementById('videoSimulacionPlayer');
 
-		<script>
-			// Modal para el video de simulación
-			const verVideoSimulacion = document.getElementById('verVideoSimulacion');
-			const closeVideoSimulacionModal = document.getElementById('closeVideoSimulacionModal');
-			const videoSimulacionModal = document.getElementById('videoSimulacionModal');
-			const videoSimulacionPlayer = document.getElementById('videoSimulacionPlayer');
+		// Abrir el modal del video
+		verVideoSimulacion.addEventListener('click', () => {
+			videoSimulacionModal.classList.add('active');
+		});
 
-			// Abrir el modal del video
-			verVideoSimulacion.addEventListener('click', () => {
-				videoSimulacionModal.classList.add('active');
-			});
+		// Cerrar el modal del video
+		closeVideoSimulacionModal.addEventListener('click', () => {
+			videoSimulacionModal.classList.remove('active');
+			videoSimulacionPlayer.pause();
+			videoSimulacionPlayer.currentTime = 0;
+		});
 
-			// Cerrar el modal del video
-			closeVideoSimulacionModal.addEventListener('click', () => {
-				videoSimulacionModal.classList.remove('active');
-				videoSimulacionPlayer.pause();
-				videoSimulacionPlayer.currentTime = 0;
-			});
+		// Modal para el informe de simulación
+		const verInformeSimulacion = document.getElementById('verInformeSimulacion');
+		const closeInformeSimulacionModal = document.getElementById('closeInformeSimulacionModal');
+		const informeSimulacionModal = document.getElementById('informeSimulacionModal');
 
-			// Modal para el informe de simulación
-			const verInformeSimulacion = document.getElementById('verInformeSimulacion');
-			const closeInformeSimulacionModal = document.getElementById('closeInformeSimulacionModal');
-			const informeSimulacionModal = document.getElementById('informeSimulacionModal');
+		// Abrir el modal del informe
+		verInformeSimulacion.addEventListener('click', () => {
+			informeSimulacionModal.classList.add('active');
+		});
 
-			// Abrir el modal del informe
-			verInformeSimulacion.addEventListener('click', () => {
-				informeSimulacionModal.classList.add('active');
-			});
+		// Cerrar el modal del informe
+		closeInformeSimulacionModal.addEventListener('click', () => {
+			informeSimulacionModal.classList.remove('active');
+		});
+	</script>
+	<!-- Three.js Background Animation -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+	<script src="assets/js/language_data.js"></script>
+	<script src="assets/js/accessibility.js"></script>
+	<script src="assets/js/background-3d.js"></script>
+</body>
 
-			// Cerrar el modal del informe
-			closeInformeSimulacionModal.addEventListener('click', () => {
-				informeSimulacionModal.classList.remove('active');
-			});
-		</script>
-	</body>
 </html>

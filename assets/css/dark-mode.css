@@ -11,7 +11,7 @@
 
 [data-theme="dark"] {
   --bg-color: #1a1a1a;
-  --text-color: #e0e0e0;
+  --text-color: #ffffff;
   --sidebar-bg: #2d2d2d;
   --header-bg: #333333;
   --border-color: #444444;
@@ -85,21 +85,23 @@ body {
   .carousel-item img {
     height: 250px;
   }
-  
+
   .carousel-caption {
     bottom: 10px;
     padding: 8px 12px;
-    display: block !important; /* Show captions on mobile too */
+    display: block !important;
+    /* Show captions on mobile too */
   }
-  
+
   .carousel-caption.d-none.d-md-block {
-    display: block !important; /* Override Bootstrap's hide on mobile */
+    display: block !important;
+    /* Override Bootstrap's hide on mobile */
   }
-  
+
   .carousel-caption h5 {
     font-size: 1rem;
   }
-  
+
   .carousel-caption h5 a {
     color: black !important;
   }
@@ -109,17 +111,57 @@ body {
   .carousel-item img {
     height: 200px;
   }
-  
+
   .carousel-caption {
     bottom: 5px;
     padding: 6px 10px;
   }
-  
+
   .carousel-caption h5 {
     font-size: 0.9rem;
   }
-  
+
   .carousel-caption h5 a {
     color: black !important;
   }
+}
+
+/* Specific Text Color Overrides for Dark Mode - FORCE WHITE */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] #intro header h2,
+[data-theme="dark"] #intro header p,
+[data-theme="dark"] #header h1 a,
+[data-theme="dark"] #header nav.links ul li a,
+[data-theme="dark"] .post header .title h2,
+[data-theme="dark"] .post header .title h2 a,
+[data-theme="dark"] .post header .title p,
+[data-theme="dark"] #footer .icons a,
+[data-theme="dark"] strong,
+[data-theme="dark"] b {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] #intro header h2 {
+  font-weight: 900 !important;
+  /* Visual weight helps visibility */
+}
+
+/* Ensure copyright is also visible (light gray as requested, or white if preferred, strictly keeping previous logic but brighter) */
+[data-theme="dark"] #footer .copyright {
+  color: #cccccc !important;
+}
+
+/* Ensure links in general are visible in dark mode contexts if not covered above */
+[data-theme="dark"] a {
+  color: inherit;
+}
+
+[data-theme="dark"] .carousel-caption h5 a {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1) !important;
+  /* Stronger shadow for contrast */
 }

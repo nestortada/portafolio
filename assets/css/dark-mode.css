@@ -140,9 +140,23 @@ body {
 [data-theme="dark"] .post header .title h2,
 [data-theme="dark"] .post header .title h2 a,
 [data-theme="dark"] .post header .title p,
+[data-theme="dark"] .post header .meta time.published,
+[data-theme="dark"] .post header .meta .author,
+[data-theme="dark"] .project-description p,
+[data-theme="dark"] .project-description ul li,
+[data-theme="dark"] .project-description ul li strong,
 [data-theme="dark"] #footer .icons a,
 [data-theme="dark"] strong,
 [data-theme="dark"] b {
+  color: #ffffff !important;
+}
+
+/* Specific Fix for List Bullets in Dark Mode */
+[data-theme="dark"] .project-description ul {
+  list-style-type: disc !important;
+}
+
+[data-theme="dark"] .project-description ul li::marker {
   color: #ffffff !important;
 }
 

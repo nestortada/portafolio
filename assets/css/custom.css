@@ -3,20 +3,21 @@
   background: white;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
 }
 
 .project-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 .project-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 25px 0 30px; /* Aumentado el margen inferior */
+  margin: 25px 0 30px;
+  /* Aumentado el margen inferior */
 }
 
 .project-tag {
@@ -34,7 +35,8 @@
   overflow: hidden;
   border-radius: 5px;
   margin: 15px;
-  max-height: 400px; /* Limitar la altura de las imágenes */
+  max-height: 400px;
+  /* Limitar la altura de las imágenes */
 }
 
 .image.featured img {
@@ -42,7 +44,8 @@
   width: 100%;
   height: auto;
   object-fit: cover;
-  max-height: 380px; /* Hacer las imágenes más pequeñas */
+  max-height: 380px;
+  /* Hacer las imágenes más pequeñas */
 }
 
 .image-overlay {
@@ -51,7 +54,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   color: white;
   display: flex;
   align-items: center;
@@ -73,7 +76,7 @@
   padding: 10px 20px;
   border: 2px solid white;
   border-radius: 5px;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   transition: background 0.3s ease;
 }
 
@@ -127,17 +130,17 @@
   .project-tags {
     flex-wrap: wrap;
   }
-  
+
   .actions {
     display: flex;
     flex-direction: column;
   }
-  
+
   .actions li {
     margin-right: 0;
     margin-bottom: 10px;
   }
-  
+
   .actions .button {
     width: 100%;
     text-align: center;
@@ -155,7 +158,7 @@
   --light-bg: #f8f9fa;
   --dark-bg: #212529;
   --transition-speed: 0.3s;
-  --box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Mejoras generales */
@@ -244,7 +247,9 @@ body {
   padding-left: 1rem;
 }
 
-.bio-skills h3, .bio-experience h3, .bio-strengths h3 {
+.bio-skills h3,
+.bio-experience h3,
+.bio-strengths h3 {
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
   color: var(--secondary-color);
@@ -265,7 +270,7 @@ body {
   background: white;
   padding: 0.75rem;
   border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: transform var(--transition-speed);
 }
 
@@ -299,7 +304,8 @@ body {
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: flex-start;
-  margin-bottom: 1.5rem; /* Espacio adicional después del contenedor de fortalezas */
+  margin-bottom: 1.5rem;
+  /* Espacio adicional después del contenedor de fortalezas */
 }
 
 .strength-item {
@@ -308,7 +314,7 @@ body {
   background: white;
   padding: 0.5rem 1rem;
   border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: transform var(--transition-speed), background-color var(--transition-speed);
 }
 
@@ -425,7 +431,7 @@ body {
   border-radius: 30px;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   transform: scale(0.66);
   transform-origin: top center;
 }
@@ -452,27 +458,27 @@ body {
     overflow-y: auto;
     margin-top: 20px !important;
   }
-  
+
   #appModal .credentials-section {
     width: 100% !important;
     border-radius: 10px 10px 0 0 !important;
     padding: 15px !important;
     min-height: auto;
   }
-  
+
   #appModal .credentials-section h3 {
     display: none;
   }
-  
+
   #appModal .credentials-section div {
     margin-bottom: 20px !important;
   }
-  
+
   #appModal .credentials-section p {
     margin-bottom: 8px !important;
     font-size: 0.9em !important;
   }
-  
+
   #appModal .app-iframe-section {
     width: 100% !important;
     height: 400px !important;
@@ -482,7 +488,7 @@ body {
     justify-content: center;
     background: #f0f0f0;
   }
-  
+
   #appModal .phone-container {
     width: 75% !important;
     height: 100% !important;
@@ -490,13 +496,13 @@ body {
     border-width: 5px !important;
     border-radius: 20px !important;
   }
-  
+
   #appModal .phone-notch {
     width: 80px !important;
     height: 20px !important;
     border-radius: 0 0 10px 10px !important;
   }
-  
+
   #appModal .modal-close {
     top: 10px !important;
     right: 10px !important;
@@ -533,11 +539,11 @@ body {
   .post {
     margin-bottom: 1.5rem;
   }
-  
+
   #sidebar {
     padding: 1.5rem;
   }
-  
+
   .skill-list {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
@@ -547,28 +553,28 @@ body {
   .post .title h2 {
     font-size: 1.5rem;
   }
-  
+
   .modal-content {
     width: 95% !important;
     height: auto !important;
   }
-  
+
   #sidebar {
     padding: 1rem;
   }
-  
+
   .blurb {
     padding: 1rem;
   }
-  
+
   .skill-list {
     grid-template-columns: 1fr;
   }
-  
+
   .strengths-container {
     flex-direction: column;
   }
-  
+
   .strength-item {
     width: 100%;
   }
@@ -578,20 +584,20 @@ body {
   .post .meta {
     flex-direction: column;
   }
-  
+
   .actions {
     flex-direction: column;
   }
-  
+
   .actions li {
     margin-bottom: 0.5rem;
   }
-  
+
   .button.large {
     width: 100%;
     text-align: center;
   }
-  
+
   #sidebar .mini-posts {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -605,25 +611,52 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.post, .blurb, .mini-post, .posts article {
+.post,
+.blurb,
+.mini-post,
+.posts article {
   animation: fadeInUp 0.6s ease-out forwards;
   opacity: 0;
 }
 
-.post:nth-child(1) { animation-delay: 0.1s; }
-.post:nth-child(2) { animation-delay: 0.2s; }
-.post:nth-child(3) { animation-delay: 0.3s; }
-.blurb { animation-delay: 0.4s; }
-.mini-post:nth-child(1) { animation-delay: 0.5s; }
-.mini-post:nth-child(2) { animation-delay: 0.6s; }
-.mini-post:nth-child(3) { animation-delay: 0.7s; }
-.mini-post:nth-child(4) { animation-delay: 0.8s; }
+.post:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.post:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.post:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.blurb {
+  animation-delay: 0.4s;
+}
+
+.mini-post:nth-child(1) {
+  animation-delay: 0.5s;
+}
+
+.mini-post:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.mini-post:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
+.mini-post:nth-child(4) {
+  animation-delay: 0.8s;
+}
 
 /* Modo Oscuro */
 body.dark-mode {
@@ -632,20 +665,24 @@ body.dark-mode {
 }
 
 /* Estilos para modo oscuro */
-body.dark-mode h1, 
-body.dark-mode h2, 
-body.dark-mode h3, 
-body.dark-mode h4, 
-body.dark-mode h5, 
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
 body.dark-mode h6,
 body.dark-mode a,
 body.dark-mode p,
 body.dark-mode li,
 body.dark-mode label,
 body.dark-mode .title h2 a,
+body.dark-mode .published,
+body.dark-mode .author,
 body.dark-mode .project-description p,
-body.dark-mode .key-points li {
-  color: #ffffff;
+body.dark-mode .project-description h3,
+body.dark-mode .project-description ul li,
+body.dark-mode .project-description ul li strong {
+  color: #ffffff !important;
 }
 
 body.dark-mode .post,
@@ -655,7 +692,7 @@ body.dark-mode .project-card,
 body.dark-mode .skill-list li,
 body.dark-mode .strength-item {
   background-color: #232323;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 body.dark-mode .key-points {
@@ -667,7 +704,7 @@ body.dark-mode .bio-intro {
 }
 
 body.dark-mode .image-overlay {
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 body.dark-mode #header {
@@ -683,7 +720,7 @@ body.dark-mode #sidebar {
 
 body.dark-mode .bio-strengths h3,
 body.dark-mode .strength-text,
-body.dark-mode .bio-skills h3, 
+body.dark-mode .bio-skills h3,
 body.dark-mode .bio-experience h3,
 body.dark-mode .author-title,
 body.dark-mode .key-points h4,
@@ -695,7 +732,7 @@ body.dark-mode .bio-additional-info p {
 
 body.dark-mode #menu {
   background-color: #1a1a1a;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 body.dark-mode .bio-additional-info {
@@ -712,15 +749,15 @@ body.dark-mode .posts article:hover {
 }
 
 /* Modo oscuro para formularios */
-body.dark-mode input, 
-body.dark-mode textarea, 
+body.dark-mode input,
+body.dark-mode textarea,
 body.dark-mode select {
   background-color: #333;
   color: #fff;
   border-color: #555;
 }
 
-body.dark-mode input::placeholder, 
+body.dark-mode input::placeholder,
 body.dark-mode textarea::placeholder {
   color: #aaa;
 }
@@ -759,10 +796,11 @@ body.dark-mode .modal-close:hover {
 /* Ajustes para asegurar que los iframes de PDFs sean legibles en modo oscuro */
 body.dark-mode iframe {
   background-color: #fff;
-  box-shadow: 0 0 15px rgba(255,255,255,0.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
 
 /* Transición suave al cambiar de modo */
-body, body * {
+body,
+body * {
   transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
